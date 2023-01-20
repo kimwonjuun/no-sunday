@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Header from '../components/Layout/Header';
 import Detail from '../pages/Detail';
 import Login from '../pages/Login';
 import Main from '../pages/Main';
@@ -9,6 +10,7 @@ import SignUp from '../pages/SignUp';
 const Router = () => {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/:artist" element={<Media />} />
