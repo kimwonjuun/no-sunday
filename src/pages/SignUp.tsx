@@ -1,47 +1,25 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import {
-  AuthButton,
-  AuthLogo,
-  AuthLogoImg,
-  AuthText,
-  AuthWrapper,
-  Background,
-  Input,
-  InputWrapper,
-  Label,
-  LinkText,
-  Title,
-} from './Login';
-import useAuth from '../hooks/useAuth';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FormEvent } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { authService } from '../common/firebase';
+import useAuth from '../hooks/useAuth';
+import AuthForm from '../components/Auth/AuthForm';
 
 export default function SignUp() {
-  const {
-    email,
-    setEmail,
-    password,
-    setPassword,
-    emailRef,
-    passwordRef,
-    changeEmail,
-    changePassword,
-    checkValidation,
-  } = useAuth();
+  const auth = useAuth();
   const navigate = useNavigate();
   const { state } = useLocation();
 
   const submitSignUp = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!checkValidation()) return;
+    if (!auth.checkValidation()) return;
 
-    createUserWithEmailAndPassword(authService, email, password)
+    createUserWithEmailAndPassword(authService, auth.email, auth.password)
       .then(() => {
         alert('회원가입이 완료 되었습니다.');
-        setEmail('');
-        setPassword('');
+        auth.setEmail('');
+        auth.setPassword('');
 
         if (state) {
           navigate(state);
@@ -52,54 +30,25 @@ export default function SignUp() {
       .catch((err) => {
         if (err.message.includes('already-in-use')) {
           alert('이미 가입된 계정입니다.');
-          setEmail('');
-          setPassword('');
+          auth.setEmail('');
+          auth.setPassword('');
         }
       });
   };
 
   return (
-    <Background>
-      <AuthWrapper>
-        <AuthLogo>
-          <Link to="/">
-            <AuthLogoImg src="/assets/logo.png" />
-          </Link>
-        </AuthLogo>
-        <Title>회원가입</Title>
-        <form onSubmit={submitSignUp}>
-          <InputWrapper>
-            <Label htmlFor="email">이메일</Label>
-            <Input
-              type="text"
-              id="email"
-              placeholder="이메일을 입력해주세요"
-              value={email}
-              onChange={changeEmail}
-              ref={emailRef}
-            />
-          </InputWrapper>
-          <InputWrapper>
-            <Label htmlFor="password">비밀번호</Label>
-            <Input
-              type="password"
-              id="password"
-              placeholder="비밀번호를 입력해주세요"
-              value={password}
-              onChange={changePassword}
-              ref={passwordRef}
-              autoComplete="off"
-            />
-          </InputWrapper>
-          <AuthButton type="submit">가입하기</AuthButton>
-          <AuthText>
-            계정이 있으신가요?
-            <Link to={'/login'}>
-              <LinkText>로그인</LinkText>
-            </Link>
-          </AuthText>
-        </form>
-      </AuthWrapper>
-    </Background>
+    <AuthForm
+      title="회원가입"
+      buttonText="가입하기"
+      authText="계정이 있으신가요?"
+      linkText="로그인"
+      email={auth.email}
+      password={auth.password}
+      emailRef={auth.emailRef}
+      passwordRef={auth.passwordRef}
+      changeEmail={auth.changeEmail}
+      changePassword={auth.changePassword}
+      submitHandler={submitSignUp}
+    />
   );
 }
