@@ -1,17 +1,56 @@
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { authService } from '../common/firebase';
+
+import useAuth from '../hooks/useAuth';
 
 export default function Login() {
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    emailRef,
+    passwordRef,
+    changeEmail,
+    changePassword,
+    checkValidation,
+  } = useAuth();
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  const handleLogin = () => {
-    if (state) {
-      navigate(state);
-    } else {
-      navigate('/');
-    }
+  const submitLogin = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!checkValidation()) return;
+
+    signInWithEmailAndPassword(authService, email, password)
+      .then(() => {
+        alert('환영합니다!');
+
+        setEmail('');
+        setPassword('');
+
+        if (state) {
+          navigate(state);
+        } else {
+          navigate('/');
+        }
+      })
+      .catch((err) => {
+        if (err.message.includes('user-not-found')) {
+          alert('회원을 찾을 수 없습니다. 회원가입을 먼저 진행해 주세요.');
+          navigate('/signup', { state });
+        }
+
+        if (err.message.includes('wrong-password')) {
+          alert('잘못된 비밀번호 입니다.');
+          setPassword('');
+        }
+      });
   };
 
   return (
@@ -23,10 +62,17 @@ export default function Login() {
           </Link>
         </AuthLogo>
         <Title>바운스 계정 로그인</Title>
-        <form>
+        <form onSubmit={submitLogin}>
           <InputWrapper>
             <Label htmlFor="email">이메일</Label>
-            <Input type="text" id="email" placeholder="이메일을 입력해주세요" />
+            <Input
+              type="text"
+              id="email"
+              placeholder="이메일을 입력해주세요"
+              value={email}
+              onChange={changeEmail}
+              ref={emailRef}
+            />
           </InputWrapper>
           <InputWrapper>
             <Label htmlFor="password">비밀번호</Label>
@@ -34,9 +80,13 @@ export default function Login() {
               type="password"
               id="password"
               placeholder="비밀번호를 입력해주세요"
+              value={password}
+              onChange={changePassword}
+              ref={passwordRef}
+              autoComplete="off"
             />
           </InputWrapper>
-          <AuthButton type="button">로그인</AuthButton>
+          <AuthButton type="submit">로그인</AuthButton>
           <AuthText>
             아직 회원이 아니신가요?{' '}
             <Link to={'/signup'}>
