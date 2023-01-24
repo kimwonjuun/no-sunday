@@ -1,17 +1,21 @@
-import React, { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 import { authService } from '../common/firebase';
 
 export default function Mypage() {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
 
-  useEffect(() => {
-    if (!authService.currentUser) {
-      alert('로그인이 필요합니다.');
-      return navigate('/login', { state: pathname });
-    }
-  }, []);
+  const handleLogout = () => {
+    signOut(authService).then(() => {
+      alert('로그아웃 되었습니다. 다시 만나요!');
+      navigate('/', { replace: true });
+    });
+  };
 
-  return <div>Mypage</div>;
+  return (
+    <div>
+      Mypage
+      <p onClick={handleLogout}>로그아웃</p>
+    </div>
+  );
 }

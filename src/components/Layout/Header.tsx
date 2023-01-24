@@ -1,11 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FiSearch, FiUser } from 'react-icons/fi';
+import { authService } from '../../common/firebase';
 
 export default function Header() {
   const navigate = useNavigate();
 
-  const goToLogin = () => {
+  const goToLogin = (): void => {
     navigate('/login');
   };
 
@@ -17,17 +18,21 @@ export default function Header() {
         </Link>
       </Logo>
       {/* 비 로그인 시 */}
-      {/* <Button type="button" onClick={goToLogin}>
-        로그인
-      </Button> */}
+      {!authService?.currentUser && (
+        <Button type="button" onClick={goToLogin}>
+          로그인
+        </Button>
+      )}
 
       {/* 로그인 시 */}
-      <Icons>
-        <SearchIcon />
-        <Link to={'/mypage'}>
-          <UserIcon />
-        </Link>
-      </Icons>
+      {authService?.currentUser && (
+        <Icons>
+          <SearchIcon />
+          <Link to={'/mypage'}>
+            <UserIcon />
+          </Link>
+        </Icons>
+      )}
     </HeaderWrapper>
   );
 }
