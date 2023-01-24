@@ -1,9 +1,12 @@
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  browserSessionPersistence,
+  setPersistence,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 import { FormEvent } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { authService } from '../common/firebase';
 import AuthForm from '../components/Auth/AuthForm';
-
 import useAuth from '../hooks/useAuth';
 
 export default function Login() {
@@ -16,11 +19,12 @@ export default function Login() {
 
     if (!auth.checkValidation()) return;
 
-    signInWithEmailAndPassword(authService, auth.email, auth.password)
+    setPersistence(authService, browserSessionPersistence)
+      .then(() =>
+        signInWithEmailAndPassword(authService, auth.email, auth.password),
+      )
       .then(() => {
         alert('환영합니다!');
-        localStorage.setItem('uid', JSON.stringify(authService.currentUser));
-
         auth.setEmail('');
         auth.setPassword('');
 
