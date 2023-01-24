@@ -63,7 +63,9 @@ const AuthForm = ({
               autoComplete="off"
             />
           </InputWrapper>
-          <AuthButton type="submit">{buttonText}</AuthButton>
+          <AuthButton type="submit" disabled={!email || !password}>
+            {buttonText}
+          </AuthButton>
           <AuthText>
             {authText}
             <Link to={`${linkText === '회원가입' ? '/signup' : '/login'}`}>
@@ -166,6 +168,16 @@ const AuthButton = styled.button`
 
   :hover {
     background-position: right center;
+  }
+
+  :disabled {
+    background-image: linear-gradient(
+      to right,
+      #dcb8ca 0%,
+      #98c3c8 51%,
+      #dcb8ca 100%
+    );
+    cursor: no-drop;
   }
 `;
 
