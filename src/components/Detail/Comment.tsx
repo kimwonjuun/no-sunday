@@ -41,7 +41,7 @@ export default function Comment() {
 
 const CommentView = styled.div`
   margin-left: 30px;
-  width: 325px;
+  width: 500px;
   padding: 30px 0px;
 `;
 

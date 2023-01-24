@@ -1,19 +1,40 @@
+import { channel } from 'diagnostics_channel';
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import ChannelInfo from './ChannelInfo';
 
 export default function Youtube() {
+  const {
+    state: { item },
+  } = useLocation();
+
+  const { title, channelId, channelTitle } = item.snippet;
+
   return (
     <>
       <YoutubeView>
-        <PlayerView></PlayerView>
+        <PlayerView>
+          <iframe
+            id="player"
+            width="100%"
+            height="100%"
+            src={`http://www.youtube.com/embed/${item.id.videoId}`}
+          ></iframe>
+        </PlayerView>
         <TitleContentsCotainer>
-          <Title>NJ train never stop 🚂</Title>
+          <Title>{title}</Title>
           <ArtistDateContainer>
-            <ArtistWrap>
-              <ArtistLogo></ArtistLogo>
-              <ArtistName>NewJeans</ArtistName>
-              <UploadDate>01.18. 18:05</UploadDate>
-            </ArtistWrap>
+            <ArtistContainer>
+              <ArtistWrap>
+                <ArtistLogo />
+                <ArtistName>NewJeans</ArtistName>{' '}
+                <UploadDate>01.18. 18:05</UploadDate>
+              </ArtistWrap>
+              <ArtistLike>
+                <LikeBtn />
+              </ArtistLike>
+            </ArtistContainer>
           </ArtistDateContainer>
         </TitleContentsCotainer>
         <DescriptionArea>NJ train never stop 🚂</DescriptionArea>
@@ -56,6 +77,12 @@ const ArtistDateContainer = styled.div`
   color: red;
 `;
 
+const ArtistContainer = styled.div`
+  align-items: center;
+  display: flex;
+  position: relative;
+`;
+
 const ArtistWrap = styled.div`
   align-items: center;
   display: flex;
@@ -75,6 +102,15 @@ const ArtistName = styled.div`
   font-size: 14px;
   line-height: 17px;
   margin-left: 7px;
+`;
+
+const ArtistLike = styled.div`
+  margin: 0 -2px -2px auto;
+`;
+
+const LikeBtn = styled.div`
+  margin-right: -8px;
+  position: relative;
 `;
 
 const UploadDate = styled.span`
