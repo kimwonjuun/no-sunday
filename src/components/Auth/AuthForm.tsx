@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, ForwardedRef } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import SocialLogin from './SocialLogin';
 
 interface AuthFormProps {
   title: string;
@@ -38,7 +39,7 @@ const AuthForm = ({
           </Link>
         </AuthLogo>
         <Title>{title}</Title>
-        <form onSubmit={submitHandler}>
+        <Form onSubmit={submitHandler}>
           <InputWrapper>
             <Label htmlFor="email">이메일</Label>
             <Input
@@ -69,7 +70,8 @@ const AuthForm = ({
               <LinkText>{linkText}</LinkText>
             </Link>
           </AuthText>
-        </form>
+        </Form>
+        {buttonText === '로그인' && <SocialLogin />}
       </AuthWrapper>
     </Background>
   );
@@ -78,25 +80,25 @@ const AuthForm = ({
 export default AuthForm;
 
 const Background = styled.div`
-  height: 90vh;
+  height: 100vh;
   background-color: #f7f7f7;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-x: hidden;
+  overflow-y: hidden;
 `;
 
 export const AuthWrapper = styled.section`
-  box-sizing: border-box;
-  padding: 30px;
   width: 600px;
   min-width: 400px;
-  height: 600px;
   background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
+  padding: 30px;
+  margin: 3rem 0;
 `;
 
 const AuthLogo = styled.h1`
@@ -112,8 +114,10 @@ const Title = styled.h2`
   font-size: 26px;
   font-weight: 600;
   color: #54bfcc;
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
 `;
+
+const Form = styled.form``;
 
 const InputWrapper = styled.div`
   width: 400px;
@@ -158,7 +162,7 @@ const AuthButton = styled.button`
   color: #fff;
   border-radius: 10px;
   display: block;
-  margin: 2rem 0 1.4rem;
+  margin: 1rem 0 1.4rem;
 
   :hover {
     background-position: right center;
