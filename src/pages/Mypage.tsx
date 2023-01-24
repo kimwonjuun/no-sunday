@@ -1,11 +1,15 @@
+import styled from 'styled-components';
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../common/firebase';
+import CommentList from '../components/Mypage/CommentList';
+import LikeMediaList from '../components/Mypage/LikeMediaList';
+import MypageHeader from '../components/Mypage/MypageHeader';
 
 export default function Mypage() {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleSignOut = () => {
     signOut(authService).then(() => {
       alert('로그아웃 되었습니다. 다시 만나요!');
       navigate('/', { replace: true });
@@ -13,9 +17,40 @@ export default function Mypage() {
   };
 
   return (
-    <div>
-      Mypage
-      <p onClick={handleLogout}>로그아웃</p>
-    </div>
+    <MyPageWrapper>
+      <MypageHeader onSignOut={handleSignOut} />
+      <Container>
+        <Section>
+          <SectionTitle>영상 보관함</SectionTitle>
+          <LikeMediaList />
+        </Section>
+        <Section>
+          <SectionTitle>나의 쓴 댓글</SectionTitle>
+          <CommentList />
+        </Section>
+      </Container>
+    </MyPageWrapper>
   );
 }
+
+const MyPageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f7f7f7;
+`;
+
+const Container = styled.div`
+  max-width: 1100px;
+  margin: 0 auto;
+`;
+
+const Section = styled.section`
+  min-height: 300px;
+  margin: 3rem 0 4rem;
+`;
+
+const SectionTitle = styled.h1`
+  font-size: 24px;
+  margin-left: 1rem;
+`;
