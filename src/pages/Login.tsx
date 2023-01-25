@@ -31,7 +31,7 @@ export default function Login() {
         if (state) {
           navigate(state);
         } else {
-          navigate('/');
+          navigate('/', { replace: true });
         }
       })
       .catch((err) => {
