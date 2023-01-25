@@ -3,7 +3,7 @@ import {
   MEDIA_VIDEOS_REQUEST,
   MEDIA_VIDEOS_SUCCESS,
 } from '../ActionType';
-import { request } from '../../api';
+import { request } from '../../utils/Api';
 
 interface SystemError {
   code: string;

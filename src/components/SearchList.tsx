@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { formatAgo } from './../util/date';
 import styled from 'styled-components';
+import { formatAgo } from '../utils/Date';
+import { textRegex } from './../utils/VaildText';
 
 export default function SearchList({ item }: { item: any }) {
-  console.log('item', item);
+  // console.log('item', item);
   const { title, thumbnails, publishedAt } = item.snippet;
 
   const navigate = useNavigate();
@@ -20,8 +21,9 @@ export default function SearchList({ item }: { item: any }) {
           alt={title}
           style={{ borderRadius: 20 }}
         />
+        <ThumbnailsView>05:43</ThumbnailsView>
       </ThumbnailsImgWrap>
-      <ThumbnailsTitle>{title}</ThumbnailsTitle>
+      <ThumbnailsTitle>{textRegex(title)}</ThumbnailsTitle>
       <ThumbnailsDate>{formatAgo(publishedAt, 'ko')}</ThumbnailsDate>
     </div>
   );
@@ -44,4 +46,18 @@ export const ThumbnailsDate = styled.p`
   color: white;
   font-size: 13px;
   font-weight: 700;
+`;
+export const ThumbnailsView = styled.em`
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 9px;
+  bottom: 6px;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 17px;
+  padding: 0 6px;
+  position: absolute;
+  right: 6px;
+  user-select: none;
+  z-index: 30;
 `;

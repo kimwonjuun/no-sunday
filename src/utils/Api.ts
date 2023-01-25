@@ -4,7 +4,8 @@ import axios from 'axios';
 export const request = axios.create({
   baseURL: 'https://www.googleapis.com/youtube/v3',
   params: {
-    key: 'AIzaSyD79zpSL8ngB3-xRtASNN8eYNV-GjELUjI',
+    key: 'AIzaSyAFrvyVNOlJvtd8DkJ8NyK1Zz9AbuoF8AU',
+    // key: 'AIzaSyD79zpSL8ngB3-xRtASNN8eYNV-GjELUjI',
     // 원준님 키
     // key: 'AIzaSyBg_6kb8jCXeEsFpT0X3m9qkoW4s9Dzl3Y',
     // 유정님 키
