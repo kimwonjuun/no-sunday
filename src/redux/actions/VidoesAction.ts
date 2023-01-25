@@ -11,8 +11,7 @@ interface SystemError {
 }
 
 export const getSearchVideos =
-  (a: string = 'date', b: number = 50) =>
-  async (dispatch: any) => {
+  (chennelId: any, a?: string, b?: number) => async (dispatch: any) => {
     try {
       dispatch({
         type: MEDIA_VIDEOS_REQUEST,
@@ -20,9 +19,10 @@ export const getSearchVideos =
       const { data } = await request('/search', {
         params: {
           part: 'snippet',
-          channelId: 'UCMki_UkHb4qSc0qyEcOHHJw',
-          order: a,
-          maxResults: b,
+          // channelId: 'UCMki_UkHb4qSc0qyEcOHHJw',
+          channelId: chennelId,
+          order: a ?? 'date',
+          maxResults: b ?? 50,
           pageToken: '',
           type: 'video',
         },

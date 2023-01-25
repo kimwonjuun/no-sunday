@@ -4,7 +4,7 @@ import Logo from '../common/test-img/Logo.png';
 import { dbService } from '../common/firebase';
 import { useEffect, useState } from 'react';
 import { getDocs, collection } from 'firebase/firestore';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Main() {
   const navigate = useNavigate();
