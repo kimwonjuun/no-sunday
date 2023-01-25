@@ -1,19 +1,45 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { authService } from '../../common/firebase';
 
 interface MypageHeadeProps {
   onSignOut: () => void;
 }
 
+interface UserInfoTypes {
+  nickname: string | null;
+  email: string;
+  photoUrl: string | null;
+}
+
 const MypageHeader = ({ onSignOut }: MypageHeadeProps) => {
+  const [userInfo, setUserInfo] = useState<UserInfoTypes>();
+
+  const getUserInfo = () => {
+    const user = authService.currentUser;
+
+    setUserInfo({
+      nickname: user?.displayName ?? '익명',
+      email: user?.email ?? '',
+      photoUrl: user?.photoURL ?? '/assets/default_profile.png',
+    });
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
   return (
     <ProfileBg>
       <ProfileWrapper>
         <ImgWrapper>
-          <ProfileImg src="/assets/default_profile.png" />
+          <ProfileImg
+            src={userInfo?.photoUrl ?? '/assets/default_profile.png'}
+          />
         </ImgWrapper>
         <InfoWrapper>
-          <Nickname>닉네임</Nickname>
-          <Email>user123@test.com</Email>
+          <Nickname>{userInfo?.nickname}</Nickname>
+          <Email>{userInfo?.email}</Email>
           <Logout onClick={onSignOut}>로그아웃</Logout>
         </InfoWrapper>
       </ProfileWrapper>
@@ -25,15 +51,15 @@ export default MypageHeader;
 
 const ProfileBg = styled.div`
   width: 100%;
-  height: 400px;
-  background-color: #272727;
+  height: 340px;
+  background-image: url('/assets/mypage_bg.jpg');
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const ProfileWrapper = styled.div`
-  width: 400px;
+  max-width: 500px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -41,13 +67,18 @@ const ProfileWrapper = styled.div`
 `;
 
 const ImgWrapper = styled.div`
-  width: 220px;
-  height: 220px;
+  min-width: 200px;
+  height: 200px;
   border-radius: 50%;
   overflow: hidden;
 `;
 
-const ProfileImg = styled.img``;
+const ProfileImg = styled.img`
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
 
 const InfoWrapper = styled.div`
   margin-left: 3rem;
@@ -55,19 +86,19 @@ const InfoWrapper = styled.div`
 `;
 
 const Nickname = styled.p`
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 700;
   color: #fff;
 `;
 
 const Email = styled.p`
-  color: #ccc;
-  margin-bottom: 2rem;
+  color: #ddd;
+  margin-bottom: 2.4rem;
 `;
 
 const Logout = styled.span`
   display: block;
   font-size: 0.9rem;
-  color: #bbb;
+  color: #eee;
   cursor: pointer;
 `;
