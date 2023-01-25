@@ -41,13 +41,14 @@ export default function Comment() {
 
 const CommentView = styled.div`
   margin-left: 30px;
-  width: 500px;
+  width: 350px;
   padding: 30px 0px;
 `;
 
 const CommentsView = styled.div`
   flex: 1;
   box-sizing: border-box;
+  height: min(100%, 100vh - 130px);
   min-height: 660px;
   position: sticky;
   background-color: rgb(46, 46, 46);

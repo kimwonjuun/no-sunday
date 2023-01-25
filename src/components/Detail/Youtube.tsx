@@ -1,8 +1,6 @@
-import { channel } from 'diagnostics_channel';
-import React from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import ChannelInfo from './ChannelInfo';
+import { AiOutlineHeart } from 'react-icons/ai';
 import { textRegex } from './../../utils/VaildText';
 
 export default function Youtube() {
@@ -10,7 +8,12 @@ export default function Youtube() {
     state: { item },
   } = useLocation();
 
-  const { title, channelId, channelTitle } = item.snippet;
+  const { title, channelTitle, publishTime, description } = item.snippet;
+
+  const timestamp: any = { publishTime };
+  const date: any = new Date(timestamp.publishTime.toString()).toLocaleString();
+
+  console.log('date', date);
 
   return (
     <>
@@ -20,6 +23,7 @@ export default function Youtube() {
             id="player"
             width="100%"
             height="100%"
+            frameBorder="0"
             src={`http://www.youtube.com/embed/${item.id.videoId}`}
           ></iframe>
         </PlayerView>
@@ -29,16 +33,16 @@ export default function Youtube() {
             <ArtistContainer>
               <ArtistWrap>
                 <ArtistLogo />
-                <ArtistName>NewJeans</ArtistName>{' '}
-                <UploadDate>01.18. 18:05</UploadDate>
+                <ArtistName>{channelTitle}</ArtistName>
+                <UploadDate>{date}</UploadDate>
               </ArtistWrap>
-              <ArtistLike>
-                <LikeBtn />
-              </ArtistLike>
             </ArtistContainer>
           </ArtistDateContainer>
+          <ArtistLike>
+            <LikeBtn />
+          </ArtistLike>
         </TitleContentsCotainer>
-        <DescriptionArea>NJ train never stop 🚂</DescriptionArea>
+        <DescriptionArea>{description}</DescriptionArea>
       </YoutubeView>
     </>
   );
@@ -48,6 +52,7 @@ const YoutubeView = styled.div`
   flex-grow: 1;
   overflow: hidden;
   padding: 30px 0px;
+  width: 1015px;
 `;
 
 const PlayerView = styled.div`
@@ -56,7 +61,6 @@ const PlayerView = styled.div`
   border-radius: 20px;
   overflow: hidden;
   position: relative;
-  background-color: red;
 `;
 
 const TitleContentsCotainer = styled.div`
@@ -75,18 +79,17 @@ const Title = styled.div`
 const ArtistDateContainer = styled.div`
   display: flex;
   padding-top: 13px;
-  color: red;
 `;
 
 const ArtistContainer = styled.div`
-  align-items: center;
+  align-items: stretch;
   display: flex;
-  position: relative;
 `;
 
 const ArtistWrap = styled.div`
   align-items: center;
   display: flex;
+  flex-shrink: 0;
 `;
 
 const ArtistLogo = styled.div`
@@ -106,12 +109,14 @@ const ArtistName = styled.div`
 `;
 
 const ArtistLike = styled.div`
-  margin: 0 -2px -2px auto;
+  align-items: center;
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: flex-end;
 `;
 
-const LikeBtn = styled.div`
-  margin-right: -8px;
-  position: relative;
+const LikeBtn = styled(AiOutlineHeart)`
+  color: white;
 `;
 
 const UploadDate = styled.span`
@@ -123,7 +128,7 @@ const UploadDate = styled.span`
   margin-left: 15px;
 `;
 
-const DescriptionArea = styled.div`
+const DescriptionArea = styled.pre`
   margin: 20px 0px 15px;
   color: rgb(170, 170, 170);
   font-size: 14px;
