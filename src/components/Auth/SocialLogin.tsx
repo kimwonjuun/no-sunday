@@ -4,6 +4,7 @@ import {
   GoogleAuthProvider,
   setPersistence,
   signInWithPopup,
+  TwitterAuthProvider,
 } from 'firebase/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -18,6 +19,8 @@ const SocialLogin = () => {
 
     if (social === 'github') {
       provider = new GithubAuthProvider();
+    } else if (social === 'twitter') {
+      provider = new TwitterAuthProvider();
     } else {
       provider = new GoogleAuthProvider();
     }
@@ -38,6 +41,11 @@ const SocialLogin = () => {
     <SocialWrapper>
       <Title>소셜 로그인</Title>
       <SocialList>
+        <SocicalItem onClick={() => signInWithSocial('twitter')}>
+          <Icon>
+            <IconImg src="/assets/social_twitter.png" />
+          </Icon>
+        </SocicalItem>
         <SocicalItem onClick={() => signInWithSocial('google')}>
           <Icon>
             <IconImg src="/assets/social_google.png" />
@@ -97,20 +105,20 @@ const SocialList = styled.ul`
 `;
 
 const SocicalItem = styled.li`
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   overflow: hidden;
   cursor: pointer;
 
-  &:first-child {
-    margin-right: 1.5rem;
+  &:nth-child(2) {
+    margin: 0 1.5rem;
     border: 1px solid #ddd;
   }
 `;
 
 const Icon = styled.span`
   display: block;
-  width: 50px;
-  height: 50px;
 `;
 
 const IconImg = styled.img``;
