@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { formatAgo } from './../util/date';
 import styled from 'styled-components';
-import { displayPartsToString } from 'typescript';
 
 export default function SearchList({ item }: { item: any }) {
   console.log('item', item);
-  const { title, thumbnails, channelTitle, publishedAt } = item.snippet;
+  const { title, thumbnails, publishedAt } = item.snippet;
 
   const navigate = useNavigate();
 
