@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSearchVideos } from '../redux/actions/VidoesAction';
 import { MediaVideos } from './../redux/reducers/MediaVideos';
 import { RootState } from '../redux/config/configStore';
 import SearchList from './../components/SearchList';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export default function Media() {
   const dispatch = useDispatch<any>();
