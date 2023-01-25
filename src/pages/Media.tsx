@@ -1,28 +1,21 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { getSearchVideos } from '../redux/actions/VidoesAction';
-import { MediaVideos } from './../redux/reducers/MediaVideos';
-import { RootState } from '../redux/config/configStore';
+import { getSearchVideos } from '../redux/modules/MediaSlice';
 import SearchList from './../components/SearchList';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
 
 export default function Media() {
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
   const location = useLocation();
 
   const channelId = location.pathname.substring(1);
-  console.log(channelId);
 
   useEffect(() => {
-    console.log(location);
-  }, [location]);
-
-  useEffect(() => {
-    dispatch(getSearchVideos(channelId));
+    dispatch(getSearchVideos({ channelId }));
   }, [dispatch]);
 
-  const { search } = useSelector((state: RootState) => state.MediaVideos);
+  const { search } = useAppSelector((state) => state.media);
 
   return (
     <>

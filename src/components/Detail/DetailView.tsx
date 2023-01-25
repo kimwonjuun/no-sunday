@@ -4,23 +4,27 @@ import Comment from './Comment';
 import RelatedContent from './RelatedContent';
 import styled from 'styled-components';
 import Youtube from './Youtube';
-import { getSearchVideos } from '../../redux/actions/VidoesAction';
-import { useDispatch } from 'react-redux';
-import { RootState } from '../../redux/config/configStore';
-import { useSelector } from 'react-redux';
+import { getSearchVideos } from '../../redux/modules/MediaSlice';
 import { useLocation } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 
 export default function DetailView() {
   const {
     state: { item },
   } = useLocation();
 
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getSearchVideos(item.snippet.channelId, 'viewCount', 15));
+    const payload = {
+      channelId: item.snippet.channelId,
+      orderType: 'viewCount',
+      results: 15,
+    };
+
+    dispatch(getSearchVideos(payload));
   }, []);
 
-  const { search } = useSelector((state: RootState) => state.MediaVideos);
+  const { search } = useAppSelector((state) => state.media);
 
   return (
     <ContentFrameView>
