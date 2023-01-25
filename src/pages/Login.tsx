@@ -19,6 +19,7 @@ export default function Login() {
 
     if (!auth.checkValidation()) return;
 
+    // setPersistence => 로그인 시 세션스토리지에 유저 정보 저장
     setPersistence(authService, browserSessionPersistence)
       .then(() =>
         signInWithEmailAndPassword(authService, auth.email, auth.password),

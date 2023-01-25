@@ -5,12 +5,21 @@ import { getSearchVideos } from '../redux/actions/VidoesAction';
 import { MediaVideos } from './../redux/reducers/MediaVideos';
 import { RootState } from '../redux/config/configStore';
 import SearchList from './../components/SearchList';
+import { useLocation, useParams } from 'react-router-dom';
 
 export default function Media() {
   const dispatch = useDispatch<any>();
+  const location = useLocation();
+
+  const channelId = location.pathname.substring(1);
+  console.log(channelId);
 
   useEffect(() => {
-    dispatch(getSearchVideos());
+    console.log(location);
+  }, [location]);
+
+  useEffect(() => {
+    dispatch(getSearchVideos(channelId));
   }, [dispatch]);
 
   const { search } = useSelector((state: RootState) => state.MediaVideos);

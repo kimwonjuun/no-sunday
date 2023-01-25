@@ -8,11 +8,16 @@ import { getSearchVideos } from '../../redux/actions/VidoesAction';
 import { useDispatch } from 'react-redux';
 import { RootState } from '../../redux/config/configStore';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 export default function DetailView() {
+  const {
+    state: { item },
+  } = useLocation();
+
   const dispatch = useDispatch<any>();
   useEffect(() => {
-    dispatch(getSearchVideos('viewCount', 15));
+    dispatch(getSearchVideos(item.snippet.channelId, 'viewCount', 15));
   }, []);
 
   const { search } = useSelector((state: RootState) => state.MediaVideos);

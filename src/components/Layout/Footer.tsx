@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export default function Footer() {
   return (
     <FooterWrapper>
-      <FooterText>Copyright 2022. Bounce All rights reserved.</FooterText>
+      <FooterText>Copyright 2023. Bounce All rights reserved.</FooterText>
     </FooterWrapper>
   );
 }
