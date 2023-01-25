@@ -1,18 +1,16 @@
-import { combineReducers, createStore } from '@reduxjs/toolkit';
-import { MediaVideos } from './../reducers/MediaVideos';
-import { applyMiddleware, compose } from 'redux';
-import ReduxThunk from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit';
+import media from '../modules/MediaSlice';
 
-const middlewares = [ReduxThunk];
-
-const rootReducer = combineReducers({
-  MediaVideos,
+const store = configureStore({
+  reducer: {
+    media,
+  },
 });
 
-const store = createStore(
-  rootReducer,
-  compose(applyMiddleware(...middlewares)),
-);
-
 export default store;
-export type RootState = ReturnType<typeof rootReducer>;
+
+// State의 타입 얻기
+export type RootState = ReturnType<typeof store.getState>;
+
+// Dispatch 타입 얻기
+export type AppDispatch = typeof store.dispatch;
