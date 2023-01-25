@@ -54,13 +54,11 @@ export default function Media() {
   return (
     <>
       <DetailBackColor>
+        <Title>최신미디어</Title>
         <DetailWrap>
-          <Title>최신미디어</Title>
-          <Container>
-            {search.map((item: any) => (
-              <SearchList item={item} key={item.id} />
-            ))}
-          </Container>
+          {search.map((item: any) => (
+            <SearchList item={item} key={item.id} />
+          ))}
         </DetailWrap>
       </DetailBackColor>
     </>
@@ -68,23 +66,20 @@ export default function Media() {
 }
 
 export const DetailBackColor = styled.div`
-  /* background-color: black; */
-  min-height: 100vh;
-  min-width: 100vh;
+  background-color: #222;
 `;
 export const DetailWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 30px 20px;
+  overflow: hidden;
+  margin: 0 50px;
+  padding-top: 20px;
 `;
 export const Title = styled.p`
+  margin: 0 50px;
+  padding-top: 41px;
   font-size: 20px;
   font-weight: 700;
   color: white;
 `;
-export const Container = styled.div`
-  /* display: flex; */
-`;
-export const PlaylistWrap = styled.div``;
