@@ -4,7 +4,6 @@ import { formatAgo } from '../utils/Date';
 import { textRegex } from './../utils/VaildText';
 
 export default function SearchList({ item }: { item: any }) {
-  // console.log('item', item);
   const { title, thumbnails, publishedAt } = item.snippet;
 
   const navigate = useNavigate();
