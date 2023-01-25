@@ -17,14 +17,16 @@ export default function SignUp() {
 
     createUserWithEmailAndPassword(authService, auth.email, auth.password)
       .then(() => {
-        alert('회원가입이 완료 되었습니다.');
+        alert(
+          '회원가입이 완료 되었습니다. 마이페이지에서 닉네임을 변경해주세요.',
+        );
         auth.setEmail('');
         auth.setPassword('');
 
         if (state) {
           navigate(state);
         } else {
-          navigate('/');
+          navigate('/mypage');
         }
       })
       .catch((err) => {
