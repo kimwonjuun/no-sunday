@@ -25,6 +25,7 @@ const SocialLogin = () => {
       provider = new GoogleAuthProvider();
     }
 
+    // setPersistence => 로그인 시 세션스토리지에 유저 정보 저장
     setPersistence(authService, browserSessionPersistence)
       .then(() => signInWithPopup(authService, provider))
       .then(() => {

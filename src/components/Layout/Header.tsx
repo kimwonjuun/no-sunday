@@ -1,10 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FiSearch, FiUser } from 'react-icons/fi';
-import { authService } from '../../common/firebase';
 
 export default function Header() {
   const navigate = useNavigate();
+  // 로그인 확인을 위한 세션스토리지 키 확인
+  const isLoggedIn = sessionStorage.key(0);
 
   const goToLogin = (): void => {
     navigate('/login');
@@ -18,14 +19,14 @@ export default function Header() {
         </Link>
       </Logo>
       {/* 비 로그인 시 */}
-      {!authService?.currentUser && (
+      {!isLoggedIn && (
         <Button type="button" onClick={goToLogin}>
           로그인
         </Button>
       )}
 
       {/* 로그인 시 */}
-      {authService?.currentUser && (
+      {isLoggedIn && (
         <Icons>
           <SearchIcon />
           <Link to={'/mypage'}>
