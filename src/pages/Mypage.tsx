@@ -12,6 +12,7 @@ export default function Mypage() {
   const handleSignOut = () => {
     signOut(authService).then(() => {
       alert('로그아웃 되었습니다. 다시 만나요!');
+      sessionStorage.clear();
       navigate('/', { replace: true });
     });
   };
