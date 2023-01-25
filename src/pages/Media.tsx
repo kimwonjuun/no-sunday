@@ -15,42 +15,6 @@ export default function Media() {
 
   const { search } = useSelector((state: RootState) => state.MediaVideos);
 
-  // const { keyword } = useParams();
-  // const {
-  //   isLoading,
-  //   error,
-  //   data: videos,
-  // } = useQuery(['videos', keyword], async () => {
-  //   return fetch(`/serach/'products'.json`);
-  // });
-  // const [search, setSearch] = useState([]);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `${YOUTUBE_API}?part=snippet&channelId=${ARTIST_KEY}&maxResults=50&key=${API_KEY}`,
-  //     )
-  //     .then((res) => {
-  //       console.log(res);
-  //       setSearch(res.data.items);
-  //     })
-  //     .catch(() => {});
-  // }, []);
-  // console.log(search);
-  // const [search, setSearch] = useState([]);
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `${YOUTUBE_API}?part=snippet&channelId=${ARTIST_KEY}&maxResults=50&key=${API_KEY}`,
-  //     )
-  //     .then((res) => {
-  //       console.log(res);
-  //       setSearch(res.data.items);
-  //     })
-  //     .catch(() => {});
-  // }, []);
-  // console.log(search);
-
   return (
     <>
       <DetailBackColor>

@@ -19,7 +19,7 @@ export const getSearchVideos = () => async (dispatch: any) => {
       params: {
         part: 'snippet',
         channelId: 'UCMki_UkHb4qSc0qyEcOHHJw',
-        // regionCode: 'KO',
+        order: 'date',
         maxResults: 50,
         pageToken: '',
         type: 'video',
