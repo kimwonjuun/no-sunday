@@ -8,9 +8,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 export default function Main() {
   const navigate = useNavigate();
-  const paramId = useParams().id;
-
   const [artists, setArtists] = useState<any[]>([]);
+
   const getArtist = async () => {
     const querySnapshot = await getDocs(collection(dbService, 'artists'));
     const artist: any = [];
@@ -27,6 +26,7 @@ export default function Main() {
   useEffect(() => {
     getArtist();
   }, []);
+
   return (
     <MainPageWrapper>
       <MainPageIntroWrapper>
