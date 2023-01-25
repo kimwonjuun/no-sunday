@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Comment from './Comment';
 import RelatedContent from './RelatedContent';
 import styled from 'styled-components';
 import Youtube from './Youtube';
+import { getSearchVideos } from '../../redux/actions/VidoesAction';
+import { useDispatch } from 'react-redux';
+import { RootState } from '../../redux/config/configStore';
+import { useSelector } from 'react-redux';
 
 export default function DetailView() {
+  const {
+    state: { item },
+  } = useLocation();
+
+  const [popVideos, setPopVideos] = useState();
+  const dispatch = useDispatch<any>();
+  useEffect(() => {
+    dispatch(getSearchVideos('viewCount', 10));
+  }, []);
+
+  const { search } = useSelector((state: RootState) => state.MediaVideos);
+
   return (
     <ContentFrameView>
       <ContentsView>
@@ -13,10 +31,12 @@ export default function DetailView() {
           <Comment />
         </ContentView>
         <RelatedContentContainer>
-          <RelatedContentTitle>관련 미디어</RelatedContentTitle>
+          <RelatedContentTitle>인기 미디어</RelatedContentTitle>
           <RelatedContentNumber>전체 20</RelatedContentNumber>
           <RelatedContentList>
-            <RelatedContent />
+            {search.map((item: any) => (
+              <RelatedContent item={item} key={item.id} />
+            ))}
           </RelatedContentList>
         </RelatedContentContainer>
       </ContentsView>

@@ -10,38 +10,40 @@ interface SystemError {
   message: string;
 }
 
-export const getSearchVideos = () => async (dispatch: any) => {
-  try {
-    dispatch({
-      type: MEDIA_VIDEOS_REQUEST,
-    });
-    const { data } = await request('/search', {
-      params: {
-        part: 'snippet',
-        channelId: 'UCMki_UkHb4qSc0qyEcOHHJw',
-        order: 'date',
-        maxResults: 50,
-        pageToken: '',
-        type: 'video',
-      },
-    });
+export const getSearchVideos =
+  (a: string = 'date', b: number = 50) =>
+  async (dispatch: any) => {
+    try {
+      dispatch({
+        type: MEDIA_VIDEOS_REQUEST,
+      });
+      const { data } = await request('/search', {
+        params: {
+          part: 'snippet',
+          channelId: 'UCMki_UkHb4qSc0qyEcOHHJw',
+          order: a,
+          maxResults: b,
+          pageToken: '',
+          type: 'video',
+        },
+      });
 
-    dispatch({
-      type: MEDIA_VIDEOS_SUCCESS,
-      payload: {
-        // video: data.items,
-        search: data.items,
-        nextPageToken: data.nextPageToken,
-      },
-    });
-  } catch (error) {
-    const err = error as SystemError;
-    if (err.code === 'ENOENT') {
-      console.log('Someting wrong!');
+      dispatch({
+        type: MEDIA_VIDEOS_SUCCESS,
+        payload: {
+          // video: data.items,
+          search: data.items,
+          nextPageToken: data.nextPageToken,
+        },
+      });
+    } catch (error) {
+      const err = error as SystemError;
+      if (err.code === 'ENOENT') {
+        console.log('Someting wrong!');
+      }
+      dispatch({
+        type: MEDIA_VIDEOS_FAIL,
+        payload: error,
+      });
     }
-    dispatch({
-      type: MEDIA_VIDEOS_FAIL,
-      payload: error,
-    });
-  }
-};
+  };

@@ -1,14 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function RelatedContent() {
+export default function RelatedContent({ item }: { item: any }) {
+  const { title, thumbnails, publishTime } = item.snippet;
+
+  const timestamp: any = { publishTime };
+  const date: any = new Date(timestamp.publishTime.toString()).toLocaleString();
+
   return (
     <>
       <Content>
-        <ContentThumbnail></ContentThumbnail>
-        <ContentTitle>뮤직뱅크 출근길 with Ditto🦌</ContentTitle>
-        <ContentSummary>뮤직뱅크 출근길 with Ditto🦌</ContentSummary>
-        <ContentDate>2023.01.16 18:20</ContentDate>
+        <ContentThumbnail>
+          {
+            <iframe
+              id="player"
+              width="100%"
+              height="100%"
+              frameBorder="0"
+              src={`http://www.youtube.com/embed/${item.id.videoId}`}
+            ></iframe>
+          }
+        </ContentThumbnail>
+        <ContentTitle>{title}</ContentTitle>
+        <ContentDate>{date}</ContentDate>
       </Content>
     </>
   );
