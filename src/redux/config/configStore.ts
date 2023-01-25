@@ -14,11 +14,5 @@ const store = createStore(
   compose(applyMiddleware(...middlewares)),
 );
 
-// const store = configureStore({
-//   reducer: {
-//     MediaVideos,
-//   },
-// });
-// export type RootState = ReturnType<typeof rootReducer>;
 export default store;
 export type RootState = ReturnType<typeof rootReducer>;

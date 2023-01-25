@@ -1,12 +1,19 @@
 import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { formatAgo } from '../utils/Date';
 import { textRegex } from './../utils/VaildText';
+import moment from 'moment';
 
 export default function SearchList({ item }: { item: any }) {
   const { title, thumbnails, publishedAt } = item.snippet;
 
   const navigate = useNavigate();
+
+  // const [duration, setDuration] = useState(null)
+
+  // const seconds = moment.duration(duration).asSeconds();
+  // const _duration = moment.utc(seconds * 1000).format('mm:ss');
 
   return (
     <div
@@ -20,7 +27,7 @@ export default function SearchList({ item }: { item: any }) {
           alt={title}
           style={{ borderRadius: 20 }}
         />
-        <ThumbnailsView>05:43</ThumbnailsView>
+        <ThumbnailsView>05:48</ThumbnailsView>
       </ThumbnailsImgWrap>
       <ThumbnailsTitle>{textRegex(title)}</ThumbnailsTitle>
       <ThumbnailsDate>{formatAgo(publishedAt, 'ko')}</ThumbnailsDate>

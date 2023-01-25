@@ -39,6 +39,7 @@ export const DetailWrap = styled.div`
   overflow: hidden;
   margin: 0 50px;
   padding-top: 20px;
+  padding-bottom: 50px;
 `;
 export const Title = styled.p`
   margin: 0 50px;
