@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+
 import Comment from './Comment';
 import RelatedContent from './RelatedContent';
 import styled from 'styled-components';
@@ -11,14 +10,9 @@ import { RootState } from '../../redux/config/configStore';
 import { useSelector } from 'react-redux';
 
 export default function DetailView() {
-  const {
-    state: { item },
-  } = useLocation();
-
-  const [popVideos, setPopVideos] = useState();
   const dispatch = useDispatch<any>();
   useEffect(() => {
-    dispatch(getSearchVideos('viewCount', 10));
+    dispatch(getSearchVideos('viewCount', 15));
   }, []);
 
   const { search } = useSelector((state: RootState) => state.MediaVideos);

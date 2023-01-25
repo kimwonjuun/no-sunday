@@ -1,5 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
+import { textRegex } from './../../utils/VaildText';
+import { useNavigate } from 'react-router-dom';
 
 export default function RelatedContent({ item }: { item: any }) {
   const { title, thumbnails, publishTime } = item.snippet;
@@ -7,21 +8,21 @@ export default function RelatedContent({ item }: { item: any }) {
   const timestamp: any = { publishTime };
   const date: any = new Date(timestamp.publishTime.toString()).toLocaleString();
 
+  const navigate = useNavigate();
+
   return (
     <>
       <Content>
         <ContentThumbnail>
-          {
-            <iframe
-              id="player"
-              width="100%"
-              height="100%"
-              frameBorder="0"
-              src={`http://www.youtube.com/embed/${item.id.videoId}`}
-            ></iframe>
-          }
+          <img
+            onClick={() => {
+              navigate(`/arist/${item.id.playlistId}`, { state: { item } });
+            }}
+            src={thumbnails.high.url}
+            alt={title}
+          />
         </ContentThumbnail>
-        <ContentTitle>{title}</ContentTitle>
+        <ContentTitle>{textRegex(title)}</ContentTitle>
         <ContentDate>{date}</ContentDate>
       </Content>
     </>
@@ -36,7 +37,6 @@ const ContentThumbnail = styled.div`
   isolation: isolate;
   overflow: hidden;
   position: relative;
-  background-color: wheat;
 `;
 
 const ContentTitle = styled.div`
