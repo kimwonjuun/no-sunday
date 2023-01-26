@@ -41,7 +41,7 @@ const MyPageWrapper = styled.div`
   background-color: #f7f7f7;
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   max-width: 1100px;
   margin: 0 auto;
 `;

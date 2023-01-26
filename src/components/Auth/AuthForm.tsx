@@ -147,7 +147,7 @@ const Input = styled.input`
   }
 `;
 
-const AuthButton = styled.button`
+export const AuthButton = styled.button`
   width: 100%;
   height: 46px;
   background-image: linear-gradient(
