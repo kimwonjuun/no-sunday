@@ -1,19 +1,65 @@
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { textRegex } from './../../utils/VaildText';
+import { addDoc, collection, query } from 'firebase/firestore';
+import { authService, dbService } from './../../common/firebase';
+import { useState } from 'react';
 
 export default function Youtube() {
   const {
     state: { item },
   } = useLocation();
 
-  const { title, channelTitle, publishTime, description } = item.snippet;
+  const { title, channelTitle, publishTime, description, channelId } =
+    item.snippet;
 
   const timestamp: any = { publishTime };
   const date: any = new Date(timestamp.publishTime.toString()).toLocaleString();
 
-  console.log('date', date);
+  const [Like, setLike] = useState(false);
+
+  // const likeClick = () => {
+  //   if (Like) {
+  //     setLike(false);
+  //   } else {
+  //     setLike(true);
+  //   }
+  // };
+
+  const likeClick = (item) => {
+    if (
+      item.channelId === likes.channelId &&
+      item.userId === authService.currentUser?.uid
+    ) {
+      setLike(false);
+    } else {
+      setLike(true);
+    }
+  };
+  // console.log('item2', item);
+  // console.log('Like', Like);
+  // console.log('item.channelId', channelId);
+  // console.log('Like.channelId', Like.channelId);
+
+  // 하트 클릭 시 addDoc에 영상 정보와 isLike 추가
+  const addLike = async (item: any) => {
+    await addDoc(collection(dbService, 'likes'), {
+      title,
+      channelTitle,
+      channelId,
+      publishTime,
+      isLike: true,
+      userId: authService.currentUser?.uid,
+    });
+    // setLike(true);
+  };
+  // console.log('title:', title);
+  // console.log('"channelTitle:', channelTitle);
+  // console.log('publishTime:', publishTime);
+  // console.log('userId:', authService.currentUser?.uid);
+
+  const q = query(collection(dbService, 'likes'));
 
   return (
     <>
@@ -39,7 +85,14 @@ export default function Youtube() {
             </ArtistContainer>
           </ArtistDateContainer>
           <ArtistLike>
-            <LikeBtn />
+            <HeartWrapper onClick={addLike}>
+              {/* 좋아요 유무 */}
+              {Like ? (
+                <LikeBtnLine onClick={likeClick} />
+              ) : (
+                <LikeBtnFill onClick={likeClick} />
+              )}
+            </HeartWrapper>
           </ArtistLike>
         </TitleContentsCotainer>
         <DescriptionArea>{description}</DescriptionArea>
@@ -115,7 +168,15 @@ const ArtistLike = styled.div`
   justify-content: flex-end;
 `;
 
-const LikeBtn = styled(AiOutlineHeart)`
+const HeartWrapper = styled.div`
+  position: absolute;
+  margin-top: 10px;
+  margin-left: 10px;
+`;
+const LikeBtnLine = styled(AiOutlineHeart)`
+  color: white;
+`;
+const LikeBtnFill = styled(AiFillHeart)`
   color: white;
 `;
 
