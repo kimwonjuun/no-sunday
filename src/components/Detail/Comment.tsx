@@ -1,4 +1,10 @@
-import { addDoc, collection, deleteDoc, getDocs } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  getDocs,
+  doc,
+} from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { idText } from 'typescript';
@@ -9,7 +15,7 @@ export default function Comment() {
   const [inputComment, setInputComment] = useState<string>('');
   // 댓글 출력
   const [myComment, setMyComment] = useState<any[]>([]);
-  // 온클릭 함수
+  // 테스트용 온클릭 함수
   // const addComment = () => {
   //   setMyComment([...myComment, inputComment]);
   //   setInputComment('');
@@ -19,8 +25,11 @@ export default function Comment() {
   // read
   const getComments = async () => {
     const querySnapshot = await getDocs(collection(dbService, 'comments'));
+    // console.log(querySnapshot);
     const comment: any = [];
     querySnapshot.forEach((doc) => {
+      // console.log(doc.data());
+
       // console.log('doc.data()', doc.data());
       // setMyComment(
       //   querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })),
@@ -29,8 +38,9 @@ export default function Comment() {
         id: doc.id,
         ...doc.data(),
       };
-      myComment.push(newComment);
+      comment.push(newComment); // myComment 로 잘못썼었음 ㅎ
     });
+
     setMyComment(comment);
   };
   useEffect(() => {
@@ -50,13 +60,13 @@ export default function Comment() {
     setInputComment('');
   };
 
-  // // delete
-  // const deleteComment = async (id: any) => {
-  //   const userDoc = doc(dbService, 'comments', id);
-  //   await deleteDoc(userDoc);
-  // };
+  // delete
+  const deleteComment = async (id: any) => {
+    const userDoc = doc(dbService, 'comments', id);
+    console.log(userDoc);
 
-  // // const deleteComment
+    await deleteDoc(userDoc);
+  };
 
   return (
     <>
@@ -77,11 +87,9 @@ export default function Comment() {
                     <CommentProfileDate>날짜</CommentProfileDate>
                   </CommentProfile>
                 </CommentPostHeader>
-                <CommentViewArea>댓글</CommentViewArea>
+                <CommentViewArea>{myComment}</CommentViewArea>
               </CommentContent> */}
-              {myComment.map((item) => {
-                console.log();
-
+              {myComment.map((item: any) => {
                 return (
                   <CommentContent key={item.id}>
                     <CommentPostHeader>
@@ -94,6 +102,13 @@ export default function Comment() {
                       </CommentProfile>
                     </CommentPostHeader>
                     <CommentViewArea>{item.comment}</CommentViewArea>
+                    <button
+                      onClick={() => {
+                        deleteComment(item.id);
+                      }}
+                    >
+                      삭제
+                    </button>
                   </CommentContent>
                 );
               })}
@@ -105,9 +120,11 @@ export default function Comment() {
                     type="text"
                     placeholder="댓글을 입력하세요."
                     value={inputComment}
-                    onChange={(event) => setInputComment(event.target.value)}
+                    onChange={(event) => {
+                      setInputComment(event.target.value);
+                    }}
                   />
-                  <CommentBtn onClick={addComment} />\
+                  <CommentBtn onClick={addComment} />
                 </CommentWriteArea>
               </CommentWriteBox>
             </CommentWriteContainer>
