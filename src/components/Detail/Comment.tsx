@@ -1,7 +1,63 @@
-import React from 'react';
+import { addDoc, collection, deleteDoc, getDocs } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { idText } from 'typescript';
+import { authService, dbService } from '../../common/firebase';
 
 export default function Comment() {
+  // 댓글 인풋
+  const [inputComment, setInputComment] = useState<string>('');
+  // 댓글 출력
+  const [myComment, setMyComment] = useState<any[]>([]);
+  // 온클릭 함수
+  // const addComment = () => {
+  //   setMyComment([...myComment, inputComment]);
+  //   setInputComment('');
+  // };
+
+  // 파이어베이스
+  // read
+  const getComments = async () => {
+    const querySnapshot = await getDocs(collection(dbService, 'comments'));
+    const comment: any = [];
+    querySnapshot.forEach((doc) => {
+      // console.log('doc.data()', doc.data());
+      // setMyComment(
+      //   querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })),
+      // );
+      const newComment = {
+        id: doc.id,
+        ...doc.data(),
+      };
+      myComment.push(newComment);
+    });
+    setMyComment(comment);
+  };
+  useEffect(() => {
+    getComments();
+  }, []);
+
+  // create
+  const addComment = async () => {
+    await addDoc(collection(dbService, 'comments'), {
+      id: authService.currentUser?.uid,
+      comment: inputComment,
+      name: authService.currentUser?.displayName,
+      profileImg: authService.currentUser?.photoURL,
+      createdAt: Date.now(),
+    });
+
+    setInputComment('');
+  };
+
+  // // delete
+  // const deleteComment = async (id: any) => {
+  //   const userDoc = doc(dbService, 'comments', id);
+  //   await deleteDoc(userDoc);
+  // };
+
+  // // const deleteComment
+
   return (
     <>
       <CommentView>
@@ -13,22 +69,45 @@ export default function Comment() {
               </CommentHeaderWrap>
             </CommentHeader>
             <CommnetScrollArea>
-              <CommentContent>
+              {/* <CommentContent>
                 <CommentPostHeader>
                   <CommentProfileImg />
                   <CommentProfile>
-                    <CommentProfileName>지우!!!</CommentProfileName>
-                    <CommentProfileDate>01. 20. 21:44</CommentProfileDate>
+                    <CommentProfileName>닉네임</CommentProfileName>
+                    <CommentProfileDate>날짜</CommentProfileDate>
                   </CommentProfile>
                 </CommentPostHeader>
-                <CommentViewArea>디토 짱</CommentViewArea>
-              </CommentContent>
+                <CommentViewArea>댓글</CommentViewArea>
+              </CommentContent> */}
+              {myComment.map((item) => {
+                console.log();
+
+                return (
+                  <CommentContent key={item.id}>
+                    <CommentPostHeader>
+                      <CommentProfileImg src={item.profileImg} />
+                      <CommentProfile>
+                        <CommentProfileName>{item.name}</CommentProfileName>
+                        <CommentProfileDate>
+                          {item.createdAt}
+                        </CommentProfileDate>
+                      </CommentProfile>
+                    </CommentPostHeader>
+                    <CommentViewArea>{item.comment}</CommentViewArea>
+                  </CommentContent>
+                );
+              })}
             </CommnetScrollArea>
             <CommentWriteContainer>
               <CommentWriteBox>
                 <CommentWriteArea>
-                  <CommentWrite placeholder="댓글을 입력하세요." />
-                  <CommentBtn />
+                  <CommentWrite
+                    type="text"
+                    placeholder="댓글을 입력하세요."
+                    value={inputComment}
+                    onChange={(event) => setInputComment(event.target.value)}
+                  />
+                  <CommentBtn onClick={addComment} />\
                 </CommentWriteArea>
               </CommentWriteBox>
             </CommentWriteContainer>
@@ -103,7 +182,7 @@ const CommentPostHeader = styled.div`
   display: flex;
 `;
 
-const CommentProfileImg = styled.div`
+const CommentProfileImg = styled.img`
   height: 35px;
   width: 35px;
   border-radius: 100px;

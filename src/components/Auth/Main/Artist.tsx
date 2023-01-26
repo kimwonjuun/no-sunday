@@ -5,7 +5,7 @@ const Artist = ({ item }: { item: any }) => {
   const navigate = useNavigate();
   return (
     <ArtistBox
-      key={item.channelId}
+      key={item.channelid}
       onClick={() => {
         navigate(`/${item.channelId}`);
       }}
