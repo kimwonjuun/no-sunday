@@ -5,23 +5,31 @@ import { dbService } from '../common/firebase';
 import { useEffect, useState } from 'react';
 import { getDocs, collection } from 'firebase/firestore';
 import Artist from '../components/Auth/Main/Artist';
+import { useAppDispatch } from '../hooks/useRedux';
+import { saveArtists } from '../redux/modules/ArtistsSlice';
+import { ArtistsTypes } from '../redux/modules/ArtistsSlice';
 
 export default function Main() {
   const [artists, setArtists] = useState<any[]>([]);
+  const dispatch = useAppDispatch();
 
   const getArtist = async () => {
     const querySnapshot = await getDocs(collection(dbService, 'artists'));
-    const artist: any = [];
+    const artist: ArtistsTypes[] = [];
+
     querySnapshot.forEach((doc) => {
-      // console.log(doc.id, doc.data);
-      const newArtist = {
+      const newArtist: ArtistsTypes = {
         id: doc.id,
         ...doc.data(),
       };
+
       artist.push(newArtist);
     });
+
     setArtists(artist);
+    dispatch(saveArtists(artist));
   };
+
   useEffect(() => {
     getArtist();
   }, []);
