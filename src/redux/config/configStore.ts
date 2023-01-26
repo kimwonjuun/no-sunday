@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import media from '../modules/MediaSlice';
+import artists from '../modules/ArtistsSlice';
 
 const store = configureStore({
   reducer: {
     media,
+    artists,
   },
 });
 
