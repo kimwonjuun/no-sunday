@@ -1,6 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
-import { authService } from '../../common/firebase';
+import { getAuth, updateProfile } from 'firebase/auth';
+import { authService, storage } from '../../common/firebase';
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  uploadBytes,
+} from 'firebase/storage';
 
 interface MypageHeadeProps {
   onSignOut: () => void;
@@ -14,10 +22,10 @@ interface UserInfoTypes {
 
 const MypageHeader = ({ onSignOut }: MypageHeadeProps) => {
   const [userInfo, setUserInfo] = useState<UserInfoTypes>();
-
+  const user: any = authService?.currentUser;
+  const [photoURL, setPhotoURL] = useState<any>(user.photoURL);
+  const imgRef = useRef(null);
   const getUserInfo = () => {
-    const user = authService.currentUser;
-
     setUserInfo({
       nickname: user?.displayName ?? '익명',
       email: user?.email ?? '',
@@ -29,13 +37,51 @@ const MypageHeader = ({ onSignOut }: MypageHeadeProps) => {
     getUserInfo();
   }, []);
 
+  const uploadFB = async (e: any) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPhotoURL(reader.result);
+    };
+
+    const uploaded_file = await uploadBytes(
+      ref(storage, `images/${e.target.files[0].name}`),
+      e.target.files[0],
+    );
+
+    const file_url = await getDownloadURL(uploaded_file.ref);
+
+    updateProfile(user, {
+      photoURL: file_url,
+    })
+      .then(() => {})
+      .catch((error) => {
+        alert('이미지 업로드 실패');
+      });
+
+    console.log(file_url);
+    console.log(authService.currentUser);
+  };
+
+  console.log(photoURL);
+
   return (
     <ProfileBg>
       <ProfileWrapper>
         <ImgWrapper>
-          <ProfileImg
-            src={userInfo?.photoUrl ?? '/assets/default_profile.png'}
-          />
+          <label htmlFor="img">
+            <ProfileImg
+              src={photoURL ? photoURL : '/assets/default_profile.png'}
+            />
+            <input
+              type="file"
+              onChange={uploadFB}
+              accept="image/*"
+              id="img"
+              style={{ display: 'none' }}
+            ></input>
+          </label>
         </ImgWrapper>
         <InfoWrapper>
           <Nickname>{userInfo?.nickname}</Nickname>
