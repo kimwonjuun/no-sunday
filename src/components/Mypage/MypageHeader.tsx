@@ -66,6 +66,8 @@ const MypageHeader = ({ onSignOut }: MypageHeadeProps) => {
 
   console.log(photoURL);
 
+  // 원준 일하는 중 ~
+  const editNickName = () => {};
   return (
     <ProfileBg>
       <ProfileWrapper>
@@ -85,6 +87,13 @@ const MypageHeader = ({ onSignOut }: MypageHeadeProps) => {
         </ImgWrapper>
         <InfoWrapper>
           <Nickname>{userInfo?.nickname}</Nickname>
+          <button
+            onClick={() => {
+              alert('아직은 안돼요~');
+            }}
+          >
+            닉네임 수정하기
+          </button>
           <Email>{userInfo?.email}</Email>
           <Logout onClick={onSignOut}>로그아웃</Logout>
         </InfoWrapper>

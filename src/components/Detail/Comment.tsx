@@ -4,13 +4,19 @@ import {
   deleteDoc,
   getDocs,
   doc,
+  query,
+  orderBy,
+  onSnapshot,
+  Firestore,
 } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 import styled from 'styled-components';
 import { idText } from 'typescript';
 import { authService, dbService } from '../../common/firebase';
 
 export default function Comment() {
+  const uniqueId = useId();
+  // 원준 일하는 중 ~
   // 댓글 인풋
   const [inputComment, setInputComment] = useState<string>('');
   // 댓글 출력
@@ -22,29 +28,35 @@ export default function Comment() {
   // };
 
   // 파이어베이스
-  // read
-  const getComments = async () => {
-    const querySnapshot = await getDocs(collection(dbService, 'comments'));
-    // console.log(querySnapshot);
-    const comment: any = [];
-    querySnapshot.forEach((doc) => {
-      // console.log(doc.data());
+  // read: onSnapshot 넣어야 할 위치를 찾기 힘들어서 밑에 새로 생성함.
+  // const getComments = async () => {
+  //   const q = query(collection(dbService, 'comments'), orderBy('createdAt'));
+  //   const comment: any = [];
+  //   const querySnapshot = await getDocs(q);
+  //   querySnapshot.forEach((doc) => {
+  //     const newComment = {
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     };
+  //     comment.push(newComment); // myComment 로 잘못썼었음 ㅎ
+  //   });
 
-      // console.log('doc.data()', doc.data());
-      // setMyComment(
-      //   querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })),
-      // );
-      const newComment = {
-        id: doc.id,
-        ...doc.data(),
-      };
-      comment.push(newComment); // myComment 로 잘못썼었음 ㅎ
-    });
+  //   setMyComment(comment);
+  // };
+  // useEffect(() => {
+  //   getComments();
+  // }, []);
 
-    setMyComment(comment);
-  };
   useEffect(() => {
-    getComments();
+    const q = query(collection(dbService, 'comments'), orderBy('createdAt'));
+    const getComments = onSnapshot(q, (snapshot) => {
+      const newComment = snapshot.docs.map((doc) => ({
+        documentId: doc.id, // 얘가 걔임.
+        ...doc.data(),
+      }));
+      setMyComment(newComment);
+    });
+    return getComments;
   }, []);
 
   // create
@@ -60,11 +72,12 @@ export default function Comment() {
     setInputComment('');
   };
 
-  // delete
-  const deleteComment = async (id: any) => {
-    const userDoc = doc(dbService, 'comments', id);
-    console.log(userDoc);
+  // delete 연구중
+  // uid 말고 컬렉션 안의 문서를?? 가져와야함
 
+  const deleteComment = async (documentId: any) => {
+    const userDoc = doc(dbService, 'comments', documentId);
+    console.log(userDoc);
     await deleteDoc(userDoc);
   };
 
@@ -91,7 +104,7 @@ export default function Comment() {
               </CommentContent> */}
               {myComment.map((item: any) => {
                 return (
-                  <CommentContent key={item.id}>
+                  <CommentContent key={uniqueId}>
                     <CommentPostHeader>
                       <CommentProfileImg src={item.profileImg} />
                       <CommentProfile>
@@ -104,7 +117,7 @@ export default function Comment() {
                     <CommentViewArea>{item.comment}</CommentViewArea>
                     <button
                       onClick={() => {
-                        deleteComment(item.id);
+                        deleteComment(item.documentId);
                       }}
                     >
                       삭제
