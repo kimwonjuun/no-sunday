@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { formatAgo } from '../utils/Date';
-import { textRegex } from './../utils/VaildText';
+import { formatAgo } from '../../utils/Date';
+import { textRegex } from '../../utils/VaildText';
 
 export default function SearchList({ item }: { item: any }) {
   const { title, thumbnails, publishedAt } = item.snippet;
@@ -11,7 +12,7 @@ export default function SearchList({ item }: { item: any }) {
   return (
     <Wrapper
       onClick={() => {
-        navigate(`${item.id.playlistId}`, { state: { item } });
+        navigate(`${item.id.videoId}`, { state: { item } });
       }}
     >
       <ThumbnailsImgWrap>
@@ -20,7 +21,7 @@ export default function SearchList({ item }: { item: any }) {
           alt={title}
           style={{ borderRadius: 20 }}
         />
-        <ThumbnailsView>05:43</ThumbnailsView>
+        <ThumbnailsView>05:48</ThumbnailsView>
       </ThumbnailsImgWrap>
       <ThumbnailsTitle>{textRegex(title)}</ThumbnailsTitle>
       <ThumbnailsDate>{formatAgo(publishedAt, 'ko')}</ThumbnailsDate>
