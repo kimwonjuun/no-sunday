@@ -37,7 +37,7 @@ const ArtistBox = styled.div`
   transition: color 300ms ease-in-out;
 
   &:hover {
-    color: #e32586;
+    color: #ff0098;
   }
 `;
 
@@ -78,14 +78,12 @@ const ArtistBoxLogoStyle = styled.img`
   object-fit: cover;
 `;
 const ArtistBoxNameStyle = styled.div`
-  background-color: white;
-
   width: 100%;
   height: 25%;
   border-radius: 0px 0px 10px 10px;
+  background-color: white;
   box-sizing: border-box;
   padding: 30px 0 50px;
-
   text-align: center;
 `;
 const ArtistBoxName = styled.div`
