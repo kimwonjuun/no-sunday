@@ -14,7 +14,7 @@ export const request = axios.create({
     // 유정님 키
     // key: 'AIzaSyCBDEEW6FlMFSngjrSRM4H56y1fMYX6y9M',
     // 진양님 키
-    key: 'AIzaSyDtU_PEu_8kJk4zoY_AuflBPiiYx5BtZZw',
+    // key: 'AIzaSyDtU_PEu_8kJk4zoY_AuflBPiiYx5BtZZw',
     // 키 환경변수
     // key: process.env.REACT_APP_YOUTUBE_API_KEY,
   },

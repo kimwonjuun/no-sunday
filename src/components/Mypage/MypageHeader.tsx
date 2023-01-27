@@ -63,7 +63,7 @@ const MypageHeader = ({ onSignOut }: MypageHeadeProps) => {
 
   console.log(photoURL);
 
-  // 원준 일하는 중 ~
+  // 원준 닉네임 변경
   const editNickName = () => {};
   return (
     <ProfileBg>

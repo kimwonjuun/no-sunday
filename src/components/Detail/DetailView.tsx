@@ -31,7 +31,7 @@ export default function DetailView() {
       <ContentsView>
         <ContentView>
           <Youtube />
-          <Comment />
+          <Comment videoId={item.id.videoId} />
         </ContentView>
         <RelatedContentContainer>
           <RelatedContentTitle>인기 미디어</RelatedContentTitle>
