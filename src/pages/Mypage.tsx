@@ -42,8 +42,8 @@ const MyPageWrapper = styled.div`
 `;
 
 export const Container = styled.div`
-  max-width: 1100px;
-  margin: 0 auto;
+  margin-left: 50px;
+  margin-right: 50px;
 `;
 
 const Section = styled.section`

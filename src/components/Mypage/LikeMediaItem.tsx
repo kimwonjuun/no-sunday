@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { formatAgo } from '../../utils/Date';
 import { textRegex } from '../../utils/VaildText';
 import styled from 'styled-components';
 
@@ -10,38 +9,39 @@ export default function LikeMediaItem({ item }: { item: any }) {
   const { pathname } = useLocation();
 
   return (
-    <div
+    <Wrapper
       onClick={() => {
         navigate(`/${item.channelId}/${item.videoId}`, {
           state: { item, page: pathname },
         });
       }}
     >
-      <LikeMediaItemWrap>
-        <ThumbnailsImgWrap>
-          <img
-            src={item.thumbnail}
-            alt={item.title}
-            style={{ borderRadius: 20 }}
-          />
-          <ThumbnailsView>05:48</ThumbnailsView>
-        </ThumbnailsImgWrap>
-        <ThumbnailsTitle>{textRegex(item.title)}</ThumbnailsTitle>
-        {/* <ThumbnailsDate>{formatAgo(item.publishedAt, 'ko')}</ThumbnailsDate> */}
-      </LikeMediaItemWrap>
-    </div>
+      <ThumbnailsImgWrap>
+        <img
+          src={item.thumbnail}
+          alt={item.title}
+          style={{ borderRadius: 20 }}
+        />
+        <ThumbnailsView>05:48</ThumbnailsView>
+      </ThumbnailsImgWrap>
+      <ThumbnailsTitle>{textRegex(item.title)}</ThumbnailsTitle>
+      <ThumbnailsDate>{item.publishTime}</ThumbnailsDate>
+    </Wrapper>
   );
 }
+const Wrapper = styled.div`
+  margin-bottom: 1rem;
 
-export const LikeMediaItemWrap = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 30px 20px;
-  overflow: hidden;
-  margin: 0 50px;
-  padding-top: 20px;
-  padding-bottom: 50px;
+  &:hover {
+    img {
+      transform: scale(1.1);
+    }
+    h2 {
+      color: #ff0098;
+    }
+  }
 `;
+
 export const ThumbnailsImgWrap = styled.div`
   // aspect-ratio 썸네일 크기를 이미지나 동영상을 비율대로 줄이거나 늘리는 데 사용 속성
   aspect-ratio: 320/180;
@@ -49,16 +49,24 @@ export const ThumbnailsImgWrap = styled.div`
   isolation: isolate;
   overflow: hidden;
   position: relative;
+  margin-bottom: 0.6rem;
+  cursor: pointer;
+
+  img {
+    transition: all 300ms ease-in-out;
+  }
 `;
-export const ThumbnailsTitle = styled.p`
+export const ThumbnailsTitle = styled.h2`
   color: black;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 export const ThumbnailsDate = styled.p`
-  color: black;
-  font-size: 13px;
-  font-weight: 700;
+  color: #7d7c7c;
+  font-size: 14px;
 `;
 export const ThumbnailsView = styled.em`
   border-radius: 9px;

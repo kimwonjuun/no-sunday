@@ -13,6 +13,7 @@ import {
 } from 'firebase/firestore';
 import { authService, dbService } from './../../common/firebase';
 import { useState, useEffect } from 'react';
+import { deflate } from 'zlib';
 
 export default function Youtube() {
   const {
@@ -29,9 +30,6 @@ export default function Youtube() {
     channelId,
     thumbnails,
   } = item.snippet;
-
-  console.log('item:', item);
-  console.log('page:', page);
 
   const thumbnail = thumbnails.high.url;
 
@@ -56,7 +54,7 @@ export default function Youtube() {
       channelId,
       videoId,
       thumbnail,
-      publishTime,
+      publishTime: date,
       isLike: true,
       userId: authService.currentUser?.uid,
     });
