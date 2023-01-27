@@ -1,23 +1,18 @@
 import styled from 'styled-components';
 
-const CommentItem = () => {
+const CommentItem = ({ item }: { item: any }) => {
   return (
     <ItemWrapper>
       <CommentInfo>
-        <ProfileWrapper>
+        <ProfileWrapper id={item.id}>
           <Profile>
-            <ProfileImg src="/assets/default_profile.png" />
+            <ProfileImg src={item.profileImg} />
           </Profile>
-          <Writer>작성자</Writer>
+          <Writer>{item.name}</Writer>
         </ProfileWrapper>
-        <CreatedAt>2023.01.20 11:11</CreatedAt>
+        <CreatedAt>{item.createdAt}</CreatedAt>
       </CommentInfo>
-      <CommentText>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae quisquam
-        minus, accusamus illum dolorem dignissimos maiores laudantium
-        repudiandae doloribus dolores! Mollitia repudiandae eveniet quo fugit!
-        Dolore in quas reprehenderit accusantium.
-      </CommentText>
+      <CommentText>{item.comment}</CommentText>
     </ItemWrapper>
   );
 };

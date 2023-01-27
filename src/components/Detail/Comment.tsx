@@ -1,7 +1,95 @@
-import React from 'react';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  getDocs,
+  doc,
+  query,
+  orderBy,
+  onSnapshot,
+  where,
+} from 'firebase/firestore';
+import React, { useEffect, useId, useState } from 'react';
 import styled from 'styled-components';
+import { idText } from 'typescript';
+import { authService, dbService } from '../../common/firebase';
 
-export default function Comment() {
+export default function Comment({ videoId }: { videoId: string }) {
+  const uniqueId = useId();
+  // 원준 일하는 중
+  // 댓글 인풋
+  const [inputComment, setInputComment] = useState<string>('');
+  // 댓글 출력
+  const [myComment, setMyComment] = useState<any[]>([]);
+  // 테스트용 온클릭 함수
+  // const addComment = () => {
+  //   setMyComment([...myComment, inputComment]);
+  //   setInputComment('');
+  // };
+
+  // 파이어베이스
+
+  // create
+  const addComment = async () => {
+    await addDoc(collection(dbService, 'comments'), {
+      videoId: videoId,
+      id: authService.currentUser?.uid,
+      comment: inputComment,
+      name: authService.currentUser?.displayName,
+      profileImg: authService.currentUser?.photoURL,
+      createdAt: Date.now(),
+    });
+
+    setInputComment('');
+  };
+
+  // read: onSnapshot 넣어야 할 위치를 찾기 힘들어서 밑에 새로 생성함.
+  // const getComments = async () => {
+  //   const q = query(collection(dbService, 'comments'), orderBy('createdAt'));
+  //   const comment: any = [];
+  //   const querySnapshot = await getDocs(q);
+  //   querySnapshot.forEach((doc) => {
+  //     const newComment = {
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     };
+  //     comment.push(newComment); // myComment 로 잘못썼었음 ㅎ
+  //   });
+
+  //   setMyComment(comment);
+  // };
+  // useEffect(() => {
+  //   getComments();
+  // }, []);
+
+  useEffect(() => {
+    const q = query(
+      collection(dbService, 'comments'),
+      where('videoId', '==', videoId),
+      orderBy('createdAt', 'desc'),
+    );
+    console.log(q);
+
+    const getComments = onSnapshot(q, (snapshot) => {
+      const newComment = snapshot.docs.map((doc) => ({
+        documentId: doc.id,
+        ...doc.data(),
+      }));
+      setMyComment(newComment);
+    });
+    return getComments;
+  }, []);
+  console.log(myComment);
+
+  // delete
+  // uid 말고 컬렉션 안의 문서를?? 가져와야함. documentId: doc.id, -> 얘가 그 녀석이었다.
+
+  const deleteComment = async (documentId: any) => {
+    const userDoc = doc(dbService, 'comments', documentId);
+    // console.log(userDoc);
+    await deleteDoc(userDoc);
+  };
+
   return (
     <>
       <CommentView>
@@ -9,26 +97,60 @@ export default function Comment() {
           <CommentsViewer>
             <CommentHeader>
               <CommentHeaderWrap>
-                <CommentHeaderTitle>12개의 댓글</CommentHeaderTitle>
+                <CommentHeaderTitle>
+                  {myComment.length}개의 댓글
+                </CommentHeaderTitle>
               </CommentHeaderWrap>
             </CommentHeader>
             <CommnetScrollArea>
-              <CommentContent>
+              {/* <CommentContent>
                 <CommentPostHeader>
                   <CommentProfileImg />
                   <CommentProfile>
-                    <CommentProfileName>지우!!!</CommentProfileName>
-                    <CommentProfileDate>01. 20. 21:44</CommentProfileDate>
+                    <CommentProfileName>닉네임</CommentProfileName>
+                    <CommentProfileDate>날짜</CommentProfileDate>
                   </CommentProfile>
                 </CommentPostHeader>
-                <CommentViewArea>디토 짱</CommentViewArea>
-              </CommentContent>
+                <CommentViewArea>{myComment}</CommentViewArea>
+              </CommentContent> */}
+              {myComment.map((item: any) => {
+                return (
+                  <CommentContent key={uniqueId}>
+                    <CommentPostHeader>
+                      <CommentProfileImg src={item.profileImg} />
+                      <CommentProfile>
+                        <CommentProfileName>{item.name}</CommentProfileName>
+                        <CommentProfileDate>
+                          {item.createdAt}
+                        </CommentProfileDate>
+                      </CommentProfile>
+                    </CommentPostHeader>
+                    <CommentViewArea>
+                      {item.comment}{' '}
+                      <button
+                        onClick={() => {
+                          deleteComment(item.documentId);
+                        }}
+                      >
+                        삭제
+                      </button>
+                    </CommentViewArea>
+                  </CommentContent>
+                );
+              })}
             </CommnetScrollArea>
             <CommentWriteContainer>
               <CommentWriteBox>
                 <CommentWriteArea>
-                  <CommentWrite placeholder="댓글을 입력하세요." />
-                  <CommentBtn />
+                  <CommentWrite
+                    type="text"
+                    placeholder="댓글을 입력하세요."
+                    value={inputComment}
+                    onChange={(event) => {
+                      setInputComment(event.target.value);
+                    }}
+                  />
+                  <CommentBtn onClick={addComment} />
                 </CommentWriteArea>
               </CommentWriteBox>
             </CommentWriteContainer>
@@ -103,7 +225,7 @@ const CommentPostHeader = styled.div`
   display: flex;
 `;
 
-const CommentProfileImg = styled.div`
+const CommentProfileImg = styled.img`
   height: 35px;
   width: 35px;
   border-radius: 100px;
