@@ -10,7 +10,7 @@ export default function SearchList({ item }: { item: any }) {
   const navigate = useNavigate();
 
   return (
-    <div
+    <Wrapper
       onClick={() => {
         navigate(`${item.id.videoId}`, { state: { item } });
       }}
@@ -25,9 +25,22 @@ export default function SearchList({ item }: { item: any }) {
       </ThumbnailsImgWrap>
       <ThumbnailsTitle>{textRegex(title)}</ThumbnailsTitle>
       <ThumbnailsDate>{formatAgo(publishedAt, 'ko')}</ThumbnailsDate>
-    </div>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  margin-bottom: 1rem;
+
+  &:hover {
+    img {
+      transform: scale(1.1);
+    }
+    h2 {
+      color: #ff0098;
+    }
+  }
+`;
 
 export const ThumbnailsImgWrap = styled.div`
   // aspect-ratio 썸네일 크기를 이미지나 동영상을 비율대로 줄이거나 늘리는 데 사용 속성
@@ -36,16 +49,24 @@ export const ThumbnailsImgWrap = styled.div`
   isolation: isolate;
   overflow: hidden;
   position: relative;
+  margin-bottom: 0.6rem;
+  cursor: pointer;
+
+  img {
+    transition: all 300ms ease-in-out;
+  }
 `;
-export const ThumbnailsTitle = styled.p`
+export const ThumbnailsTitle = styled.h2`
   color: white;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 export const ThumbnailsDate = styled.p`
-  color: white;
-  font-size: 13px;
-  font-weight: 700;
+  color: #ccc;
+  font-size: 14px;
 `;
 export const ThumbnailsView = styled.em`
   background-color: rgba(0, 0, 0, 0.6);

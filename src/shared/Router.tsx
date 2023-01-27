@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from '../components/Layout/Footer';
 import Header from '../components/Layout/Header';
+import ScrollToTopButton from '../components/ScrollToTopButton';
 import Detail from '../pages/Detail';
 import Error from '../pages/Error';
 import Login from '../pages/Login';
@@ -24,6 +25,7 @@ const Router = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/error" element={<Error />} />
       </Routes>
+      <ScrollToTopButton />
       <Footer />
     </BrowserRouter>
   );

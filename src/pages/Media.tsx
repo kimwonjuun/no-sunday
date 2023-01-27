@@ -36,7 +36,7 @@ export const DetailBackColor = styled.div`
 `;
 export const DetailWrap = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   grid-gap: 30px 20px;
   overflow: hidden;
   margin: 0 50px;
@@ -46,7 +46,7 @@ export const DetailWrap = styled.div`
 export const Title = styled.p`
   margin: 0 50px;
   padding-top: 41px;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   color: white;
 `;
