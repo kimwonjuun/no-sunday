@@ -8,10 +8,12 @@ import Main from '../pages/Main';
 import Media from '../pages/Media';
 import Mypage from '../pages/Mypage';
 import SignUp from '../pages/SignUp';
+import ScrollUpto from '../components/Mypage/ScrollUpTo';
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <ScrollUpto />
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
