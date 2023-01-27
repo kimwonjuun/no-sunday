@@ -10,8 +10,13 @@ const Artist = ({ item }: { item: any }) => {
         navigate(`/${item.channelId}`);
       }}
     >
-      <ArtistBoxImgStyle src={item.memberImg} />
-      <ArtistBoxLogoStyle src={item.logoImg} />
+      <ArtistBgImgWrapper>
+        <ArtistBoxImgStyle src={item.memberImg} />
+      </ArtistBgImgWrapper>
+      <LogoWrapper>
+        <ArtistBoxLogoStyle src={item.logoImg} />
+      </LogoWrapper>
+
       <ArtistBoxNameStyle>
         <ArtistBoxName>{item.name}</ArtistBoxName>
       </ArtistBoxNameStyle>
@@ -21,46 +26,71 @@ const Artist = ({ item }: { item: any }) => {
 
 export default Artist;
 
-const ArtistBox = styled.button`
-  border-radius: 30px;
-  width: 230px;
-  height: 300px;
-  display: inline-block;
-  margin: 0 10px 50px 10px;
+const ArtistBox = styled.div`
+  border-radius: 10px;
+  min-width: 230px;
+  height: 320px;
+  margin: 0 10px 20px 10px;
   position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  transition: color 300ms ease-in-out;
+
+  &:hover {
+    color: #e32586;
+  }
 `;
+
+const ArtistBgImgWrapper = styled.div`
+  width: inherit;
+  height: 230px;
+  overflow: hidden;
+`;
+
 const ArtistBoxImgStyle = styled.img`
-  border-bottom: 5px solid white;
-  border-radius: 20px 20px 0px 0px;
   width: 100%;
-  height: 75%;
+  height: 100%;
+  transition: transform 300ms ease-in-out;
   transition: -webkit-transform 0.2s ease-in-out;
-  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
-const ArtistBoxLogoStyle = styled.img`
-  width: 80px;
-  height: 80px;
-  border: 5px solid white;
-  border-radius: 50%;
+
+const LogoWrapper = styled.div`
+  width: 46px;
+  height: 46px;
   position: absolute;
-  top: 48%;
+  top: 42%;
   bottom: 0;
   left: 0;
   right: 0;
   margin: auto;
+  border-radius: 50%;
+  outline: 3px solid white;
+  overflow: hidden;
+`;
+
+const ArtistBoxLogoStyle = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 const ArtistBoxNameStyle = styled.div`
   background-color: white;
 
   width: 100%;
   height: 25%;
-  border-radius: 0px 0px 20px 20px;
+  border-radius: 0px 0px 10px 10px;
   box-sizing: border-box;
-  padding: 50px;
+  padding: 30px 0 50px;
+
   text-align: center;
 `;
 const ArtistBoxName = styled.div`
-  font-size: 17px;
+  width: 100%;
+  font-size: 20px;
   font-weight: bold;
   line-height: 25px;
 `;

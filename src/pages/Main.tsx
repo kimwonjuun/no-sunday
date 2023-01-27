@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Logo from '../common/test-img/Logo.png';
-// import testLogo from '../../public/assets/logo.png'; ??? 왜 안돼
 import { dbService } from '../common/firebase';
 import { useEffect, useState } from 'react';
 import { getDocs, collection } from 'firebase/firestore';
@@ -53,7 +52,6 @@ export default function Main() {
 
 // MainPage
 const MainPageWrapper = styled.div`
-  font-size: 15px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -90,5 +88,5 @@ const MainPageArtistBoxArea = styled.div`
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  padding: 70px;
+  padding: 70px 50px;
 `;
