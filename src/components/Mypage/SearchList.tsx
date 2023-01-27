@@ -9,11 +9,6 @@ export default function SearchList({ item }: { item: any }) {
 
   const navigate = useNavigate();
 
-  // const [duration, setDuration] = useState(null)
-
-  // const seconds = moment.duration(duration).asSeconds();
-  // const _duration = moment.utc(seconds * 1000).format('mm:ss');
-
   return (
     <div
       onClick={() => {

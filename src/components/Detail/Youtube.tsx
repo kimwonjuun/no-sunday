@@ -9,7 +9,6 @@ import {
   doc,
   getDocs,
   query,
-  updateDoc,
   where,
 } from 'firebase/firestore';
 import { authService, dbService } from './../../common/firebase';
@@ -18,12 +17,23 @@ import { useState, useEffect } from 'react';
 export default function Youtube() {
   const {
     pathname,
-    state: { item },
+    state: { item, page },
   } = useLocation();
 
   // 디테일 페이지에서 보여지는 동영상 정보들
-  const { title, channelTitle, publishTime, description, channelId } =
-    item.snippet;
+  const {
+    title,
+    channelTitle,
+    publishTime,
+    description,
+    channelId,
+    thumbnails,
+  } = item.snippet;
+
+  console.log('item:', item);
+  console.log('page:', page);
+
+  const thumbnail = thumbnails.high.url;
 
   // addDoc에 들어가는 videoId
   const { videoId } = item.id;
@@ -45,6 +55,7 @@ export default function Youtube() {
       channelTitle,
       channelId,
       videoId,
+      thumbnail,
       publishTime,
       isLike: true,
       userId: authService.currentUser?.uid,
@@ -57,7 +68,7 @@ export default function Youtube() {
     return checkedItem.filter((item: any) => item.videoId === videoId);
   };
 
-  // 2. 좋아요 눌른 정보들을 getDoc을 통해
+  // 2. 좋아요 눌른 정보들을 getDoc을 통해 가져옴
   useEffect(() => {
     const likeClick = async () => {
       let selectedArray: any = [];
@@ -75,7 +86,7 @@ export default function Youtube() {
 
         selectedArray.push(likeObj);
       });
-      // likedetail에는 내가 클릭한 모든 영상들의 정보가 들어가 있다.
+      // selectedArray에는 내가 클릭한 모든 영상들의 정보가 들어가 있다.
       // changeIikedetail의 함수에 selectedArray을 인자로 넘겨줘서 filter를 거쳐서 내가 클릭한 영상의 아이디 값만 filteredlike에 할당된다.
       const filteredlike = changelikedetail(selectedArray);
       // filteredlike를 전역에서 사용할 수 있게 setchckedItem에 넘겨준다.
@@ -87,7 +98,7 @@ export default function Youtube() {
     // pathname을 추가해서 다시 userEffect가 실행이 된다.
   }, [like, pathname]);
 
-  // 3.Like이면
+  // 3.채워진 하트 클릭 시 deleteDoc
   const isLikeChangeHandler = async () => {
     if (like) {
       await deleteDoc(doc(dbService, 'likes', checkedItem[0].id));
