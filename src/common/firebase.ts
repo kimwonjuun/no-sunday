@@ -3,7 +3,7 @@ import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: 'AIzaSyBvaVpp63pkk3Q_nbYddC3DQkWXUBgNqvs',
   authDomain: 'bounce-5c8eb.firebaseapp.com',
   projectId: 'bounce-5c8eb',
