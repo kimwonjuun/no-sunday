@@ -1,14 +1,9 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getAuth, updateProfile } from 'firebase/auth';
+import { updateProfile } from 'firebase/auth';
 import { authService, storage } from '../../common/firebase';
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-  uploadBytes,
-} from 'firebase/storage';
+import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
+import { firebaseConfig } from '../../common/firebase';
 
 interface MypageHeadeProps {
   onSignOut: () => void;
@@ -21,15 +16,20 @@ interface UserInfoTypes {
 }
 
 const MypageHeader = ({ onSignOut }: MypageHeadeProps) => {
-  const [userInfo, setUserInfo] = useState<UserInfoTypes>();
+  const userSession = sessionStorage.getItem(
+    `firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`,
+  );
+  const currentUser = JSON.parse(userSession ?? '');
   const user: any = authService?.currentUser;
-  const [photoURL, setPhotoURL] = useState<any>(user.photoURL);
-  const imgRef = useRef(null);
+
+  const [userInfo, setUserInfo] = useState<UserInfoTypes>();
+  const [photoURL, setPhotoURL] = useState<any>(currentUser.photoURL);
+
   const getUserInfo = () => {
     setUserInfo({
-      nickname: user?.displayName ?? '익명',
-      email: user?.email ?? '',
-      photoUrl: user?.photoURL ?? '/assets/default_profile.png',
+      nickname: currentUser?.displayName ?? '익명',
+      email: currentUser?.email ?? '',
+      photoUrl: currentUser?.photoURL ?? '/assets/default_profile.png',
     });
   };
 
@@ -59,9 +59,6 @@ const MypageHeader = ({ onSignOut }: MypageHeadeProps) => {
       .catch((error) => {
         alert('이미지 업로드 실패');
       });
-
-    console.log(file_url);
-    console.log(authService.currentUser);
   };
 
   console.log(photoURL);
@@ -122,7 +119,7 @@ const ProfileWrapper = styled.div`
 `;
 
 const ImgWrapper = styled.div`
-  min-width: 200px;
+  width: 200px;
   height: 200px;
   border-radius: 50%;
   overflow: hidden;
@@ -133,6 +130,7 @@ const ProfileImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  cursor: pointer;
 `;
 
 const InfoWrapper = styled.div`
