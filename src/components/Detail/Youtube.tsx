@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { HiDotsVertical } from 'react-icons/hi';
 import { textRegex } from './../../utils/VaildText';
 import {
   addDoc,
@@ -14,6 +15,7 @@ import {
 import { authService, dbService } from './../../common/firebase';
 import { useState, useEffect } from 'react';
 import { deflate } from 'zlib';
+import SocialShare from './SocialShare';
 
 export default function Youtube() {
   const {
@@ -39,6 +41,9 @@ export default function Youtube() {
   // 날짜 정보
   const timestamp: any = { publishTime };
   const date: any = new Date(timestamp.publishTime.toString()).toLocaleString();
+
+  // 소셜 공유 옵션 상태 저장
+  const [showOptions, setShowOptions] = useState(false);
 
   const [like, setLike] = useState(false);
 
@@ -127,14 +132,26 @@ export default function Youtube() {
               </ArtistWrap>
             </ArtistContainer>
           </ArtistDateContainer>
-          <ArtistLike>
-            <HeartWrapper
-              onClick={() => (like ? isLikeChangeHandler() : addLike())}
-            >
-              {/* 좋아요 유무 */}
-              {like ? <LikeBtnFill /> : <LikeBtnLine />}
-            </HeartWrapper>
-          </ArtistLike>
+          <ArtistLikeAndSocial>
+            <ArtistLike>
+              <HeartWrapper
+                onClick={() => (like ? isLikeChangeHandler() : addLike())}
+              >
+                {/* 좋아요 유무 */}
+                {like ? <LikeBtnFill /> : <LikeBtnLine />}
+              </HeartWrapper>
+            </ArtistLike>
+            <ArtistSocial>
+              <Social
+                onClick={() => {
+                  setShowOptions(!showOptions);
+                }}
+              >
+                <DropdownOptions />
+              </Social>
+              {showOptions == true ? <SocialShare /> : null}
+            </ArtistSocial>
+          </ArtistLikeAndSocial>
         </TitleContentsCotainer>
         <DescriptionArea>{description}</DescriptionArea>
       </YoutubeView>
@@ -200,6 +217,28 @@ const ArtistName = styled.div`
   font-size: 14px;
   line-height: 17px;
   margin-left: 7px;
+`;
+
+const ArtistLikeAndSocial = styled.div`
+  align-items: center;
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: flex-end;
+`;
+
+const ArtistSocial = styled.div`
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  position: relative;
+`;
+
+const Social = styled.span`
+  display: block;
+`;
+
+const DropdownOptions = styled(HiDotsVertical)`
+  color: white;
 `;
 
 const ArtistLike = styled.div`
