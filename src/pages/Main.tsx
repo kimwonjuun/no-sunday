@@ -3,7 +3,7 @@ import Logo from '../common/test-img/Logo.png';
 import { dbService } from '../common/firebase';
 import { useEffect, useState } from 'react';
 import { getDocs, collection } from 'firebase/firestore';
-import Artist from '../components/Auth/Main/Artist';
+import Artist from '../components/Main/Artist';
 import { useAppDispatch } from '../hooks/useRedux';
 import { saveArtists } from '../redux/modules/ArtistsSlice';
 import { ArtistsTypes } from '../redux/modules/ArtistsSlice';
