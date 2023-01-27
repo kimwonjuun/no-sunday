@@ -3,7 +3,7 @@ import { textRegex } from './../../utils/VaildText';
 import { useNavigate } from 'react-router-dom';
 
 export default function RelatedContent({ item }: { item: any }) {
-  const { title, thumbnails, publishTime } = item.snippet;
+  const { title, thumbnails, publishTime, channelId } = item.snippet;
 
   const timestamp: any = { publishTime };
   const date: any = new Date(timestamp.publishTime.toString()).toLocaleString();
@@ -16,7 +16,7 @@ export default function RelatedContent({ item }: { item: any }) {
         <ContentThumbnail>
           <img
             onClick={() => {
-              navigate(`/arist/${item.id.playlistId}`, { state: { item } });
+              navigate(`/${channelId}/${item.id.videoId}`, { state: { item } });
             }}
             src={thumbnails.high.url}
             alt={title}

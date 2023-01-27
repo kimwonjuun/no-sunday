@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { getSearchVideos } from '../redux/modules/MediaSlice';
-import SearchList from './../components/SearchList';
+import SearchList from '../components/Mypage/SearchList';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
 
@@ -41,6 +41,7 @@ export const DetailWrap = styled.div`
   overflow: hidden;
   margin: 0 50px;
   padding-top: 20px;
+  padding-bottom: 50px;
 `;
 export const Title = styled.p`
   margin: 0 50px;
