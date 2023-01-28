@@ -38,7 +38,7 @@ export default function DetailView() {
           <RelatedContentNumber>전체 20</RelatedContentNumber>
           <RelatedContentList>
             {search.map((item: any) => (
-              <RelatedContent item={item} key={item.id} />
+              <RelatedContent item={item} key={item.id.videoId} />
             ))}
           </RelatedContentList>
         </RelatedContentContainer>
@@ -85,8 +85,8 @@ const RelatedContentNumber = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 19px 0 30px;
-  color: #eee;
-  font-size: 13px;
+  color: #ccc;
+  font-size: 14px;
   line-height: 16px;
 `;
 

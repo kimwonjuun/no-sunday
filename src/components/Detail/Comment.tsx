@@ -91,7 +91,6 @@ export default function Comment({ videoId }: { videoId: string }) {
     });
     return getComments;
   }, []);
-  console.log(myComment);
 
   // delete
   // uid 말고 컬렉션 안의 문서를?? 가져와야함. documentId: doc.id, -> 얘가 그 녀석이었다.
@@ -272,7 +271,7 @@ const CommentProfileName = styled.div`
   line-height: 17px;
   overflow: hidden;
   font-weight: bold;
-  color: white;
+  color: #eee;
 `;
 
 const CommentProfileDate = styled.div`
@@ -285,7 +284,6 @@ const CommentProfileDate = styled.div`
 `;
 
 const CommentViewArea = styled.div`
-  font-size: 15px;
   line-height: 21px;
   overflow-wrap: break-word;
   padding: 7px 0 7px 42px;

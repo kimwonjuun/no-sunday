@@ -23,7 +23,7 @@ export default function Media() {
         <Title>최신미디어</Title>
         <DetailWrap>
           {search.map((item: any) => (
-            <SearchList item={item} key={item.id} />
+            <SearchList item={item} key={item.id.videoId} />
           ))}
         </DetailWrap>
       </DetailBackColor>

@@ -29,10 +29,13 @@ export default function RelatedContent({ item }: { item: any }) {
   );
 }
 
-const Content = styled.div``;
+const Content = styled.div`
+  cursor: pointer;
+`;
 
 const ContentThumbnail = styled.div`
   aspect-ratio: 320/180;
+  width: auto;
   border-radius: 14px;
   isolation: isolate;
   overflow: hidden;
@@ -42,25 +45,16 @@ const ContentThumbnail = styled.div`
 const ContentTitle = styled.div`
   color: #eee;
   display: -webkit-box;
-  font-size: 14px;
   font-weight: 600;
   line-height: 19px;
   margin-top: 15px;
-`;
-
-const ContentSummary = styled.div`
-  color: #aaa;
-  display: block;
-  font-size: 12px;
-  line-height: 16px;
-  margin-top: 4px;
 `;
 
 const ContentDate = styled.div`
   align-items: center;
   color: #8e8e8e;
   display: flex;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 13px;
   align-items: center;
   display: flex;
