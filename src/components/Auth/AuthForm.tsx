@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, ForwardedRef } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import CustomInput from './CustomInput';
 import SocialLogin from './SocialLogin';
 
 interface AuthFormProps {
@@ -10,10 +11,13 @@ interface AuthFormProps {
   linkText: string;
   email: string;
   password: string;
+  confirmPassword?: string | null;
   emailRef: ForwardedRef<HTMLInputElement>;
   passwordRef: ForwardedRef<HTMLInputElement>;
+  confirmPasswordRef?: ForwardedRef<HTMLInputElement> | null;
   changeEmail: (event: ChangeEvent<HTMLInputElement>) => void;
   changePassword: (event: ChangeEvent<HTMLInputElement>) => void;
+  changeConfirmPassword?: (event: ChangeEvent<HTMLInputElement>) => void | null;
   submitHandler: (event: FormEvent<HTMLFormElement>) => void;
 }
 
@@ -24,12 +28,18 @@ const AuthForm = ({
   linkText,
   email,
   password,
+  confirmPassword,
+  confirmPasswordRef,
   emailRef,
   passwordRef,
   changeEmail,
   changePassword,
+  changeConfirmPassword,
   submitHandler,
 }: AuthFormProps) => {
+  const signUp = title === '회원가입';
+  console.log('confirmPassword', confirmPassword);
+
   return (
     <Background>
       <AuthWrapper>
@@ -40,40 +50,63 @@ const AuthForm = ({
         </AuthLogo>
         <Title>{title}</Title>
         <Form onSubmit={submitHandler}>
-          <InputWrapper>
-            <Label htmlFor="email">이메일</Label>
-            <Input
-              type="text"
-              id="email"
-              placeholder="이메일을 입력해주세요"
-              value={email}
-              onChange={changeEmail}
-              ref={emailRef}
+          <CustomInput
+            id="email"
+            labelText="이메일"
+            placeholder="이메일을 입력해주세요."
+            value={email}
+            onChange={changeEmail}
+            valueRef={emailRef}
+          />
+          <CustomInput
+            id="password"
+            labelText="비밀번호"
+            placeholder="비밀번호를 입력해주세요."
+            value={password}
+            onChange={changePassword}
+            valueRef={passwordRef}
+            inputType={'password'}
+          />
+          {signUp ? (
+            <CustomInput
+              id="confirm-password"
+              labelText="비밀번호 확인"
+              placeholder="비밀번호를 다시 한 번 입력해주세요."
+              value={confirmPassword as string}
+              onChange={
+                changeConfirmPassword as (
+                  event: ChangeEvent<HTMLInputElement>,
+                ) => void
+              }
+              valueRef={
+                confirmPasswordRef as ForwardedRef<HTMLInputElement> | null
+              }
+              inputType={'password'}
             />
-          </InputWrapper>
-          <InputWrapper>
-            <Label htmlFor="password">비밀번호</Label>
-            <Input
-              type="password"
-              id="password"
-              placeholder="비밀번호를 입력해주세요"
-              value={password}
-              onChange={changePassword}
-              ref={passwordRef}
-              autoComplete="off"
-            />
-          </InputWrapper>
-          <AuthButton type="submit" disabled={!email || !password}>
-            {buttonText}
-          </AuthButton>
+          ) : (
+            ''
+          )}
+          {signUp && (
+            <AuthButton
+              type="submit"
+              disabled={!email || !password || !confirmPassword}
+            >
+              {buttonText}
+            </AuthButton>
+          )}
+          {!signUp && (
+            <AuthButton type="submit" disabled={!email || !password}>
+              {buttonText}
+            </AuthButton>
+          )}
           <AuthText>
             {authText}
-            <Link to={`${linkText === '회원가입' ? '/signup' : '/login'}`}>
+            <Link to={`${signUp ? '/login' : '/signup'}`}>
               <LinkText>{linkText}</LinkText>
             </Link>
           </AuthText>
         </Form>
-        {buttonText === '로그인' && <SocialLogin />}
+        {!signUp && <SocialLogin />}
       </AuthWrapper>
     </Background>
   );
@@ -120,32 +153,6 @@ const Title = styled.h2`
 `;
 
 const Form = styled.form``;
-
-const InputWrapper = styled.div`
-  width: 400px;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 0.6rem;
-`;
-
-const Label = styled.label`
-  color: #333;
-  font-weight: 600;
-  font-size: 0.94rem;
-`;
-
-const Input = styled.input`
-  height: 40px;
-  padding: 0 4px;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid #ff0098;
-  color: #555;
-
-  ::placeholder {
-    color: #999;
-  }
-`;
 
 export const AuthButton = styled.button`
   width: 100%;
