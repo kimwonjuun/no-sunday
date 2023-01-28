@@ -8,9 +8,9 @@ const CommentItem = ({ item }: { item: any }) => {
           <Profile>
             <ProfileImg src={item.profileImg} />
           </Profile>
-          <Writer>{item.name}</Writer>
+          <Writer>{item.name ?? '익명'}</Writer>
         </ProfileWrapper>
-        <CreatedAt>{item.createdAt}</CreatedAt>
+        <CreatedAt>{new Date(item.createdAt).toLocaleString()}</CreatedAt>
       </CommentInfo>
       <CommentText>{item.comment}</CommentText>
     </ItemWrapper>
@@ -20,12 +20,11 @@ const CommentItem = ({ item }: { item: any }) => {
 export default CommentItem;
 
 const ItemWrapper = styled.div`
-  width: 500px;
+  width: 400px;
   min-height: 140px;
   background-color: #fff;
   border-radius: 10px;
   padding: 20px 28px;
-  margin: 0 2.5rem 2rem 0;
   cursor: pointer;
 
   &:nth-child(2n) {

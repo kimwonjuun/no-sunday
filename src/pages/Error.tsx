@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { BiMessageError } from 'react-icons/bi';
-import { Container } from './Mypage';
 import { AuthButton } from '../components/Auth/AuthForm';
 
 const Error = () => {
@@ -37,7 +36,7 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
-const ErrorMsgWrapper = styled(Container)`
+const ErrorMsgWrapper = styled.section`
   flex-direction: column;
   text-align: center;
 `;

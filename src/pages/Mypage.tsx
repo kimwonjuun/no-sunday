@@ -47,7 +47,7 @@ const MyPageWrapper = styled.div`
   background-color: #f7f7f7;
 `;
 
-export const Container = styled.div`
+const Container = styled.div`
   margin-left: 50px;
   margin-right: 50px;
 `;
