@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Logo from '../common/test-img/Logo.png';
 import { dbService } from '../common/firebase';
 import { useEffect, useState } from 'react';
 import { getDocs, collection } from 'firebase/firestore';
@@ -70,7 +69,7 @@ const MainPageIntroWrapper = styled.div`
   align-items: center;
 `;
 const MainPageIntroArea = styled.div`
-  background: url(${Logo});
+  background: url('/assets/bounce.png') no-repeat center;
 
   width: 500px;
   height: 150px;
