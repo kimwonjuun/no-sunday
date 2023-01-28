@@ -4,8 +4,9 @@ import { updateProfile } from 'firebase/auth';
 import { authService, storage } from '../../common/firebase';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import { AiFillEdit } from 'react-icons/ai';
+import NickNameChangeInput from './NickNameChangeInput';
 
-interface MypageHeadeProps {
+interface MypageHeaderProps {
   onSignOut: () => void;
   currentUser: any;
 }
@@ -16,14 +17,14 @@ interface UserInfoTypes {
   photoUrl: string | null;
 }
 
-const MypageHeader = ({ onSignOut, currentUser }: MypageHeadeProps) => {
+const MypageHeader = ({ onSignOut, currentUser }: MypageHeaderProps) => {
   const user: any = authService?.currentUser;
   const [userInfo, setUserInfo] = useState<UserInfoTypes>();
   const [photoURL, setPhotoURL] = useState<any>(currentUser.photoURL);
 
-  const [text, setText] = useState('');
   const [newNickName, setNewNickName] = useState(currentUser.displayName);
   const [showNickNameChangeBtn, setShowNickNameChangeBtn] = useState(false);
+
   const getUserInfo = () => {
     setUserInfo({
       nickname: currentUser?.displayName ?? '익명',
@@ -62,26 +63,6 @@ const MypageHeader = ({ onSignOut, currentUser }: MypageHeadeProps) => {
 
   // console.log(photoURL);
 
-  // 원준 닉네임 변경
-
-  const editNickName = async () => {
-    setNewNickName(text);
-    await updateProfile(user, {
-      displayName: text,
-    })
-      .then(() => {
-        alert('닉네임 변경 완료');
-      })
-      .catch((error) => {
-        alert('닉네임 변경 실패');
-      });
-  };
-  const handleNickNameBtn = () => {
-    editNickName();
-    setText('');
-    setShowNickNameChangeBtn(false);
-  };
-
   return (
     <ProfileBg>
       <ProfileWrapper>
@@ -101,31 +82,19 @@ const MypageHeader = ({ onSignOut, currentUser }: MypageHeadeProps) => {
         </ImgWrapper>
         <InfoWrapper>
           <Nickname>
-            {/* {userInfo?.nickname} */}
-            {newNickName}
+            {/* {userInfo?.nickname} 이게 아니라  */}
+            {/* 이것이다 */}
+            {newNickName ?? '익명'}
             <AiFillEdit
               onClick={() => {
                 setShowNickNameChangeBtn(!showNickNameChangeBtn);
               }}
             />
             {showNickNameChangeBtn === true ? (
-              <>
-                <input
-                  type="text"
-                  placeholder="변경할 닉네임을 입력해주세요."
-                  value={text}
-                  onChange={(event) => {
-                    setText(event.target.value);
-                  }}
-                />
-                <button
-                  onClick={() => {
-                    handleNickNameBtn();
-                  }}
-                >
-                  변경
-                </button>
-              </>
+              <NickNameChangeInput
+                setNewNickName={setNewNickName}
+                setShowNickNameChangeBtn={setShowNickNameChangeBtn}
+              />
             ) : null}
           </Nickname>
 
