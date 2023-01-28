@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import { query, collection, where, getDocs } from 'firebase/firestore';
+import { query, collection, where, getDocs, orderBy } from 'firebase/firestore';
 import { authService, dbService } from './../../common/firebase';
 import LikeMediaItem from './LikeMediaItem';
 
