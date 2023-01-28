@@ -56,10 +56,28 @@ const MypageHeader = ({ onSignOut, currentUser }: MypageHeadeProps) => {
       });
   };
 
-  console.log(photoURL);
+  // console.log(photoURL);
 
   // 원준 닉네임 변경
-  const editNickName = () => {};
+  const [text, setText] = useState('');
+  const [newNickName, setNewNickName] = useState(user?.displayName);
+  const editNickName = async () => {
+    setNewNickName(text);
+    updateProfile(user, {
+      displayName: text,
+    })
+      .then(() => {
+        alert('닉네임 변경 완료');
+      })
+      .catch((error) => {
+        alert('닉네임 변경 실패');
+      });
+  };
+  const handleNickNameBtn = () => {
+    editNickName();
+    setText('');
+  };
+  console.log(newNickName);
   return (
     <ProfileBg>
       <ProfileWrapper>
@@ -79,12 +97,20 @@ const MypageHeader = ({ onSignOut, currentUser }: MypageHeadeProps) => {
         </ImgWrapper>
         <InfoWrapper>
           <Nickname>{userInfo?.nickname}</Nickname>
+          <input
+            type="text"
+            placeholder="변경할 닉네임을 입력해주세요."
+            value={text}
+            onChange={(event) => {
+              setText(event.target.value);
+            }}
+          />
           <button
             onClick={() => {
-              alert('아직은 안돼요~');
+              handleNickNameBtn();
             }}
           >
-            닉네임 수정하기
+            닉네임 수정
           </button>
           <Email>{userInfo?.email}</Email>
           <Logout onClick={onSignOut}>로그아웃</Logout>
