@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { updateProfile } from 'firebase/auth';
 import { authService, storage } from '../../common/firebase';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
-import { firebaseConfig } from '../../common/firebase';
 
 interface MypageHeadeProps {
   onSignOut: () => void;
+  currentUser: any;
 }
 
 interface UserInfoTypes {
@@ -15,13 +15,8 @@ interface UserInfoTypes {
   photoUrl: string | null;
 }
 
-const MypageHeader = ({ onSignOut }: MypageHeadeProps) => {
-  const userSession = sessionStorage.getItem(
-    `firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`,
-  );
-  const currentUser = JSON.parse(userSession ?? '');
+const MypageHeader = ({ onSignOut, currentUser }: MypageHeadeProps) => {
   const user: any = authService?.currentUser;
-
   const [userInfo, setUserInfo] = useState<UserInfoTypes>();
   const [photoURL, setPhotoURL] = useState<any>(currentUser.photoURL);
 
