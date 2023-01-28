@@ -2,7 +2,6 @@ import {
   addDoc,
   collection,
   deleteDoc,
-  getDocs,
   doc,
   query,
   orderBy,
@@ -11,8 +10,8 @@ import {
 } from 'firebase/firestore';
 import React, { useEffect, useId, useState } from 'react';
 import styled from 'styled-components';
-import { idText } from 'typescript';
 import { authService, dbService } from '../../common/firebase';
+import { timeToLocaleString } from '../../utils/Date';
 
 export default function Comment({ videoId }: { videoId: string }) {
   const uniqueId = useId();
@@ -35,7 +34,7 @@ export default function Comment({ videoId }: { videoId: string }) {
       videoId: videoId,
       id: authService.currentUser?.uid,
       comment: inputComment,
-      name: authService.currentUser?.displayName,
+      name: authService.currentUser?.displayName ?? '익명',
       profileImg: authService.currentUser?.photoURL,
       createdAt: Date.now(),
     });
@@ -121,7 +120,7 @@ export default function Comment({ videoId }: { videoId: string }) {
                       <CommentProfile>
                         <CommentProfileName>{item.name}</CommentProfileName>
                         <CommentProfileDate>
-                          {item.createdAt}
+                          {timeToLocaleString(item.createdAt)}
                         </CommentProfileDate>
                       </CommentProfile>
                     </CommentPostHeader>

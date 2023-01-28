@@ -14,8 +14,8 @@ import {
 } from 'firebase/firestore';
 import { authService, dbService } from './../../common/firebase';
 import { useState, useEffect } from 'react';
-import { deflate } from 'zlib';
 import SocialShare from './SocialShare';
+import { timeToLocaleString } from '../../utils/Date';
 
 export default function Youtube() {
   const {
@@ -40,7 +40,7 @@ export default function Youtube() {
 
   // 날짜 정보
   const timestamp: any = { publishTime };
-  const date: any = new Date(timestamp.publishTime.toString()).toLocaleString();
+  const date = timeToLocaleString(timestamp);
 
   // 소셜 공유 옵션 상태 저장
   const [showOptions, setShowOptions] = useState(false);

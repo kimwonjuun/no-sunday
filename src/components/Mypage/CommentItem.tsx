@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { timeToLocaleString } from '../../utils/Date';
 
 const CommentItem = ({ item }: { item: any }) => {
   return (
@@ -10,7 +11,7 @@ const CommentItem = ({ item }: { item: any }) => {
           </Profile>
           <Writer>{item.name ?? '익명'}</Writer>
         </ProfileWrapper>
-        <CreatedAt>{new Date(item.createdAt).toLocaleString()}</CreatedAt>
+        <CreatedAt>{timeToLocaleString(item.createdAt)}</CreatedAt>
       </CommentInfo>
       <CommentText>{item.comment}</CommentText>
     </ItemWrapper>
