@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { HiDotsVertical } from 'react-icons/hi';
@@ -15,13 +15,19 @@ import {
 import { authService, dbService } from './../../common/firebase';
 import { useState, useEffect } from 'react';
 import SocialShare from './SocialShare';
-import { timeToLocaleString } from '../../utils/Date';
 
 export default function Youtube() {
   const {
     pathname,
     state: { item, page },
   } = useLocation();
+  const navigate = useNavigate();
+  // 소셜 공유 옵션 상태 저장
+  const [showOptions, setShowOptions] = useState(false);
+  const [like, setLike] = useState(false);
+
+  //useEffect에 likedetail을 전역에서 사용하기 위한 useState
+  const [checkedItem, setcheckedItem] = useState<any>([]);
 
   // 디테일 페이지에서 보여지는 동영상 정보들
   const {
@@ -40,19 +46,17 @@ export default function Youtube() {
 
   // 날짜 정보
   const timestamp: any = { publishTime };
-  const date = timeToLocaleString(timestamp);
-
-  // 소셜 공유 옵션 상태 저장
-  const [showOptions, setShowOptions] = useState(false);
-
-  const [like, setLike] = useState(false);
-
-  //useEffect에 likedetail을 전역에서 사용하기 위한 useState
-  const [checkedItem, setcheckedItem] = useState<any>([]);
+  const date: any = new Date(timestamp.publishTime.toString()).toLocaleString();
 
   // 1. 하트 클릭 시 addDoc에 영상 정보와 isLike 추가
   const addLike = async () => {
     // 로그인 체크 ( 로그인 이동하는거 추가/ 얼럿창 띄우기 )
+
+    if (!authService.currentUser) {
+      alert('로그인이 필요합니다.');
+      navigate('/login');
+    }
+
     await addDoc(collection(dbService, 'likes'), {
       title,
       channelTitle,
@@ -131,27 +135,27 @@ export default function Youtube() {
                 <UploadDate>{date}</UploadDate>
               </ArtistWrap>
             </ArtistContainer>
+            <ArtistLikeAndSocial>
+              <ArtistLike>
+                <HeartWrapper
+                  onClick={() => (like ? isLikeChangeHandler() : addLike())}
+                >
+                  {/* 좋아요 유무 */}
+                  {like ? <LikeBtnFill /> : <LikeBtnLine />}
+                </HeartWrapper>
+              </ArtistLike>
+              <ArtistSocial>
+                <Social
+                  onClick={() => {
+                    setShowOptions(!showOptions);
+                  }}
+                >
+                  <DropdownOptions />
+                </Social>
+                {showOptions === true ? <SocialShare /> : null}
+              </ArtistSocial>
+            </ArtistLikeAndSocial>
           </ArtistDateContainer>
-          <ArtistLikeAndSocial>
-            <ArtistLike>
-              <HeartWrapper
-                onClick={() => (like ? isLikeChangeHandler() : addLike())}
-              >
-                {/* 좋아요 유무 */}
-                {like ? <LikeBtnFill /> : <LikeBtnLine />}
-              </HeartWrapper>
-            </ArtistLike>
-            <ArtistSocial>
-              <Social
-                onClick={() => {
-                  setShowOptions(!showOptions);
-                }}
-              >
-                <DropdownOptions />
-              </Social>
-              {showOptions == true ? <SocialShare /> : null}
-            </ArtistSocial>
-          </ArtistLikeAndSocial>
         </TitleContentsCotainer>
         <DescriptionArea>{description}</DescriptionArea>
       </YoutubeView>
@@ -160,10 +164,10 @@ export default function Youtube() {
 }
 
 const YoutubeView = styled.div`
-  flex-grow: 1;
   overflow: hidden;
   padding: 30px 0px;
   width: 1015px;
+  margin-bottom: 2rem;
 `;
 
 const PlayerView = styled.div`
@@ -190,10 +194,12 @@ const Title = styled.div`
 const ArtistDateContainer = styled.div`
   display: flex;
   padding-top: 13px;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const ArtistContainer = styled.div`
-  align-items: stretch;
+  align-items: center;
   display: flex;
 `;
 
@@ -214,7 +220,7 @@ const ArtistLogo = styled.div`
 const ArtistName = styled.div`
   color: rgb(238, 238, 238);
   display: block;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 17px;
   margin-left: 7px;
 `;
@@ -238,7 +244,10 @@ const Social = styled.span`
 `;
 
 const DropdownOptions = styled(HiDotsVertical)`
+  font-size: 20px;
+  margin-top: 1rem;
   color: white;
+  cursor: pointer;
 `;
 
 const ArtistLike = styled.div`
@@ -249,29 +258,33 @@ const ArtistLike = styled.div`
 `;
 
 const HeartWrapper = styled.div`
-  position: absolute;
-  margin-top: 10px;
-  margin-left: 10px;
+  margin-top: 1rem;
+  margin-right: 1.2rem;
 `;
 const LikeBtnLine = styled(AiOutlineHeart)`
+  font-size: 26px;
   color: white;
+  cursor: pointer;
 `;
 const LikeBtnFill = styled(AiFillHeart)`
+  font-size: 26px;
   color: white;
+  cursor: pointer;
 `;
 
 const UploadDate = styled.span`
   align-items: center;
   color: rgb(136, 136, 136);
   display: flex;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 13px;
   margin-left: 15px;
+  padding-top: 3px;
 `;
 
-const DescriptionArea = styled.pre`
+const DescriptionArea = styled.p`
+  width: 100%;
   margin: 20px 0px 15px;
-  color: rgb(170, 170, 170);
-  font-size: 14px;
+  color: #ccc;
   line-height: 19px;
 `;
