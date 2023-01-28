@@ -8,7 +8,7 @@ import {
   onSnapshot,
   where,
 } from 'firebase/firestore';
-import React, { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import styled from 'styled-components';
 import { authService, dbService } from '../../common/firebase';
 import { RiDeleteBinLine } from 'react-icons/ri';
@@ -18,7 +18,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Comment({ videoId }: { videoId: string }) {
   const uniqueId = useId();
-  // 원준 일하는 중
   // 댓글 인풋
   const [inputComment, setInputComment] = useState<string>('');
   // 댓글 출력
@@ -52,29 +51,10 @@ export default function Comment({ videoId }: { videoId: string }) {
       profileImg: authService.currentUser?.photoURL,
       createdAt: Date.now(),
     });
-
     setInputComment('');
   };
 
-  // read: onSnapshot 넣어야 할 위치를 찾기 힘들어서 밑에 새로 생성함.
-  // const getComments = async () => {
-  //   const q = query(collection(dbService, 'comments'), orderBy('createdAt'));
-  //   const comment: any = [];
-  //   const querySnapshot = await getDocs(q);
-  //   querySnapshot.forEach((doc) => {
-  //     const newComment = {
-  //       id: doc.id,
-  //       ...doc.data(),
-  //     };
-  //     comment.push(newComment); // myComment 로 잘못썼었음 ㅎ
-  //   });
-
-  //   setMyComment(comment);
-  // };
-  // useEffect(() => {
-  //   getComments();
-  // }, []);
-
+  // read
   useEffect(() => {
     const q = query(
       collection(dbService, 'comments'),
@@ -94,7 +74,6 @@ export default function Comment({ videoId }: { videoId: string }) {
 
   // delete
   // uid 말고 컬렉션 안의 문서를?? 가져와야함. documentId: doc.id, -> 얘가 그 녀석이었다.
-
   const deleteComment = async (documentId: any) => {
     const deleteFlag = window.confirm('댓글을 삭제하시겠습니까?');
     if (!deleteFlag) {
@@ -117,16 +96,6 @@ export default function Comment({ videoId }: { videoId: string }) {
               </CommentHeaderWrap>
             </CommentHeader>
             <CommnetScrollArea>
-              {/* <CommentContent>
-                <CommentPostHeader>
-                  <CommentProfileImg />
-                  <CommentProfile>
-                    <CommentProfileName>닉네임</CommentProfileName>
-                    <CommentProfileDate>날짜</CommentProfileDate>
-                  </CommentProfile>
-                </CommentPostHeader>
-                <CommentViewArea>{myComment}</CommentViewArea>
-              </CommentContent> */}
               {myComment.map((item: any) => {
                 return (
                   <CommentContent key={uniqueId}>
