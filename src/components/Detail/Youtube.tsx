@@ -77,6 +77,11 @@ export default function Youtube() {
 
   // 2. 좋아요 눌른 정보들을 getDoc을 통해 가져옴
   useEffect(() => {
+    if (!authService.currentUser) {
+      setLike(false);
+      return;
+    }
+
     const likeClick = async () => {
       let selectedArray: any = [];
       const q = query(
@@ -118,10 +123,10 @@ export default function Youtube() {
       <YoutubeView>
         <PlayerView>
           <iframe
+            title="title"
             id="player"
             width="100%"
             height="100%"
-            frameBorder="0"
             src={`http://www.youtube.com/embed/${item.id.videoId}`}
           ></iframe>
         </PlayerView>
