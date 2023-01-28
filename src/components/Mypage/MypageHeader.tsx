@@ -85,22 +85,22 @@ const MypageHeader = ({ onSignOut, currentUser }: MypageHeaderProps) => {
             {/* {userInfo?.nickname} 이게 아니라  */}
             {/* 이것이다 */}
 
-            <CurrentNickNameWrapper>
+            <CurrentNickName>
               {newNickName ?? '익명'}
               <PencilIcon
                 onClick={() => {
                   setShowNickNameChangeBtn(!showNickNameChangeBtn);
                 }}
               />
-            </CurrentNickNameWrapper>
+            </CurrentNickName>
 
             {showNickNameChangeBtn === true ? (
-              <IconWrapper>
+              
                 <NickNameChangeInput
                   setNewNickName={setNewNickName}
                   setShowNickNameChangeBtn={setShowNickNameChangeBtn}
                 />
-              </IconWrapper>
+              
             ) : null}
           </Nickname>
 
@@ -181,9 +181,11 @@ const Logout = styled.span`
 
 // 김원준css
 
-const IconWrapper = styled.div``;
+const IconWrapper = styled.div`
+  // 하위 컴포넌트 묶어두기 위한 컴포넌트
+`;
 
-const CurrentNickNameWrapper = styled.div`
+const CurrentNickName = styled.div`
   align-items: center;
   display: flex;
 `;
