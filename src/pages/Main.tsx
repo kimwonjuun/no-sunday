@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { dbService } from '../common/firebase';
 import { useEffect, useState } from 'react';
 import { getDocs, collection } from 'firebase/firestore';
-import Artist from '../components/Main/Artist';
+import ArtistView from '../components/Main/ArtistView';
 import { useAppDispatch } from '../hooks/useRedux';
 import { saveArtists } from '../redux/modules/ArtistsSlice';
 import { ArtistsTypes } from '../redux/modules/ArtistsSlice';
@@ -41,7 +41,7 @@ export default function Main() {
       <MainPageComponentsWrapper>
         <MainPageArtistBoxArea>
           {artists.map((item: any) => (
-            <Artist item={item} key={item.id} />
+            <ArtistView item={item} key={item.id} />
           ))}
         </MainPageArtistBoxArea>
       </MainPageComponentsWrapper>
