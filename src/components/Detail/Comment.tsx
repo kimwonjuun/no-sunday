@@ -11,7 +11,10 @@ import {
 import React, { useEffect, useId, useState } from 'react';
 import styled from 'styled-components';
 import { authService, dbService } from '../../common/firebase';
+import { RiDeleteBinLine } from 'react-icons/ri';
 import { timeToLocaleString } from '../../utils/Date';
+import { ArrowIcon } from '../ScrollToTopButton';
+import { useNavigate } from 'react-router-dom';
 
 export default function Comment({ videoId }: { videoId: string }) {
   const uniqueId = useId();
@@ -20,6 +23,7 @@ export default function Comment({ videoId }: { videoId: string }) {
   const [inputComment, setInputComment] = useState<string>('');
   // 댓글 출력
   const [myComment, setMyComment] = useState<any[]>([]);
+  const navigate = useNavigate();
   // 테스트용 온클릭 함수
   // const addComment = () => {
   //   setMyComment([...myComment, inputComment]);
@@ -30,6 +34,16 @@ export default function Comment({ videoId }: { videoId: string }) {
 
   // create
   const addComment = async () => {
+    if (!authService.currentUser) {
+      alert('댓글은 로그인 후 작성이 가능합니다.');
+      navigate('/login');
+    }
+
+    if (!inputComment) {
+      alert('댓글을 입력해주세요.');
+      return;
+    }
+
     await addDoc(collection(dbService, 'comments'), {
       videoId: videoId,
       id: authService.currentUser?.uid,
@@ -67,7 +81,6 @@ export default function Comment({ videoId }: { videoId: string }) {
       where('videoId', '==', videoId),
       orderBy('createdAt', 'desc'),
     );
-    console.log(q);
 
     const getComments = onSnapshot(q, (snapshot) => {
       const newComment = snapshot.docs.map((doc) => ({
@@ -84,9 +97,12 @@ export default function Comment({ videoId }: { videoId: string }) {
   // uid 말고 컬렉션 안의 문서를?? 가져와야함. documentId: doc.id, -> 얘가 그 녀석이었다.
 
   const deleteComment = async (documentId: any) => {
-    const userDoc = doc(dbService, 'comments', documentId);
-    // console.log(userDoc);
-    await deleteDoc(userDoc);
+    const deleteFlag = window.confirm('댓글을 삭제하시겠습니까?');
+    if (!deleteFlag) {
+      return;
+    }
+
+    await deleteDoc(doc(dbService, 'comments', documentId));
   };
 
   return (
@@ -116,24 +132,28 @@ export default function Comment({ videoId }: { videoId: string }) {
                 return (
                   <CommentContent key={uniqueId}>
                     <CommentPostHeader>
-                      <CommentProfileImg src={item.profileImg} />
-                      <CommentProfile>
-                        <CommentProfileName>{item.name}</CommentProfileName>
-                        <CommentProfileDate>
-                          {timeToLocaleString(item.createdAt)}
-                        </CommentProfileDate>
-                      </CommentProfile>
+                      <CommentProfileWrapper>
+                        <CommentProfileImg src={item.profileImg} />
+                        <CommentProfile>
+                          <CommentProfileName>{item.name}</CommentProfileName>
+                          <CommentProfileDate>
+                            {timeToLocaleString(item.createdAt)}
+                          </CommentProfileDate>
+                        </CommentProfile>
+                      </CommentProfileWrapper>
+                      {authService.currentUser?.uid === item.id ? (
+                        <DeleteWrapper>
+                          <DeleteIcon
+                            onClick={() => {
+                              deleteComment(item.documentId);
+                            }}
+                          />
+                        </DeleteWrapper>
+                      ) : (
+                        ''
+                      )}
                     </CommentPostHeader>
-                    <CommentViewArea>
-                      {item.comment}{' '}
-                      <button
-                        onClick={() => {
-                          deleteComment(item.documentId);
-                        }}
-                      >
-                        삭제
-                      </button>
-                    </CommentViewArea>
+                    <CommentViewArea>{item.comment} </CommentViewArea>
                   </CommentContent>
                 );
               })}
@@ -149,7 +169,9 @@ export default function Comment({ videoId }: { videoId: string }) {
                       setInputComment(event.target.value);
                     }}
                   />
-                  <CommentBtn onClick={addComment} />
+                  <CommentBtn onClick={addComment}>
+                    <Arrow />
+                  </CommentBtn>
                 </CommentWriteArea>
               </CommentWriteBox>
             </CommentWriteContainer>
@@ -186,7 +208,7 @@ const CommentsViewer = styled.div`
   width: 100%;
 `;
 
-const CommentHeader = styled.div`
+const CommentHeader = styled.header`
   box-sizing: border-box;
   flex-shrink: 0;
   height: 70px;
@@ -196,6 +218,11 @@ const CommentHeader = styled.div`
 const CommentHeaderWrap = styled.div`
   align-items: center;
   display: flex;
+`;
+
+const CommentProfileWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 const CommentHeaderTitle = styled.div`
@@ -217,9 +244,11 @@ const CommnetScrollArea = styled.div`
 
 const CommentContent = styled.div`
   position: relative;
+  margin-bottom: 1rem;
 `;
 
 const CommentPostHeader = styled.div`
+  justify-content: space-between;
   align-items: center;
   display: flex;
 `;
@@ -289,14 +318,48 @@ const CommentWrite = styled.input`
   flex-grow: 1;
   min-height: 46px;
   padding: 12px 18px;
+
+  &::placeholder {
+    color: #aaa;
+  }
 `;
 
-const CommentBtn = styled.button`
-  background-color: #3a3a3a;
-  color: #9d9d9d;
-  background-image: none;
-  width: 36px;
-  height: 36px;
+const CommentBtn = styled.div`
+  background-image: linear-gradient(
+    to bottom,
+    #e32586 0%,
+    #e32586 20%,
+    #54bfcc 100%
+  );
+  width: 40px;
+  height: 40px;
   margin: 0 0 5px 10px;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-image: linear-gradient(
+      to bottom,
+      #c32074 0%,
+      #c32074 20%,
+      #48a5b1 100%
+    );
+  }
+`;
+
+const Arrow = styled(ArrowIcon)`
+  font-size: 20px;
+`;
+
+const DeleteWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const DeleteIcon = styled(RiDeleteBinLine)`
+  font-size: 1.2rem;
+  color: #ccc;
+  cursor: pointer;
 `;
