@@ -1,16 +1,18 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import { query, collection, where, getDocs, orderBy } from 'firebase/firestore';
-import { authService, dbService } from './../../common/firebase';
+import { query, collection, where, getDocs } from 'firebase/firestore';
+import { dbService } from './../../common/firebase';
+
 import LikeMediaItem from './LikeMediaItem';
 
-const LikeMediaList = () => {
+const LikeMediaList = ({ currentUser }: { currentUser: any }) => {
   const [items, setItems] = useState([]);
 
+  // 유저가 좋아요한 영상 가져오기
   const getData = async () => {
     const q = query(
       collection(dbService, 'likes'),
-      where('userId', '==', authService.currentUser?.uid),
+      where('userId', '==', currentUser?.uid),
     );
     const querySnapshot = await getDocs(q);
     let dataArray: any = [];
@@ -23,8 +25,6 @@ const LikeMediaList = () => {
   useEffect(() => {
     getData();
   }, []);
-
-  console.log(items);
 
   return (
     <>

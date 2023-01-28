@@ -9,3 +9,7 @@ register('ko', koLocale);
 export function formatAgo(date: any, lang = 'en_US') {
   return format(date, lang);
 }
+
+// Date.now()의 string을 현재 시간으로 변환하는 함수
+export const timeToLocaleString = (createdAt: number) =>
+  new Date(createdAt).toLocaleString();

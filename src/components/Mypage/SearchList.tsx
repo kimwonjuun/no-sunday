@@ -31,6 +31,7 @@ export default function SearchList({ item }: { item: any }) {
 
 const Wrapper = styled.div`
   margin-bottom: 1rem;
+  cursor: pointer;
 
   &:hover {
     img {

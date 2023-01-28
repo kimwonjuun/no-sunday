@@ -59,7 +59,7 @@ const Button = styled.div<{ showButton: boolean }>`
   }
 `;
 
-const ArrowIcon = styled(FiArrowUp)`
+export const ArrowIcon = styled(FiArrowUp)`
   font-size: 28px;
   color: #fff;
   cursor: pointer;

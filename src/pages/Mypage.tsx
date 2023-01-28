@@ -1,13 +1,19 @@
 import styled from 'styled-components';
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { authService } from '../common/firebase';
+import { authService, firebaseConfig } from '../common/firebase';
 import CommentList from '../components/Mypage/CommentList';
 import LikeMediaList from '../components/Mypage/LikeMediaList';
 import MypageHeader from '../components/Mypage/MypageHeader';
 
 export default function Mypage() {
   const navigate = useNavigate();
+
+  // 세션스토리지에서 로그인 했을 때 저장된 currentUser 가져오기
+  const userSession = sessionStorage.getItem(
+    `firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`,
+  );
+  const currentUser = JSON.parse(userSession ?? '');
 
   const handleSignOut = () => {
     signOut(authService).then(() => {
@@ -19,15 +25,15 @@ export default function Mypage() {
 
   return (
     <MyPageWrapper>
-      <MypageHeader onSignOut={handleSignOut} />
+      <MypageHeader onSignOut={handleSignOut} currentUser={currentUser} />
       <Container>
         <Section>
           <SectionTitle>영상 보관함</SectionTitle>
-          <LikeMediaList />
+          <LikeMediaList currentUser={currentUser} />
         </Section>
         <Section>
           <SectionTitle>나의 쓴 댓글</SectionTitle>
-          <CommentList />
+          <CommentList currentUser={currentUser} />
         </Section>
       </Container>
     </MyPageWrapper>
@@ -41,7 +47,7 @@ const MyPageWrapper = styled.div`
   background-color: #f7f7f7;
 `;
 
-export const Container = styled.div`
+const Container = styled.div`
   margin-left: 50px;
   margin-right: 50px;
 `;
