@@ -1,27 +1,22 @@
-import { useDispatch } from 'react-redux';
-import { useState, useEffect, useId } from 'react';
+import { useState, useEffect } from 'react';
 import CommentItem from './CommentItem';
 import { ListWrapper } from './LikeMediaList';
 import {
   collection,
-  doc,
-  getDocs,
   onSnapshot,
   orderBy,
   query,
   where,
 } from 'firebase/firestore';
-import { authService, dbService } from '../../common/firebase';
+import { dbService } from '../../common/firebase';
 
-const CommentList = () => {
-  // 김원준 일 중
-  // const uniqueId = useId();
+const CommentList = ({ currentUser }: { currentUser: any }) => {
   const [getMyComment, setGetMyComment] = useState<any[]>([]);
 
   useEffect(() => {
     const q = query(
       collection(dbService, 'comments'),
-      where('id', '==', authService.currentUser?.uid),
+      where('id', '==', currentUser.uid),
       orderBy('createdAt', 'desc'),
     );
 
@@ -34,7 +29,6 @@ const CommentList = () => {
     });
     return getMyComments;
   }, []);
-  console.log(getMyComment);
 
   return (
     <ListWrapper>
