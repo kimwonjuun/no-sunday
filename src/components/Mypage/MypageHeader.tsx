@@ -84,17 +84,23 @@ const MypageHeader = ({ onSignOut, currentUser }: MypageHeaderProps) => {
           <Nickname>
             {/* {userInfo?.nickname} 이게 아니라  */}
             {/* 이것이다 */}
-            {newNickName ?? '익명'}
-            <AiFillEdit
-              onClick={() => {
-                setShowNickNameChangeBtn(!showNickNameChangeBtn);
-              }}
-            />
-            {showNickNameChangeBtn === true ? (
-              <NickNameChangeInput
-                setNewNickName={setNewNickName}
-                setShowNickNameChangeBtn={setShowNickNameChangeBtn}
+
+            <CurrentNickNameWrapper>
+              {newNickName ?? '익명'}
+              <PencilIcon
+                onClick={() => {
+                  setShowNickNameChangeBtn(!showNickNameChangeBtn);
+                }}
               />
+            </CurrentNickNameWrapper>
+
+            {showNickNameChangeBtn === true ? (
+              <IconWrapper>
+                <NickNameChangeInput
+                  setNewNickName={setNewNickName}
+                  setShowNickNameChangeBtn={setShowNickNameChangeBtn}
+                />
+              </IconWrapper>
             ) : null}
           </Nickname>
 
@@ -118,7 +124,7 @@ const ProfileBg = styled.div`
 `;
 
 const ProfileWrapper = styled.div`
-  max-width: 500px;
+  /* max-width: 500px; */
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -141,11 +147,12 @@ const ProfileImg = styled.img`
 `;
 
 const InfoWrapper = styled.div`
+  width: 300px;
   margin-left: 3rem;
   cursor: default;
 `;
 
-const Nickname = styled.p`
+const Nickname = styled.div`
   font-size: 28px;
   font-weight: 700;
   color: #fff;
@@ -153,12 +160,39 @@ const Nickname = styled.p`
 
 const Email = styled.p`
   color: #ddd;
-  margin-bottom: 2.4rem;
+  font-size: 15px;
+  font-weight: 500;
+
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
 `;
 
 const Logout = styled.span`
   display: block;
-  font-size: 0.9rem;
+  font-size: 15px;
+  font-weight: 700;
   color: #eee;
   cursor: pointer;
+
+  &:hover {
+    color: #ff0098;
+  }
+`;
+
+// 김원준css
+
+const IconWrapper = styled.div``;
+
+const CurrentNickNameWrapper = styled.div`
+  align-items: center;
+  display: flex;
+`;
+const PencilIcon = styled(AiFillEdit)`
+  font-size: 30px;
+  margin-left: 10px;
+  cursor: pointer;
+
+  &:hover {
+    color: #ff0098;
+  }
 `;
