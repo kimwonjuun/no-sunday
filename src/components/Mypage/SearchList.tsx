@@ -3,16 +3,9 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { formatAgo } from '../../utils/Date';
 import { textRegex } from '../../utils/VaildText';
-// import moment from 'moment';
-// import { request } from './../../utils/Api';
 
 export default function SearchList({ item }: { item: any }) {
-  // const [duration, setDuration] = useState(null);
-
   const { title, thumbnails, publishedAt } = item.snippet;
-
-  // const seconds = moment.duration(duration).asSeconds();
-  // const _duration = moment.utc(seconds * 1000).format('mm:ss');
 
   const navigate = useNavigate();
 
