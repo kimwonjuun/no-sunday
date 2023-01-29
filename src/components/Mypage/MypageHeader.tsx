@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import { updateProfile } from 'firebase/auth';
 import { authService, storage } from '../../common/firebase';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
+import { AiFillEdit } from 'react-icons/ai';
+import NickNameChangeInput from './NickNameChangeInput';
 
-interface MypageHeadeProps {
+interface MypageHeaderProps {
   onSignOut: () => void;
   currentUser: any;
 }
@@ -15,10 +17,13 @@ interface UserInfoTypes {
   photoUrl: string | null;
 }
 
-const MypageHeader = ({ onSignOut, currentUser }: MypageHeadeProps) => {
+const MypageHeader = ({ onSignOut, currentUser }: MypageHeaderProps) => {
   const user: any = authService?.currentUser;
   const [userInfo, setUserInfo] = useState<UserInfoTypes>();
   const [photoURL, setPhotoURL] = useState<any>(currentUser.photoURL);
+
+  const [newNickName, setNewNickName] = useState(currentUser.displayName);
+  const [showNickNameChangeBtn, setShowNickNameChangeBtn] = useState(false);
 
   const getUserInfo = () => {
     setUserInfo({
@@ -56,10 +61,8 @@ const MypageHeader = ({ onSignOut, currentUser }: MypageHeadeProps) => {
       });
   };
 
-  console.log(photoURL);
+  // console.log(photoURL);
 
-  // 원준 닉네임 변경
-  const editNickName = () => {};
   return (
     <ProfileBg>
       <ProfileWrapper>
@@ -78,14 +81,29 @@ const MypageHeader = ({ onSignOut, currentUser }: MypageHeadeProps) => {
           </label>
         </ImgWrapper>
         <InfoWrapper>
-          <Nickname>{userInfo?.nickname}</Nickname>
-          <button
-            onClick={() => {
-              alert('아직은 안돼요~');
-            }}
-          >
-            닉네임 수정하기
-          </button>
+          <Nickname>
+            {/* {userInfo?.nickname} 이게 아니라  */}
+            {/* 이것이다 */}
+
+            <CurrentNickName>
+              {newNickName ?? '익명'}
+              <PencilIcon
+                onClick={() => {
+                  setShowNickNameChangeBtn(!showNickNameChangeBtn);
+                }}
+              />
+            </CurrentNickName>
+
+            {showNickNameChangeBtn === true ? (
+              // <IconWrapper>
+              <NickNameChangeInput
+                setNewNickName={setNewNickName}
+                setShowNickNameChangeBtn={setShowNickNameChangeBtn}
+              />
+            ) : // </IconWrapper>
+            null}
+          </Nickname>
+
           <Email>{userInfo?.email}</Email>
           <Logout onClick={onSignOut}>로그아웃</Logout>
         </InfoWrapper>
@@ -106,7 +124,7 @@ const ProfileBg = styled.div`
 `;
 
 const ProfileWrapper = styled.div`
-  max-width: 500px;
+  /* max-width: 500px; */
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -129,11 +147,12 @@ const ProfileImg = styled.img`
 `;
 
 const InfoWrapper = styled.div`
+  width: 300px;
   margin-left: 3rem;
   cursor: default;
 `;
 
-const Nickname = styled.p`
+const Nickname = styled.div`
   font-size: 28px;
   font-weight: 700;
   color: #fff;
@@ -141,12 +160,41 @@ const Nickname = styled.p`
 
 const Email = styled.p`
   color: #ddd;
-  margin-bottom: 2.4rem;
+  font-size: 15px;
+  font-weight: 500;
+
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
 `;
 
 const Logout = styled.span`
   display: block;
-  font-size: 0.9rem;
+  font-size: 15px;
+  font-weight: 700;
   color: #eee;
   cursor: pointer;
+
+  &:hover {
+    color: #ff0098;
+  }
+`;
+
+// 김원준css
+
+const IconWrapper = styled.div`
+  // 하위 컴포넌트 묶어두기 위한 컴포넌트
+`;
+
+const CurrentNickName = styled.div`
+  align-items: center;
+  display: flex;
+`;
+const PencilIcon = styled(AiFillEdit)`
+  font-size: 30px;
+  margin-left: 10px;
+  cursor: pointer;
+
+  &:hover {
+    color: #ff0098;
+  }
 `;

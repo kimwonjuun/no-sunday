@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Artist = ({ item }: { item: any }) => {
+export const ArtistView = ({ item }: { item: any }) => {
   const navigate = useNavigate();
   return (
     <ArtistBox
@@ -24,7 +24,7 @@ const Artist = ({ item }: { item: any }) => {
   );
 };
 
-export default Artist;
+export default ArtistView;
 
 const ArtistBox = styled.div`
   border-radius: 10px;
