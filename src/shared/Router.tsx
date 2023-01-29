@@ -10,24 +10,28 @@ import Media from '../pages/Media';
 import Mypage from '../pages/Mypage';
 import SignUp from '../pages/SignUp';
 import ScrollUpto from '../components/Mypage/ScrollUpTo';
-
+import { SkeletonTheme } from 'react-loading-skeleton';
 const Router = () => {
   return (
-    <BrowserRouter>
-      <ScrollUpto />
-      <Header />
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/:artist" element={<Media />} />
-        <Route path="/:artist/:mediaId" element={<Detail />} />
-        <Route path="/mypage" element={<Mypage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/error" element={<Error />} />
-      </Routes>
-      <ScrollToTopButton />
-      <Footer />
-    </BrowserRouter>
+    <SkeletonTheme baseColor="#202020" highlightColor="#444">
+      <BrowserRouter>
+        <ScrollUpto />
+        <Header />
+        <Routes>
+          <Route path="/" element={<Main />} />
+
+          <Route path="/:artist" element={<Media />} />
+
+          <Route path="/:artist/:mediaId" element={<Detail />} />
+          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/error" element={<Error />} />
+        </Routes>
+        <ScrollToTopButton />
+        <Footer />
+      </BrowserRouter>
+    </SkeletonTheme>
   );
 };
 

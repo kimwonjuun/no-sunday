@@ -21,7 +21,7 @@ export default function SearchList({ item }: { item: any }) {
           alt={title}
           style={{ borderRadius: 20 }}
         />
-        <ThumbnailsView>05:48</ThumbnailsView>
+        {/* <ThumbnailsView>08:48</ThumbnailsView> */}
       </ThumbnailsImgWrap>
       <ThumbnailsTitle>{textRegex(title)}</ThumbnailsTitle>
       <ThumbnailsDate>{formatAgo(publishedAt, 'ko')}</ThumbnailsDate>
@@ -45,6 +45,7 @@ const Wrapper = styled.div`
 
 export const ThumbnailsImgWrap = styled.div`
   // aspect-ratio 썸네일 크기를 이미지나 동영상을 비율대로 줄이거나 늘리는 데 사용 속성
+
   aspect-ratio: 320/180;
   border-radius: 14px;
   isolation: isolate;
