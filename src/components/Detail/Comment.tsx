@@ -23,13 +23,6 @@ export default function Comment({ videoId }: { videoId: string }) {
   // 댓글 출력
   const [myComment, setMyComment] = useState<any[]>([]);
   const navigate = useNavigate();
-  // 테스트용 온클릭 함수
-  // const addComment = () => {
-  //   setMyComment([...myComment, inputComment]);
-  //   setInputComment('');
-  // };
-
-  // 파이어베이스
 
   // create
   const addComment = async () => {

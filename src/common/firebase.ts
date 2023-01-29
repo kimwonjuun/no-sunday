@@ -14,6 +14,5 @@ export const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const dbService = getFirestore(app);
-// === firebase.firestore() 원준 공부용 주석
 export const authService = getAuth(app);
 export const storage = getStorage(app);

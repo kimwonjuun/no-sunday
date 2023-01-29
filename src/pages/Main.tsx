@@ -54,7 +54,6 @@ const MainPageWrapper = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  /* min-height: calc(100vh - 80px); 헤더, 푸터 들어올 시 그 만큼의 픽셀 빼주기 */
   min-width: 200px;
   min-height: 100vh;
 `;
