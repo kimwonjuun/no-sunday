@@ -8,7 +8,7 @@ import {
   onSnapshot,
   where,
 } from 'firebase/firestore';
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { authService, dbService } from '../../common/firebase';
 import { RiDeleteBinLine } from 'react-icons/ri';
@@ -17,7 +17,6 @@ import { ArrowIcon } from '../ScrollToTopButton';
 import { useNavigate } from 'react-router-dom';
 
 export default function Comment({ videoId }: { videoId: string }) {
-  const uniqueId = useId();
   // 댓글 인풋
   const [inputComment, setInputComment] = useState<string>('');
   // 댓글 출력
@@ -63,7 +62,7 @@ export default function Comment({ videoId }: { videoId: string }) {
       setMyComment(newComment);
     });
     return getComments;
-  }, []);
+  }, [videoId]);
 
   // delete
   // uid 말고 컬렉션 안의 문서를?? 가져와야함. documentId: doc.id, -> 얘가 그 녀석이었다.
@@ -91,7 +90,7 @@ export default function Comment({ videoId }: { videoId: string }) {
             <CommnetScrollArea>
               {myComment.map((item: any) => {
                 return (
-                  <CommentContent key={uniqueId}>
+                  <CommentContent key={item.documentId}>
                     <CommentPostHeader>
                       <CommentProfileWrapper>
                         <CommentProfileImg src={item.profileImg} />
