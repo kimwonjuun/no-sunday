@@ -5,7 +5,8 @@ import { HiDotsVertical } from 'react-icons/hi';
 import { textRegex } from './../../utils/VaildText';
 import SocialShare from './SocialShare';
 import Likes from './Likes';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAppSelector } from '../../hooks/useRedux';
 
 export default function Youtube() {
   // 소셜 공유 옵션 상태 저장
@@ -29,6 +30,13 @@ export default function Youtube() {
   const timestamp: any = { publishTime };
   const date: any = new Date(timestamp.publishTime.toString()).toLocaleString();
 
+  // 아티스트 정보 가져오기
+  const { artists } = useAppSelector((state) => state.artists);
+
+  const artistLogoImg = artists.find(
+    (artist) => artist?.channelId === channelId,
+  );
+
   return (
     <>
       <YoutubeView>
@@ -39,6 +47,7 @@ export default function Youtube() {
             width="100%"
             height="100%"
             src={`http://www.youtube.com/embed/${item.id.videoId}`}
+            frameBorder="none"
           ></iframe>
         </PlayerView>
         <TitleContentsCotainer>
@@ -46,7 +55,7 @@ export default function Youtube() {
           <ArtistDateContainer>
             <ArtistContainer>
               <ArtistWrap>
-                <ArtistLogo />
+                <ArtistLogo src={artistLogoImg?.logoImg} />
                 <ArtistName>{channelTitle}</ArtistName>
                 <UploadDate>{date}</UploadDate>
               </ArtistWrap>
@@ -124,7 +133,7 @@ const ArtistWrap = styled.div`
   flex-shrink: 0;
 `;
 
-const ArtistLogo = styled.div`
+const ArtistLogo = styled.img`
   height: 25px;
   width: 25px;
   border-radius: 100px;
