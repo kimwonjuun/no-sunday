@@ -20,8 +20,6 @@ export default function Social() {
         },
       },
     });
-
-    console.log(window.location.href);
   };
 
   return (

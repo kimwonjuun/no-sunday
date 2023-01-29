@@ -61,8 +61,6 @@ const MypageHeader = ({ onSignOut, currentUser }: MypageHeaderProps) => {
       });
   };
 
-  // console.log(photoURL);
-
   return (
     <ProfileBg>
       <ProfileWrapper>
