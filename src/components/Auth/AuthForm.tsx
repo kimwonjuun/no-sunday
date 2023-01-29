@@ -38,7 +38,6 @@ const AuthForm = ({
   submitHandler,
 }: AuthFormProps) => {
   const signUp = title === '회원가입';
-  console.log('confirmPassword', confirmPassword);
 
   return (
     <Background>
