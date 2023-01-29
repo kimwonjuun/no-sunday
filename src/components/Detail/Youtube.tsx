@@ -90,7 +90,7 @@ export default function Youtube() {
 const YoutubeView = styled.div`
   overflow: hidden;
   padding: 30px 0px;
-  width: 1015px;
+  width: 1150px;
   margin-bottom: 2rem;
 `;
 

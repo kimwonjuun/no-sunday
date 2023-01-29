@@ -144,9 +144,13 @@ export default function Comment({ videoId }: { videoId: string }) {
 }
 
 const CommentView = styled.div`
-  margin-left: 30px;
-  width: 350px;
+  margin: 0 0 0 50px;
+  width: 410px;
   padding: 30px 0px;
+
+  @media screen and (min-width: 1200px) {
+    margin-left: 90px;
+  }
 `;
 
 const CommentsView = styled.div`
