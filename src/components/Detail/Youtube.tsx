@@ -12,8 +12,7 @@ export default function Youtube() {
   const [showOptions, setShowOptions] = useState(false);
 
   const {
-    pathname,
-    state: { item, page },
+    state: { item },
   } = useLocation();
 
   // 디테일 페이지에서 보여지는 동영상 정보들
@@ -53,7 +52,6 @@ export default function Youtube() {
               </ArtistWrap>
             </ArtistContainer>
             <ArtistLikeAndSocial>
-              {/* title, channelTitle, channelId, thumbnails, videoId date */}
               <Likes
                 title={title}
                 channelTitle={channelTitle}
