@@ -95,13 +95,13 @@ const MypageHeader = ({ onSignOut, currentUser }: MypageHeaderProps) => {
             </CurrentNickName>
 
             {showNickNameChangeBtn === true ? (
-              
-                <NickNameChangeInput
-                  setNewNickName={setNewNickName}
-                  setShowNickNameChangeBtn={setShowNickNameChangeBtn}
-                />
-              
-            ) : null}
+              // <IconWrapper>
+              <NickNameChangeInput
+                setNewNickName={setNewNickName}
+                setShowNickNameChangeBtn={setShowNickNameChangeBtn}
+              />
+            ) : // </IconWrapper>
+            null}
           </Nickname>
 
           <Email>{userInfo?.email}</Email>
