@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests"
+    />
 
-<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
 
-  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="no-sunday.vercel.app" />
+    <meta property="og:title" content="bounce" />
+    <meta
+      property="og:image"
+      content="https://lh3.googleusercontent.com/fife/AMPSemcBiyS3uIPZJP3eYgttDBqhUUy3yZg7Lc3CpqNcMxzazne7zEM0w6ddCWgfceXiGaVjFXH1qWFoaGPqy2HDEI89F8M8fnVbGbC0IbzSOTvIKtzsxLMhRNknaDRo5pavP-GahgHsG-005hKYgTIgVDTfJ0Kn7f4CkcKVPqd7z65b6HGwOgykJQuwDR92xOOgYDZfsmg_CdK7yQnhlK3W5KxpEPISgxli_zTkmhf1p4xE-NWYhq7I5uHxfzjs7iLfadyndogSkjRQ6CJZwAWgQGOzljrPWOvFTtVRM5-qCGj6upTwIuJju4k9-H8ulyzBO93l5nVGFS1xOWrHqPBan7GxStp7hyCdKVVqbo9Ypte1AXK0Z7zwAQlCUevgUnj1OtJ7M79b6Oo2z46Bs3NCQhvIa5MVjvSeFpeyCi6AVUC5jaEpYzdIu9RCkgnuBjO0uOLWz_16iAkih0ZXqjUqmY7R_3ZZfuQqbMdSLJHRd0dupmkDWHRPUfC6o2KEbpCym4O0-8UDzoFNy1vtT7_AI83gRYfSD1NKCZgdC1XT4jQ0DtX7I7halGVzib5MmoIGoeZaHTDjuxpck5aRh_lgHlf0yrZt5EL2FIxpjPAJbGBLbLGOYynF05wB6ATkSHHThJWQ6p3Z2CQXVWY8xt_6XO-KejqK9wp06gQfobbmHevzO7HO_cbgL3Yn8AMgZOoY5ZQG2WW3i7BJ2qtlUSt4yNboIMQrbpgjMuGe7nUTMzpA4CgOKZv8KTdhIseE7I2GNV1gzyPAEJbNhtr-07RPwWMDFehwq0OemBp7GvrVDinWWTzhnsXOglh7vuVZ83RNBvZN_F_Ql0Jd3wetoCU3vjbq1abR1oh8XwhOfb5K6M0j5MzgsnPiB7Znf0_PWXQknZHEOCUAI7LTd2bSq-VUEeuEVMFHaaCXKwOKEIDyZocbafXc6YnaldPWQh_QA0Np157ffQTsGYQn0hljmi8hCIwF17nfkZXCvn63pKlhgGJ3VR93WKzn9JaFsbkRtZYvc6n0AENOfQm2WPg5jBcjzWQVwKkm-c36nqieU1DBHK_B1PWxjjRTbcvKEHz8qtuK9niUYWacmDfS40DcBW6vjoBrNdqGKJdUc3R2_gTaM33x9tzCMNrXRgXJp4BzMGH3Hzi2-FRJ9Yey6I7ylkOdQehcMpMtvWvJCX7sOrD7hEEvusi45iT2DBvk7y_Z5VNnZMPWEctw69rktNyJGPRZaqFO6RjYqP36twDEVruCHXM3BOe-L0DrbDofliqoQJenkRghSzo2GaWlwzmtwLGErvZPRZNWCMoJU1zf08qWWed0FigzFvQf6mebFFDwa7VbEuMgfBDIgdVgIIyuIWe8T_jCIHSEm-JF28RW6iB5NKnPY_o7dqnjZCkzdHY5p6wJP7d1DDvxG9HQ1XUYo-nBoO_SCJJOzilule8OYWqqXTWZoUJFk7WwZWxgLqUcj9qQI2mkHteYX_A6hbY93GaFEGJxJH-vpeyUUmrQBXmTwsaqR_Qs7BQxgx3c=w2940-h1510"
+    />
 
-  <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Web site created using create-react-app" />
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-  <!--
+    <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
 
-  <!--
+    <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -25,28 +38,47 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png" />
-  <link rel="manifest" href="favicon/site.webmanifest" />
-  <title>bounce</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="favicon/site.webmanifest" />
+    <title>bounce</title>
 
-  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
-    integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx"
-    crossorigin="anonymous"></script>
-  <script>
-    Kakao.init('bf63b041b0ce9bfb8424ab29c7f8c3a4');
-    Kakao.isInitialized();
-  </script>
-</head>
+    <script
+      src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
+      integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      Kakao.init('bf63b041b0ce9bfb8424ab29c7f8c3a4');
+      Kakao.isInitialized();
+    </script>
+  </head>
 
-<body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
-  <!--
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -56,6 +88,5 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-</body>
-
+  </body>
 </html>
