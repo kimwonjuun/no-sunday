@@ -8,7 +8,7 @@ export const request = axios.create({
     // key: 'AIzaSyAoQdtN0NJ0rEQf848gtFJ0rUJN4MWXaCs', // 다인님키
     // key: 'AIzaSyAFrvyVNOlJvtd8DkJ8NyK1Zz9AbuoF8AU', // 김원준 키 2
 
-    key: 'AIzaSyD79zpSL8ngB3-xRtASNN8eYNV-GjELUjI', // 김원준 키1
+    // key: 'AIzaSyD79zpSL8ngB3-xRtASNN8eYNV-GjELUjI', // 김원준 키1
     // key: 'AIzaSyBg_6kb8jCXeEsFpT0X3m9qkoW4s9Dzl3Y',
     // 유정님 키
     // key: 'AIzaSyCBDEEW6FlMFSngjrSRM4H56y1fMYX6y9M',
