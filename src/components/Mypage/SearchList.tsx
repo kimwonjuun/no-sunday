@@ -16,20 +16,6 @@ export default function SearchList({ item }: { item: any }) {
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const get_video_details = async () => {
-  //     const {
-  //       data: { items },
-  //     } = await request('/search', {
-  //       params: {
-  //         part: 'contentDetails,statistics',
-  //       },
-  //     });
-  //     setDuration(items[0].contentDetails.duration);
-  //   };
-  //   get_video_details();
-  // }, []);
-
   return (
     <Wrapper
       onClick={() => {
@@ -42,7 +28,7 @@ export default function SearchList({ item }: { item: any }) {
           alt={title}
           style={{ borderRadius: 20 }}
         />
-        <ThumbnailsView>08:48</ThumbnailsView>
+        {/* <ThumbnailsView>08:48</ThumbnailsView> */}
       </ThumbnailsImgWrap>
       <ThumbnailsTitle>{textRegex(title)}</ThumbnailsTitle>
       <ThumbnailsDate>{formatAgo(publishedAt, 'ko')}</ThumbnailsDate>
