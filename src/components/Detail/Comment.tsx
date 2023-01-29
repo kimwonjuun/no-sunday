@@ -28,6 +28,7 @@ export default function Comment({ videoId }: { videoId: string }) {
     if (!authService.currentUser) {
       alert('댓글은 로그인 후 작성이 가능합니다.');
       navigate('/login');
+      return;
     }
 
     if (!inputComment) {
