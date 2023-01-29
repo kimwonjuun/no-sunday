@@ -22,7 +22,7 @@ export default function LikeMediaItem({ item }: { item: any }) {
           alt={item.title}
           style={{ borderRadius: 20 }}
         />
-        <ThumbnailsView>05:48</ThumbnailsView>
+        {/* <ThumbnailsView>05:48</ThumbnailsView> */}
       </ThumbnailsImgWrap>
       <ThumbnailsTitle>{textRegex(item.title)}</ThumbnailsTitle>
       <ThumbnailsDate>{item.publishTime}</ThumbnailsDate>
