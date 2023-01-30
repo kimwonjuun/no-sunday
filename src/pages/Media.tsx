@@ -13,7 +13,7 @@ export default function Media() {
 
   useEffect(() => {
     dispatch(getSearchVideos({ channelId }));
-  }, [dispatch]);
+  }, [dispatch, channelId]);
 
   const { search } = useAppSelector((state) => state.media);
 
