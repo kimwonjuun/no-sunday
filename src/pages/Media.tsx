@@ -1,11 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getSearchVideos } from '../redux/modules/MediaSlice';
 import SearchList from '../components/SearchList';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
+// loading useState
+import Loader from '../components/Loader';
 
 export default function Media() {
+  // loading useState
+  // 로딩 속도가 너무 빨라서 사용 못함
+  const [loading, setLoading] = useState(true);
+
   const dispatch = useAppDispatch();
   const location = useLocation();
 
@@ -13,6 +19,8 @@ export default function Media() {
 
   useEffect(() => {
     dispatch(getSearchVideos({ channelId }));
+    // loading useState
+    setLoading(false);
   }, [dispatch, channelId]);
 
   const { search } = useAppSelector((state) => state.media);
@@ -21,10 +29,16 @@ export default function Media() {
     <>
       <DetailBackColor>
         <Title>최신미디어</Title>
+
         <DetailWrap>
-          {search.map((item: any) => (
-            <SearchList item={item} key={item.id.videoId} />
-          ))}
+          {/*loading useState */}
+          {!loading ? (
+            search.map((item: any) => (
+              <SearchList item={item} key={item.id.videoId} />
+            ))
+          ) : (
+            <Loader />
+          )}
         </DetailWrap>
       </DetailBackColor>
     </>
