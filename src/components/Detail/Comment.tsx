@@ -151,6 +151,12 @@ const CommentView = styled.div`
   @media screen and (min-width: 1200px) {
     margin-left: 90px;
   }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+    background-color: #aaa; /* 또는 트랙에 추가한다 */
+  }
 `;
 
 const CommentsView = styled.div`
