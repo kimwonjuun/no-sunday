@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import { getSearchVideos } from '../redux/modules/MediaSlice';
-import SearchList from '../components/Mypage/SearchList';
+import SearchList from '../components/SearchList';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
 
@@ -13,7 +13,7 @@ export default function Media() {
 
   useEffect(() => {
     dispatch(getSearchVideos({ channelId }));
-  }, [dispatch]);
+  }, [dispatch, channelId]);
 
   const { search } = useAppSelector((state) => state.media);
 

@@ -9,7 +9,7 @@ import Main from '../pages/Main';
 import Media from '../pages/Media';
 import Mypage from '../pages/Mypage';
 import SignUp from '../pages/SignUp';
-import ScrollUpto from '../components/Mypage/ScrollUpTo';
+import ScrollUpto from '../components/ScrollUpTo';
 
 const Router = () => {
   return (
