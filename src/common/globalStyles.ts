@@ -78,6 +78,20 @@ const GlobalStyle = createGlobalStyle`
     main {
     display: block;
     }
+
+    ::-webkit-scrollbar {
+    width: 10px;
+    }
+    ::-webkit-scrollbar-thumb{
+    background: #48596e;
+    border-radius: 25px;
+    }
+    ::-webkit-scrollbar-track{
+    background-color: #00ff0000; // 투명
+    }
 `;
 
 export default GlobalStyle;
+
+// 코멘트 배경, 스크롤바색
+// rgb(46, 46, 46);
