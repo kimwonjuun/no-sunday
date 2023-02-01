@@ -9,21 +9,22 @@ import Loader from '../components/Loader';
 
 export default function Media() {
   // loading useState
-  // 로딩 속도가 너무 빨라서 사용 못함
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useAppDispatch();
   const location = useLocation();
 
   const channelId = location.pathname.substring(1);
 
+  //finally 무조건 실행하는것
   useEffect(() => {
-    dispatch(getSearchVideos({ channelId }));
-    // loading useState
-    setLoading(false);
+    setLoading(true);
+    dispatch(getSearchVideos({ channelId })).finally(() => setLoading(false));
   }, [dispatch, channelId]);
 
   const { search } = useAppSelector((state) => state.media);
+
+  if (loading) return <Loader />;
 
   return (
     <>
@@ -31,14 +32,9 @@ export default function Media() {
         <Title>최신미디어</Title>
 
         <DetailWrap>
-          {/*loading useState */}
-          {!loading ? (
-            search.map((item: any) => (
-              <SearchList item={item} key={item.id.videoId} />
-            ))
-          ) : (
-            <Loader />
-          )}
+          {search.map((item: any) => (
+            <SearchList item={item} key={item.id.videoId} />
+          ))}
         </DetailWrap>
       </DetailBackColor>
     </>

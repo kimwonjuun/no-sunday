@@ -9,6 +9,7 @@ import {
   where,
 } from 'firebase/firestore';
 import { dbService } from '../../common/firebase';
+import Comment from './../Detail/Comment';
 
 const CommentList = ({ currentUser }: { currentUser: any }) => {
   const [getMyComment, setGetMyComment] = useState<any[]>([]);
@@ -33,7 +34,7 @@ const CommentList = ({ currentUser }: { currentUser: any }) => {
   return (
     <ListWrapper>
       {getMyComment.map((item: any) => (
-        <CommentItem item={item} />
+        <CommentItem item={item} key={item.documentId} />
       ))}
     </ListWrapper>
   );

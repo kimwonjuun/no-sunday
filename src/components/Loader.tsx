@@ -2,24 +2,27 @@ import styled, { keyframes } from 'styled-components';
 
 const Loader = () => {
   return (
-    <Loading>
-      <ImgWrapper>
-        <Img src="/assets/bounce.png" />
-      </ImgWrapper>
-    </Loading>
+    <LoadignBackGroundColor>
+      <Loading>
+        <ImgWrapper>
+          <Img src="/assets/bounce.png" />
+        </ImgWrapper>
+      </Loading>
+    </LoadignBackGroundColor>
   );
 };
 
 export default Loader;
-
+const LoadignBackGroundColor = styled.div`
+  background-color: #222;
+`;
 const Loading = styled.div`
-  width: 100vw;
+  width: 105vw;
   height: 80vh;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
 `;
 
 const rotate = keyframes`
