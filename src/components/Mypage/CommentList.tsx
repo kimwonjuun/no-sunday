@@ -11,6 +11,7 @@ import {
 } from 'firebase/firestore';
 import { dbService } from '../../common/firebase';
 import Comment from './../Detail/Comment';
+import { useNavigate } from 'react-router-dom';
 
 const CommentList = ({ currentUser }: { currentUser: any }) => {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const CommentList = ({ currentUser }: { currentUser: any }) => {
   return (
     <ListWrapper>
       {getMyComment.map((item: any) => (
-        <CommentItem key={item.documentId} item={item} key={item.documentId} />
+        <CommentItem key={item.documentId} item={item} />
       ))}
     </ListWrapper>
   );
