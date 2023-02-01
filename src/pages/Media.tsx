@@ -1,26 +1,21 @@
-import { useEffect } from 'react';
 import styled from 'styled-components';
-import { getSearchVideos } from '../redux/modules/MediaSlice';
-import SearchList from '../components/Mypage/SearchList';
-import { useLocation } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
+import SearchList from '../components/SearchList';
+import { useAppSelector } from '../hooks/useRedux';
+import Loader from '../components/Loader';
+import useLoading from './../hooks/useLoading';
 
 export default function Media() {
-  const dispatch = useAppDispatch();
-  const location = useLocation();
-
-  const channelId = location.pathname.substring(1);
-
-  useEffect(() => {
-    dispatch(getSearchVideos({ channelId }));
-  }, [dispatch]);
+  const [loading] = useLoading();
 
   const { search } = useAppSelector((state) => state.media);
+
+  if (loading) return <Loader />;
 
   return (
     <>
       <DetailBackColor>
         <Title>최신미디어</Title>
+
         <DetailWrap>
           {search.map((item: any) => (
             <SearchList item={item} key={item.id.videoId} />
