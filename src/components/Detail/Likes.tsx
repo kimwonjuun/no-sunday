@@ -41,6 +41,7 @@ export default function Likes({
   //useEffect에 likedetail을 전역에서 사용하기 위한 useState
   const [checkedItem, setcheckedItem] = useState<any>([]);
 
+  // thumbnails url오류가 떠서 thumbnails.high.url을 따로 할당해주었다.
   const thumbnail = thumbnails.high.url;
 
   // addDoc에 들어가는 videoId
