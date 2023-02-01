@@ -1,26 +1,11 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getSearchVideos } from '../redux/modules/MediaSlice';
 import SearchList from '../components/SearchList';
-import { useLocation } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
-// loading useState
+import { useAppSelector } from '../hooks/useRedux';
 import Loader from '../components/Loader';
+import useLoading from './../hooks/useLoading';
 
 export default function Media() {
-  // loading useState
-  const [loading, setLoading] = useState(false);
-
-  const dispatch = useAppDispatch();
-  const location = useLocation();
-
-  const channelId = location.pathname.substring(1);
-
-  //finally 무조건 실행하는것
-  useEffect(() => {
-    setLoading(true);
-    dispatch(getSearchVideos({ channelId })).finally(() => setLoading(false));
-  }, [dispatch, channelId]);
+  const [loading] = useLoading();
 
   const { search } = useAppSelector((state) => state.media);
 
