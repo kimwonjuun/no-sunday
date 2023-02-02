@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import CommentItem from './CommentItem';
-import { ListWrapper } from './LikeMediaList';
+import { ListWrapper } from './styles';
 import {
   collection,
   documentId,

@@ -1,16 +1,25 @@
-import styled from 'styled-components';
 import { timeToLocaleString } from '../../utils/Date';
+import {
+  CommentInfo,
+  CommentText,
+  CreatedAt,
+  ItemWrapper,
+  Profile,
+  ProfileImg1,
+  ProfileWrapper1,
+  Writer,
+} from './styles';
 
 const CommentItem = ({ item }: { item: any }) => {
   return (
     <ItemWrapper>
       <CommentInfo>
-        <ProfileWrapper id={item.id}>
+        <ProfileWrapper1 id={item.id}>
           <Profile>
-            <ProfileImg src={item.profileImg} />
+            <ProfileImg1 src={item.profileImg} />
           </Profile>
           <Writer>{item.name ?? '익명'}</Writer>
-        </ProfileWrapper>
+        </ProfileWrapper1>
         <CreatedAt>{timeToLocaleString(item.createdAt)}</CreatedAt>
       </CommentInfo>
       <CommentText>{item.comment}</CommentText>
@@ -19,61 +28,3 @@ const CommentItem = ({ item }: { item: any }) => {
 };
 
 export default CommentItem;
-
-const ItemWrapper = styled.div`
-  width: 400px;
-  min-height: 140px;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 20px 28px;
-  cursor: pointer;
-
-  &:nth-child(2n) {
-    margin-right: 0;
-  }
-`;
-
-const CommentInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const ProfileWrapper = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
-const Profile = styled.div`
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  overflow: hidden;
-`;
-
-const ProfileImg = styled.img`
-  width: 32px;
-  height: 32px;
-`;
-
-const Writer = styled.p`
-  font-size: 14px;
-  font-weight: 700;
-  color: #333;
-  margin-left: 10px;
-`;
-
-const CreatedAt = styled.p`
-  font-size: 14px;
-  color: #777;
-`;
-
-const CommentText = styled.p`
-  color: #343434;
-  margin: 1rem 0;
-
-  &:hover {
-    color: #54bfcc;
-  }
-`;

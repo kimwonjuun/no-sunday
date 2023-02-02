@@ -9,12 +9,34 @@ import {
   where,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { authService, dbService } from '../../common/firebase';
-import { RiDeleteBinLine } from 'react-icons/ri';
 import { timeToLocaleString } from '../../utils/Date';
-import { ArrowIcon } from '../ScrollToTopButton';
 import { useNavigate } from 'react-router-dom';
+import {
+  CommentsView,
+  CommentView,
+  CommentsViewer,
+  CommentHeader,
+  CommentHeaderWrap,
+  CommentHeaderTitle,
+  CommnetScrollArea,
+  CommentContent,
+  CommentPostHeader,
+  CommentProfileWrapper,
+  CommentProfileImg,
+  CommentProfile,
+  CommentProfileName,
+  CommentProfileDate,
+  DeleteWrapper,
+  DeleteIcon,
+  CommentViewArea,
+  CommentWriteContainer,
+  CommentWriteBox,
+  CommentWriteArea,
+  CommentWrite,
+  CommentBtn,
+  Arrow,
+} from './styles';
 
 export default function Comment({ videoId }: { videoId: string }) {
   // 댓글 인풋
@@ -142,194 +164,3 @@ export default function Comment({ videoId }: { videoId: string }) {
     </>
   );
 }
-
-const CommentView = styled.div`
-  margin: 0 0 0 50px;
-  width: 410px;
-  padding: 30px 0px;
-
-  @media screen and (min-width: 1200px) {
-    margin-left: 90px;
-  }
-
-  ::-webkit-scrollbar {
-    width: 5px;
-    height: 8px;
-    background-color: #aaa; /* 또는 트랙에 추가한다 */
-  }
-`;
-
-const CommentsView = styled.div`
-  flex: 1;
-  box-sizing: border-box;
-  height: min(100%, 100vh - 130px);
-  min-height: 660px;
-  position: sticky;
-  background-color: rgb(46, 46, 46);
-  border-radius: 20px;
-`;
-
-const CommentsViewer = styled.div`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
-  position: absolute;
-  width: 100%;
-`;
-
-const CommentHeader = styled.header`
-  box-sizing: border-box;
-  flex-shrink: 0;
-  height: 70px;
-  padding: 24px 20px;
-`;
-
-const CommentHeaderWrap = styled.div`
-  align-items: center;
-  display: flex;
-`;
-
-const CommentProfileWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const CommentHeaderTitle = styled.div`
-  font-size: 18px;
-  line-height: 20px;
-  font-weight: bold;
-  color: white;
-`;
-
-const CommnetScrollArea = styled.div`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  overflow-y: auto;
-  padding: 10px 20px 20px;
-  position: relative;
-`;
-
-const CommentContent = styled.div`
-  position: relative;
-  margin-bottom: 1rem;
-`;
-
-const CommentPostHeader = styled.div`
-  justify-content: space-between;
-  align-items: center;
-  display: flex;
-`;
-
-const CommentProfileImg = styled.img`
-  height: 35px;
-  width: 35px;
-  border-radius: 100px;
-  border: 1px solid black;
-  object-fit: cover;
-`;
-
-const CommentProfile = styled.div`
-  margin-left: 8px;
-  overflow: hidden;
-`;
-
-const CommentProfileName = styled.div`
-  display: block;
-  font-size: 14px;
-  line-height: 17px;
-  overflow: hidden;
-  font-weight: bold;
-  color: #eee;
-`;
-
-const CommentProfileDate = styled.div`
-  align-items: center;
-  display: flex;
-  margin-top: 2px;
-  font-size: 12px;
-  line-height: 14px;
-  color: #8e8e8e;
-`;
-
-const CommentViewArea = styled.div`
-  line-height: 21px;
-  overflow-wrap: break-word;
-  padding: 7px 0 7px 42px;
-  position: relative;
-  color: white;
-`;
-
-const CommentWriteContainer = styled.div`
-  display: flex;
-  flex: 0 0 75px;
-  flex-direction: column;
-`;
-
-const CommentWriteBox = styled.div`
-  border-top: none;
-  padding: 15px 18px;
-`;
-
-const CommentWriteArea = styled.div`
-  align-items: flex-end;
-  display: flex;
-`;
-
-const CommentWrite = styled.input`
-  background-color: #444;
-  color: #eee;
-  height: 22px;
-  border-radius: 23px;
-  box-sizing: border-box;
-  flex-grow: 1;
-  min-height: 46px;
-  padding: 12px 18px;
-
-  &::placeholder {
-    color: #aaa;
-  }
-`;
-
-const CommentBtn = styled.div`
-  background-image: linear-gradient(
-    to bottom,
-    #e32586 0%,
-    #e32586 20%,
-    #54bfcc 100%
-  );
-  width: 40px;
-  height: 40px;
-  margin: 0 0 5px 10px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &:hover {
-    background-image: linear-gradient(
-      to bottom,
-      #c32074 0%,
-      #c32074 20%,
-      #48a5b1 100%
-    );
-  }
-`;
-
-const Arrow = styled(ArrowIcon)`
-  font-size: 20px;
-`;
-
-const DeleteWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const DeleteIcon = styled(RiDeleteBinLine)`
-  font-size: 1.2rem;
-  color: #ccc;
-  cursor: pointer;
-`;

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { formatAgo } from '../utils/Date';
 import { textRegex } from '../utils/VaildText';
@@ -16,11 +16,7 @@ export default function SearchList({ item }: { item: any }) {
       }}
     >
       <ThumbnailsImgWrap>
-        <img
-          src={thumbnails.high.url}
-          alt={title}
-          style={{ borderRadius: 20 }}
-        />
+        <img src={thumbnails.high.url} alt={title} />
         {/* <ThumbnailsView>08:48</ThumbnailsView> */}
       </ThumbnailsImgWrap>
       <ThumbnailsTitle>{textRegex(title)}</ThumbnailsTitle>

@@ -1,6 +1,6 @@
-import styled from 'styled-components';
 import { textRegex } from './../../utils/VaildText';
 import { useNavigate } from 'react-router-dom';
+import { Content, ContentDate, ContentThumbnail, ContentTitle } from './styles';
 
 export default function RelatedContent({ item }: { item: any }) {
   const { title, thumbnails, publishTime, channelId } = item.snippet;
@@ -28,35 +28,3 @@ export default function RelatedContent({ item }: { item: any }) {
     </>
   );
 }
-
-const Content = styled.div`
-  cursor: pointer;
-`;
-
-const ContentThumbnail = styled.div`
-  aspect-ratio: 320/180;
-  width: auto;
-  border-radius: 14px;
-  isolation: isolate;
-  overflow: hidden;
-  position: relative;
-`;
-
-const ContentTitle = styled.div`
-  color: #eee;
-  display: -webkit-box;
-  font-weight: 600;
-  line-height: 19px;
-  margin-top: 15px;
-`;
-
-const ContentDate = styled.div`
-  align-items: center;
-  color: #8e8e8e;
-  display: flex;
-  font-size: 12px;
-  line-height: 13px;
-  align-items: center;
-  display: flex;
-  margin-top: 6px;
-`;
