@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { RiDeleteBinLine } from 'react-icons/ri';
-import { ArrowIcon } from '../ScrollToTopButton';
+import { ArrowIcon } from '../ScrollTopTopButton/style';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { BsTwitter } from 'react-icons/bs';
 import { RiKakaoTalkFill } from 'react-icons/ri';

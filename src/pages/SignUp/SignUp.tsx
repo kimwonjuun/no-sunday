@@ -5,9 +5,9 @@ import {
   createUserWithEmailAndPassword,
   setPersistence,
 } from 'firebase/auth';
-import { authService } from '../../common/firebase';
-import useAuth from '../../hooks/useAuth';
-import AuthForm from '../../components/Auth/AuthForm';
+import { authService } from '@/common/firebase';
+import useAuth from '@/hooks/useAuth';
+import AuthForm from '@/components/Auth/AuthForm';
 
 export default function SignUp() {
   const auth = useAuth();

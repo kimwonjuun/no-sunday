@@ -5,11 +5,11 @@ import {
   SetStateAction,
   useState,
 } from 'react';
-import { Form, useNavigate } from 'react-router-dom';
-import { krRegex, trimmingKeyword } from '../../common/util';
-import { useAppSelector } from '../../hooks/useRedux';
-import { ArtistsTypes } from '../../redux/modules/ArtistsSlice';
-import { Input, InputSearchIcon, SearchInputArea } from './style';
+import { useNavigate } from 'react-router-dom';
+import { krRegex, trimmingKeyword } from '@/common/util';
+import { useAppSelector } from '@/hooks/useRedux';
+import { ArtistsTypes } from '@/redux/modules/ArtistsSlice';
+import { Form, Input, InputSearchIcon, SearchInputArea } from './style';
 
 interface SearchInputProps {
   inputRef: ForwardedRef<HTMLDivElement>;

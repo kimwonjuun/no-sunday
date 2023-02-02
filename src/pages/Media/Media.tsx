@@ -1,7 +1,7 @@
-import SearchList from '../../components/SearchList';
-import { useAppSelector } from '../../hooks/useRedux';
-import Loader from '../../components/Loader';
-import useLoading from '../../hooks/useLoading';
+import SearchList from '@/components/SearchList';
+import { useAppSelector } from '@/hooks/useRedux';
+import Loader from '@/components/Loader';
+import useLoading from '@/hooks/useLoading';
 import { DetailBackColor, DetailWrap, Title } from './style';
 
 export default function Media() {
