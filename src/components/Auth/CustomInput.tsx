@@ -1,5 +1,5 @@
 import { ChangeEvent, ForwardedRef } from 'react';
-import styled from 'styled-components';
+import { Input, InputWrapper, Label } from './styles';
 
 interface InputProps {
   id: string;
@@ -37,29 +37,3 @@ const CustomInput = ({
 };
 
 export default CustomInput;
-
-const InputWrapper = styled.div`
-  width: 400px;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 0.6rem;
-`;
-
-const Label = styled.label`
-  color: #333;
-  font-weight: 600;
-  font-size: 0.94rem;
-`;
-
-const Input = styled.input`
-  height: 40px;
-  padding: 0 4px;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid #ff0098;
-  color: #555;
-
-  ::placeholder {
-    color: #999;
-  }
-`;
