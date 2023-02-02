@@ -10,7 +10,8 @@ export const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_messagingSenderId,
   appId: process.env.REACT_APP_appId,
 };
-export const app = initializeApp(firebaseConfig);
+
+const app = initializeApp(firebaseConfig);
 export const dbService = getFirestore(app);
 export const authService = getAuth(app);
 export const storage = getStorage(app);

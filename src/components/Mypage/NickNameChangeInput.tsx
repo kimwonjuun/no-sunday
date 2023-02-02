@@ -1,7 +1,7 @@
 import { updateProfile } from 'firebase/auth';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { authService } from '../../common/firebase';
+import { authService } from '@/common/firebase';
 import { FiCheck } from 'react-icons/fi';
 
 interface NickNameChangeInputProps {

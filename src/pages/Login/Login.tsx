@@ -5,9 +5,9 @@ import {
 } from 'firebase/auth';
 import { FormEvent } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { authService } from '../common/firebase';
-import AuthForm from '../components/Auth/AuthForm';
-import useAuth from '../hooks/useAuth';
+import { authService } from '@/common/firebase';
+import AuthForm from '@/components/Auth/AuthForm';
+import useAuth from '@/hooks/useAuth';
 
 export default function Login() {
   const auth = useAuth();
