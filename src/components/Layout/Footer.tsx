@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { FooterText, FooterWrapper } from './style';
 
 export default function Footer() {
   return (
@@ -7,19 +7,3 @@ export default function Footer() {
     </FooterWrapper>
   );
 }
-
-const FooterWrapper = styled.footer`
-  width: 100%;
-  height: 60px;
-  border-top: 1px solid #ddd;
-  background-color: #f7f7f7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const FooterText = styled.p`
-  font-size: 0.8rem;
-  color: #777;
-  text-align: center;
-`;

@@ -5,12 +5,11 @@ import {
   SetStateAction,
   useState,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { FiSearch } from 'react-icons/fi';
+import { Form, useNavigate } from 'react-router-dom';
 import { krRegex, trimmingKeyword } from '../../common/util';
 import { useAppSelector } from '../../hooks/useRedux';
 import { ArtistsTypes } from '../../redux/modules/ArtistsSlice';
+import { Input, InputSearchIcon, SearchInputArea } from './style';
 
 interface SearchInputProps {
   inputRef: ForwardedRef<HTMLDivElement>;
@@ -81,40 +80,3 @@ const SearchInput = ({ inputRef, setShowSearchInput }: SearchInputProps) => {
 };
 
 export default SearchInput;
-
-const SearchInputArea = styled.div`
-  position: absolute;
-  width: 260px;
-  height: 42px;
-  top: 0;
-  right: 3rem;
-`;
-
-const Input = styled.input`
-  width: 260px;
-  height: 42px;
-  box-sizing: border-box;
-  border-radius: 42px;
-  background-color: #f1f1f1;
-  padding: 0 10px 0 46px;
-  font-size: 0.9rem;
-  color: #555;
-
-  &:focus {
-    outline: none;
-  }
-
-  &::placeholder {
-    color: #aaa;
-  }
-`;
-
-const InputSearchIcon = styled(FiSearch)`
-  position: absolute;
-  top: 8px;
-  left: 10px;
-  font-size: 24px;
-  color: #bbb;
-`;
-
-const Form = styled.form``;
