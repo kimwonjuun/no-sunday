@@ -3,6 +3,7 @@ import CommentItem from './CommentItem';
 import { ListWrapper } from './LikeMediaList';
 import {
   collection,
+  documentId,
   onSnapshot,
   orderBy,
   query,
@@ -10,8 +11,11 @@ import {
 } from 'firebase/firestore';
 import { dbService } from '../../common/firebase';
 import Comment from './../Detail/Comment';
+import { useNavigate } from 'react-router-dom';
 
 const CommentList = ({ currentUser }: { currentUser: any }) => {
+  const navigate = useNavigate();
+
   const [getMyComment, setGetMyComment] = useState<any[]>([]);
 
   useEffect(() => {
@@ -34,7 +38,7 @@ const CommentList = ({ currentUser }: { currentUser: any }) => {
   return (
     <ListWrapper>
       {getMyComment.map((item: any) => (
-        <CommentItem item={item} key={item.documentId} />
+        <CommentItem key={item.documentId} item={item} />
       ))}
     </ListWrapper>
   );
