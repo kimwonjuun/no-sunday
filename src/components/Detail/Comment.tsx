@@ -13,7 +13,7 @@ import styled from 'styled-components';
 import { authService, dbService } from '../../common/firebase';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { timeToLocaleString } from '../../utils/Date';
-import { ArrowIcon } from '../ScrollToTopButton';
+import { ArrowIcon } from '../ScrollTopTopButton/style';
 import { useNavigate } from 'react-router-dom';
 
 export default function Comment({ videoId }: { videoId: string }) {
