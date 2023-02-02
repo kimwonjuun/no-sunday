@@ -1,7 +1,12 @@
-import styled from 'styled-components';
 import { TwitterShareButton } from 'react-share';
-import { BsTwitter } from 'react-icons/bs';
-import { RiKakaoTalkFill } from 'react-icons/ri';
+import {
+  DropdownOption,
+  Wrapping,
+  TwitterShare,
+  SharePh,
+  KakaoShareButton,
+  KakaoShare,
+} from './styles';
 
 export default function Social() {
   const currentUrl = window.location.href;
@@ -41,39 +46,3 @@ export default function Social() {
     </>
   );
 }
-
-const DropdownOption = styled.div`
-  position: absolute;
-  z-index: 1; /*다른 요소들보다 앞에 배치*/
-  font-weight: 400;
-  background-color: #f9f9f9;
-  min-width: 200px;
-  border-radius: 8px;
-  padding: 15px;
-  top: 25px;
-  right: 5px;
-`;
-
-const KakaoShareButton = styled.button`
-  all: unset;
-`;
-
-const TwitterShare = styled(BsTwitter)`
-  margin-right: 5px;
-  size: 15px;
-`;
-
-const KakaoShare = styled(RiKakaoTalkFill)`
-  margin-right: 5px;
-  size: 15px;
-`;
-
-const Wrapping = styled.div`
-  align-items: center;
-  display: flex;
-`;
-
-const SharePh = styled.div`
-  font-size: 15px;
-  font-weight: 500;
-`;

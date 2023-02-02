@@ -1,10 +1,20 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { updateProfile } from 'firebase/auth';
 import { authService, storage } from '../../common/firebase';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
-import { AiFillEdit } from 'react-icons/ai';
 import NickNameChangeInput from './NickNameChangeInput';
+import {
+  ProfileBg,
+  ProfileWrapper,
+  ProfileImg,
+  InfoWrapper,
+  Nickname,
+  CurrentNickName,
+  PencilIcon,
+  Email,
+  Logout,
+  ImgWrapper,
+} from './styles';
 
 interface MypageHeaderProps {
   onSignOut: () => void;
@@ -111,88 +121,3 @@ const MypageHeader = ({ onSignOut, currentUser }: MypageHeaderProps) => {
 };
 
 export default MypageHeader;
-
-const ProfileBg = styled.div`
-  width: 100%;
-  height: 340px;
-  background-image: url('/assets/mypage_bg.jpg');
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ProfileWrapper = styled.div`
-  /* max-width: 500px; */
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ImgWrapper = styled.div`
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  overflow: hidden;
-`;
-
-const ProfileImg = styled.img`
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  cursor: pointer;
-`;
-
-const InfoWrapper = styled.div`
-  width: 300px;
-  margin-left: 3rem;
-  cursor: default;
-`;
-
-const Nickname = styled.div`
-  font-size: 28px;
-  font-weight: 700;
-  color: #fff;
-`;
-
-const Email = styled.p`
-  color: #ddd;
-  font-size: 15px;
-  font-weight: 500;
-
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-`;
-
-const Logout = styled.span`
-  display: block;
-  font-size: 15px;
-  font-weight: 700;
-  color: #eee;
-  cursor: pointer;
-
-  &:hover {
-    color: #ff0098;
-  }
-`;
-
-// 김원준css
-
-const IconWrapper = styled.div`
-  // 하위 컴포넌트 묶어두기 위한 컴포넌트
-`;
-
-const CurrentNickName = styled.div`
-  align-items: center;
-  display: flex;
-`;
-const PencilIcon = styled(AiFillEdit)`
-  font-size: 30px;
-  margin-left: 10px;
-  cursor: pointer;
-
-  &:hover {
-    color: #ff0098;
-  }
-`;
