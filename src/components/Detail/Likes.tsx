@@ -15,11 +15,11 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 interface LikesProps {
-  title: any;
-  channelTitle: any;
-  channelId: any;
+  title: string;
+  channelTitle: string;
+  channelId: string;
   thumbnails: any;
-  date: any;
+  date: string;
 }
 
 export default function Likes({
