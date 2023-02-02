@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, ForwardedRef } from 'react';
-import { Form, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import CustomInput from './CustomInput';
 import SocialLogin from './SocialLogin';
 import {
@@ -9,6 +9,7 @@ import {
   AuthText,
   AuthWrapper,
   Background,
+  Form,
   LinkText,
   Title,
 } from './styles';
