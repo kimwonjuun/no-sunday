@@ -3,14 +3,12 @@ import CommentItem from './CommentItem';
 import { ListWrapper } from './styles';
 import {
   collection,
-  documentId,
   onSnapshot,
   orderBy,
   query,
   where,
 } from 'firebase/firestore';
-import { dbService } from '../../common/firebase';
-import Comment from './../Detail/Comment';
+import { dbService } from '@/common/firebase';
 import { useNavigate } from 'react-router-dom';
 
 const CommentList = ({ currentUser }: { currentUser: any }) => {

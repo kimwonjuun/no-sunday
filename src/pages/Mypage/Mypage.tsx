@@ -1,10 +1,10 @@
-import styled from 'styled-components';
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { authService, firebaseConfig } from '../common/firebase';
-import CommentList from '../components/Mypage/CommentList';
-import LikeMediaList from '../components/Mypage/LikeMediaList';
-import MypageHeader from '../components/Mypage/MypageHeader';
+import { authService, firebaseConfig } from '@/common/firebase';
+import CommentList from '@/components/Mypage/CommentList';
+import LikeMediaList from '@/components/Mypage/LikeMediaList';
+import MypageHeader from '@/components/Mypage/MypageHeader';
+import { Container, MyPageWrapper, Section, SectionTitle } from './style';
 
 export default function Mypage() {
   const navigate = useNavigate();
@@ -39,25 +39,3 @@ export default function Mypage() {
     </MyPageWrapper>
   );
 }
-
-const MyPageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background-color: #f7f7f7;
-`;
-
-const Container = styled.div`
-  margin-left: 50px;
-  margin-right: 50px;
-`;
-
-const Section = styled.section`
-  min-height: 300px;
-  margin: 3rem 0 4rem;
-`;
-
-const SectionTitle = styled.h1`
-  font-size: 24px;
-  margin-left: 1rem;
-`;

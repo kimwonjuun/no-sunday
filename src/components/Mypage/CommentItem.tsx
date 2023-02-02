@@ -1,4 +1,3 @@
-import { timeToLocaleString } from '../../utils/Date';
 import {
   CommentInfo,
   CommentText,
@@ -9,6 +8,7 @@ import {
   ProfileWrapper1,
   Writer,
 } from './styles';
+import { timeToLocaleString } from '@/utils/Date';
 
 const CommentItem = ({ item }: { item: any }) => {
   return (
