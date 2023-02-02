@@ -1,8 +1,8 @@
-import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { query, collection, where, getDocs } from 'firebase/firestore';
 import { dbService } from './../../common/firebase';
 import LikeMediaItem from './LikeMediaItem';
+import { ListWrapper } from './styles';
 
 const LikeMediaList = ({ currentUser }: { currentUser: any }) => {
   const [items, setItems] = useState([]);
@@ -37,10 +37,3 @@ const LikeMediaList = ({ currentUser }: { currentUser: any }) => {
 };
 
 export default LikeMediaList;
-
-export const ListWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  grid-gap: 30px 20px;
-  padding-top: 20px;
-`;
