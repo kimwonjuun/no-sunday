@@ -1,5 +1,3 @@
-import styled from 'styled-components';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { authService, dbService } from '../../common/firebase';
 import {
   addDoc,
@@ -7,12 +5,12 @@ import {
   deleteDoc,
   doc,
   getDocs,
-  orderBy,
   query,
   where,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ArtistLike, HeartWrapper, LikeBtnFill, LikeBtnLine } from './styles';
 
 interface LikesProps {
   title: string;
@@ -130,24 +128,3 @@ export default function Likes({
     </div>
   );
 }
-
-const ArtistLike = styled.div`
-  align-items: center;
-  display: flex;
-  flex: 1 0 auto;
-  justify-content: flex-end;
-`;
-const HeartWrapper = styled.div`
-  margin-top: 1rem;
-  margin-right: 1.2rem;
-`;
-const LikeBtnFill = styled(AiFillHeart)`
-  font-size: 26px;
-  color: white;
-  cursor: pointer;
-`;
-const LikeBtnLine = styled(AiOutlineHeart)`
-  font-size: 26px;
-  color: white;
-  cursor: pointer;
-`;
