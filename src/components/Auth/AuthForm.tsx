@@ -122,7 +122,7 @@ const Background = styled.div`
   overflow-y: hidden;
 `;
 
-export const AuthWrapper = styled.section`
+const AuthWrapper = styled.section`
   width: 600px;
   min-width: 400px;
   background-color: #fff;
