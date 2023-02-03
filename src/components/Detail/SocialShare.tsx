@@ -1,3 +1,4 @@
+import { shareThumbnailImage, shareThumbnailLink } from '@/utils/Api';
 import { TwitterShareButton } from 'react-share';
 import {
   DropdownOption,
@@ -17,11 +18,10 @@ export default function Social() {
       content: {
         title: '심장이 뛰는 시간 Bounce 💗',
         description: '바운스에서 아이돌을 응원해보세요!',
-        imageUrl:
-          'https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOTnDF0rUK-t7QqN0QCX_4C6jqcwiPJpEQtKAhWBRORVd3MPh9lEkboloDICKuAIqSTK7mIPCB5y6r-2emCs0nLnQUlH=w1874-h944',
+        imageUrl: shareThumbnailImage,
         link: {
-          mobileWebUrl: 'https://no-sunday.vercel.app/',
-          webUrl: 'https://no-sunday.vercel.app/',
+          mobileWebUrl: shareThumbnailLink,
+          webUrl: shareThumbnailLink,
         },
       },
     });
