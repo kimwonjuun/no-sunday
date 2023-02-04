@@ -9,7 +9,6 @@ interface NickNameChangeInputProps {
   setShowNickNameChangeBtn: any;
 }
 
-// 원준 닉네임 변경
 export default function NickNameChangeInput({
   setNewNickName,
   setShowNickNameChangeBtn,

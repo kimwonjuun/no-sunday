@@ -87,11 +87,8 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 25px;
     }
     ::-webkit-scrollbar-track{
-    background-color: #00ff0000; // 투명
+    background-color: #00ff0000;
     }
 `;
 
 export default GlobalStyle;
-
-// 코멘트 배경, 스크롤바색
-// rgb(46, 46, 46);
