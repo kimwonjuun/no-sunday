@@ -1,6 +1,6 @@
 import { BiMessageError } from 'react-icons/bi';
 import styled from 'styled-components';
-import { AuthButton } from '@/components/Auth/styles';
+import { AuthButton } from 'components/Auth/styles';
 
 export const Wrapper = styled.div`
   height: calc(100vh - 42px - 60px);

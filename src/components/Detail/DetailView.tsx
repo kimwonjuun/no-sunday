@@ -3,9 +3,9 @@ import { useEffect } from 'react';
 import Comment from './Comment';
 import RelatedContent from './RelatedContent';
 import Youtube from './Youtube';
-import { getSearchVideos } from '@/redux/modules/MediaSlice';
+import { getSearchVideos } from 'redux/modules/MediaSlice';
 import { useLocation } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
+import { useAppDispatch, useAppSelector } from 'hooks/useRedux';
 import {
   ContentFrameView,
   ContentsView,

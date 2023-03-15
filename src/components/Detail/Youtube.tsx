@@ -16,11 +16,11 @@ import {
   DescriptionArea,
   Social,
 } from './styles';
-import { textRegex } from '@/utils/VaildText';
+import { textRegex } from 'utils/VaildText';
 import SocialShare from './SocialShare';
 import Likes from './Likes';
 import { useState } from 'react';
-import { useAppSelector } from '@/hooks/useRedux';
+import { useAppSelector } from 'hooks/useRedux';
 
 export default function Youtube() {
   // 소셜 공유 옵션 상태 저장

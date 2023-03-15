@@ -1,9 +1,9 @@
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { authService, firebaseConfig } from '@/common/firebase';
-import CommentList from '@/components/Mypage/CommentList';
-import LikeMediaList from '@/components/Mypage/LikeMediaList';
-import MypageHeader from '@/components/Mypage/MypageHeader';
+import { authService, firebaseConfig } from 'common/firebase';
+import CommentList from 'components/Mypage/CommentList';
+import LikeMediaList from 'components/Mypage/LikeMediaList';
+import MypageHeader from 'components/Mypage/MypageHeader';
 import { Container, MyPageWrapper, Section, SectionTitle } from './style';
 
 export default function Mypage() {

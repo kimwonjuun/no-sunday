@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { updateProfile } from 'firebase/auth';
-import { authService, storage } from '@/common/firebase';
+import { authService, storage } from 'common/firebase';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import NickNameChangeInput from './NickNameChangeInput';
 import {
