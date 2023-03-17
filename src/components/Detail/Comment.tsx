@@ -9,8 +9,8 @@ import {
   where,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { authService, dbService } from '@/common/firebase';
-import { timeToLocaleString } from '@/utils/Date';
+import { authService, dbService } from 'common/firebase';
+import { timeToLocaleString } from 'utils/Date';
 import { useNavigate } from 'react-router-dom';
 import {
   CommentsView,

@@ -43,7 +43,7 @@ export default function Header() {
       // 이벤트 삭제
       document.removeEventListener('mouseenter', clickOutside);
     };
-  }, [searchInputRef]);
+  }, [searchInputRef, showSearchInput]);
 
   return (
     <HeaderWrapper onClick={clickOutside}>

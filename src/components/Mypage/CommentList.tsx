@@ -8,12 +8,9 @@ import {
   query,
   where,
 } from 'firebase/firestore';
-import { dbService } from '@/common/firebase';
-import { useNavigate } from 'react-router-dom';
+import { dbService } from 'common/firebase';
 
 const CommentList = ({ currentUser }: { currentUser: any }) => {
-  const navigate = useNavigate();
-
   const [getMyComment, setGetMyComment] = useState<any[]>([]);
 
   useEffect(() => {

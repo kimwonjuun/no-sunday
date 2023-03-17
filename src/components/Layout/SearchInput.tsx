@@ -6,9 +6,9 @@ import {
   useState,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { krRegex, trimmingKeyword } from '@/common/util';
-import { useAppSelector } from '@/hooks/useRedux';
-import { ArtistsTypes } from '@/redux/modules/ArtistsSlice';
+import { krRegex, trimmingKeyword } from 'common/util';
+import { useAppSelector } from 'hooks/useRedux';
+import { ArtistsTypes } from 'redux/modules/ArtistsSlice';
 import { Form, Input, InputSearchIcon, SearchInputArea } from './style';
 
 interface SearchInputProps {

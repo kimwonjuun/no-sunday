@@ -7,7 +7,7 @@ import {
   TwitterAuthProvider,
 } from 'firebase/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { authService } from '@/common/firebase';
+import { authService } from 'common/firebase';
 import {
   Icon,
   IconImg,

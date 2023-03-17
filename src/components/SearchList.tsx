@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { formatAgo } from '@/utils/Date';
-import { textRegex } from '@/utils/VaildText';
+import { formatAgo } from 'utils/Date';
+import { textRegex } from 'utils/VaildText';
 
 export default function SearchList({ item }: { item: any }) {
   const { title, thumbnails, publishedAt } = item.snippet;

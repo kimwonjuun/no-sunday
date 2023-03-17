@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { query, collection, where, getDocs } from 'firebase/firestore';
-import { dbService } from '@/common/firebase';
+import { dbService } from 'common/firebase';
 import LikeMediaItem from './LikeMediaItem';
 import { ListWrapper } from './styles';
 

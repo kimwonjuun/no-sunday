@@ -1,6 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { textRegex } from '@/utils/VaildText';
-import styled from 'styled-components';
+import { textRegex } from 'utils/VaildText';
 import {
   Wrapper,
   ThumbnailsImgWrap,

@@ -1,10 +1,10 @@
-import { dbService } from '@/common/firebase';
+import { dbService } from 'common/firebase';
 import { useEffect, useState } from 'react';
 import { getDocs, collection } from 'firebase/firestore';
-import ArtistView from '@/components/Main/ArtistView';
-import { useAppDispatch } from '@/hooks/useRedux';
-import { saveArtists } from '@/redux/modules/ArtistsSlice';
-import { ArtistsTypes } from '@/redux/modules/ArtistsSlice';
+import ArtistView from 'components/Main/ArtistView';
+import { useAppDispatch } from 'hooks/useRedux';
+import { saveArtists } from 'redux/modules/ArtistsSlice';
+import { ArtistsTypes } from 'redux/modules/ArtistsSlice';
 import {
   MainPageArtistBoxArea,
   MainPageComponentsWrapper,

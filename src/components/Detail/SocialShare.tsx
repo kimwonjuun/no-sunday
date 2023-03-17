@@ -1,4 +1,4 @@
-import { shareThumbnailImage, shareThumbnailLink } from '@/utils/Api';
+import { shareThumbnailImage, shareThumbnailLink } from 'utils/Api';
 import { TwitterShareButton } from 'react-share';
 import {
   DropdownOption,
