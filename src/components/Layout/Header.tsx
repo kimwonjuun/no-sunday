@@ -1,3 +1,4 @@
+import { firebaseConfig } from 'common/firebase';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import SearchInput from './SearchInput';
@@ -17,7 +18,10 @@ export default function Header() {
   const navigate = useNavigate();
 
   // 로그인 확인을 위한 세션스토리지 키 확인. 키 존재? => 로그인 되어있음 / 없음 => 로그인 안 되어있음
-  const isLoggedIn = sessionStorage.key(0);
+  // const isLoggedIn = sessionStorage.key(0);
+  const isLoggedIn = sessionStorage.getItem(
+    `firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`,
+  );
 
   const goToLogin = (): void => {
     navigate('/login');
