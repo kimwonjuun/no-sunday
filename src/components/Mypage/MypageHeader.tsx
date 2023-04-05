@@ -102,7 +102,7 @@ const MypageHeader = ({ onSignOut, currentUser }: MypageHeaderProps) => {
               />
             </CurrentNickName>
 
-            {showNickNameChangeBtn === true ? (
+            {showNickNameChangeBtn ? (
               // <IconWrapper>
               <NickNameChangeInput
                 setNewNickName={setNewNickName}

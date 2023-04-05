@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { ArrowIcon } from '../ScrollTopTopButton/style';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiFillHeart, AiFillEdit } from 'react-icons/ai';
 import { BsTwitter } from 'react-icons/bs';
 import { RiKakaoTalkFill } from 'react-icons/ri';
 import { HiDotsVertical } from 'react-icons/hi';
+import { FiCheck } from 'react-icons/fi';
 
 /* 1. Comment.tsx */
 export const CommentView = styled.div`
@@ -187,16 +188,50 @@ export const Arrow = styled(ArrowIcon)`
   font-size: 20px;
 `;
 
-export const DeleteWrapper = styled.div`
+export const EditIconWrapper = styled.div`
   display: flex;
-  align-items: center;
+  gap: 15px;
+`;
+
+export const UpdateIcon = styled(AiFillEdit)`
+  font-size: 1.2rem;
+  color: #ccc;
+  cursor: pointer;
+
+  &:hover {
+    color: #ff0098;
+  }
 `;
 
 export const DeleteIcon = styled(RiDeleteBinLine)`
   font-size: 1.2rem;
   color: #ccc;
   cursor: pointer;
+
+  &:hover {
+    color: #ff0098;
+  }
 `;
+
+export const EditCommentWrapper = styled.div``;
+export const EditCommentInput = styled.input`
+  width: 16rem;
+  height: 1.5rem;
+`;
+
+export const CheckUpdateIcon = styled(FiCheck)`
+  font-size: 1.2rem;
+  margin-left: 0.9rem;
+  color: #ccc;
+  cursor: pointer;
+
+  &:hover {
+    color: #ff0098;
+  }
+
+  left: -1rem;
+`;
+
 /* 1. Comment.tsx */
 
 /* 2. DetailView.tsx */
