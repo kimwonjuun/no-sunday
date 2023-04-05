@@ -216,12 +216,24 @@ export const DeleteIcon = styled(RiDeleteBinLine)`
 export const EditCommentWrapper = styled.div``;
 export const EditCommentInput = styled.input`
   width: 16rem;
-  height: 1.5rem;
+
+  background-color: #444;
+  color: #eee;
+  height: 1rem;
+  border-radius: 23px;
+  box-sizing: border-box;
+  flex-grow: 1;
+  min-height: 46px;
+  padding: 12px 18px;
+
+  &::placeholder {
+    color: #aaa;
+  }
 `;
 
 export const CheckUpdateIcon = styled(FiCheck)`
   font-size: 1.2rem;
-  margin-left: 0.9rem;
+  margin: 0 0 0 0.9rem;
   color: #ccc;
   cursor: pointer;
 

@@ -19,14 +19,13 @@ import {
 import { authService, dbService } from 'common/firebase';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 
-export default function MyComment({ item, setCommentsList }: any) {
+export default function MyComment({ item }: any) {
   // 댓글 수정
   const [showInput, setShowInput] = useState(false);
   const [inputText, setInputText] = useState(item.comment);
 
   // update
   const editComment = async (documentId: any) => {
-    // setCommentsList(inputText);
     await updateDoc(doc(dbService, 'comments', documentId), {
       comment: inputText,
     })
@@ -38,6 +37,10 @@ export default function MyComment({ item, setCommentsList }: any) {
       });
   };
   const handleEditComment = () => {
+    const updateFlag = window.confirm('댓글을 수정하시겠습니까?');
+    if (!updateFlag) {
+      return;
+    }
     editComment(item.documentId);
     setShowInput(false);
   };
@@ -87,7 +90,7 @@ export default function MyComment({ item, setCommentsList }: any) {
             <EditCommentWrapper>
               <EditCommentInput
                 type="text"
-                placeholder="댓글은 50자 이내로 수정할 수 있습니다."
+                placeholder="댓글은 50자 이내로 수정하세요."
                 value={inputText}
                 maxLength={50}
                 onChange={(e) => {
